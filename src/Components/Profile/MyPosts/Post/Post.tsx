@@ -2,13 +2,14 @@ import React from 'react';
 import c from './Post.module.css';
 
 type PropsType = {
+    id: number
     message: string
     like: number
     time: number
 }
 
 const Post:React.FC <PropsType> = (props) => {
-    const {message,like, time} = props
+    const {id,message,like, time} = props
 
     return(
         <div className={c.item}>
