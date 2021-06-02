@@ -1,0 +1,29 @@
+.content {
+    grid-area: c;
+    background-color: cornflowerblue;
+}
+
+.logoImg {
+    width: 100%;
+}
+.dialogs{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+
+}
+.dialogsItems {
+    padding: 10px;
+}
+.dialogsItems .active{
+    color: gold;
+}
+.dialog{
+    color: black;
+}
+.messages {
+    color: greenyellow;
+    padding: 10px;
+}
+.message{
+
+}
