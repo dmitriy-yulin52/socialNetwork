@@ -1,14 +1,8 @@
 import React from 'react';
 import c from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {propsPost} from '../../../index'
 
-
-const propsPost = [
-    {id: 1, message: 'Hi, how are you', like: 4, time: 7},
-    {id: 2, message: 'It,s my first post', like: 22, time: 19},
-    {id: 3, message: 'yo', like: 14, time: 12},
-    {id: 4, message: 'it-camasutra', like: 11, time: 90}
-]
 
 let postsElement = propsPost.map((i)=>
     <Post
