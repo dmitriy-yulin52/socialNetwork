@@ -1,19 +1,15 @@
 import React from 'react';
 import c from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {propsPost} from '../../../index'
+import {PropsPostType} from "../../../Redux/state";
 
 
-let postsElement = propsPost.map((i)=>
-    <Post
-    id={i.id}
-    message={i.message}
-    like={i.like}
-    time={i.time}
-/> )
+type PropsType = {
+    propsPost: Array<PropsPostType>
+}
 
 
-const MyPosts = () => {
+const MyPosts:React.FC <PropsType> = (props) => {
     return (
         <div>
             <h2 className={c.item}>My post</h2>
@@ -27,7 +23,13 @@ const MyPosts = () => {
                 New post
             </div>
             <div className={c.posts}>
-                {postsElement}
+                {props.propsPost.map((i) =>
+                    <Post
+                        id={i.id}
+                        message={i.message}
+                        like={i.like}
+                        time={i.time}
+                    />)}
             </div>
         </div>
     )

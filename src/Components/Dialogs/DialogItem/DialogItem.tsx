@@ -3,13 +3,12 @@ import {NavLink} from 'react-router-dom';
 import c from './DialogsItem.module.css'
 
 
-
-export type DialogsDataType = {
+type PropsType = {
     id: number
     name: string
 }
 
-const DialogItem: React.FC<DialogsDataType> = (props) => {
+const DialogItem: React.FC<PropsType> = (props) => {
     const {id, name} = props;
 
     let path = `/dialogs/${props.id}`;
