@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import {state} from './Redux/state'
+import {newPost, state} from './Redux/state'
 
-
+// addPost('SamuraiJs.com')
 
 ReactDOM.render(
   <React.StrictMode>
-    <App state={state}/>
+    <App state={state} newPost={newPost}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

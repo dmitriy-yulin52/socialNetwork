@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import c from './NavBar.module.css';
+import Friends from "../Friends/Friends";
 
 const NavBar = () => {
     return (
@@ -19,6 +20,9 @@ const NavBar = () => {
             </div>
             <div className={c.item}>
                 <NavLink to='/settings' activeClassName={c.activeLink}>Setting</NavLink>
+            </div>
+            <div className={c.item}>
+                <NavLink to='/friends' activeClassName={c.activeLink}>Friends</NavLink>
             </div>
         </nav>
     )

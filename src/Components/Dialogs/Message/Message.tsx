@@ -8,8 +8,11 @@ type PropsType = {
 }
 
 const Message: React.FC<PropsType> = (props) => {
-    const {id,message} = props;
-    return <div className={c.message}>{props.message}</div>
+    const {id, message} = props;
+    return (
+        <div>
+            <div className={c.message}>{props.message}</div>
+        </div>)
 }
 
 export default Message;
