@@ -1,22 +1,27 @@
 import React from 'react';
 import c from './Profile.module.css';
-import MyPosts from "./MyPosts/MyPosts";
+import {MyPosts} from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {newPost, PostType} from "../../Redux/state";
-
+import {ProfilePostsType, StateType} from "../../Redux/state";
 
 
 type PropsType = {
-    profilePage: Array<PostType>
-    newPost: (postText: string)=> void
+    profilePage: ProfilePostsType
+    dispatch:(action:any)=> void
 }
 
 
-const Profile:React.FC <PropsType> = (props) =>{
-    return(
+const Profile: React.FC<PropsType> = (props) => {
+    const {profilePage,dispatch} = props
+
+    return (
         <div>
             <ProfileInfo/>
-            <MyPosts profilePage={props.profilePage} newPost={newPost}/>
+            <MyPosts posts={profilePage.posts}
+                     dispatch={dispatch}
+                     messageForNewPost={profilePage.messageForNewPost}
+
+            />
         </div>
     )
 }

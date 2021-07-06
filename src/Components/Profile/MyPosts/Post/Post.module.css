@@ -1,5 +1,12 @@
 .item {
     color: greenyellow;
+    border: 1px solid black;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    width: 400px;
+}
+.item:last-child{
+    margin-bottom: 0;
 }
 .logo_img {
     width: 50px;

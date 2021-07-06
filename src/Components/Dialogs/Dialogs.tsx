@@ -1,23 +1,52 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent,useState} from 'react';
 import c from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import {MessagesDataType, newPost} from "../../Redux/state";
+import {MessagesDataType} from "../../Redux/state";
 import {DialogsData} from "../../Redux/state";
 
 
 type PropsType = {
     dialogs: Array<DialogsData>
     messages: Array<MessagesDataType>
-
+    dispatch: (action: any)=> void
+    messagesText:string
 }
 
 
 const Dialogs: React.FC<PropsType> = (props) => {
 
-    let dialogsElements = props.dialogs.map((i) => <DialogItem name={i.name} id={i.id}/>)
-    let messageElements = props.messages.map((i) => <Message message={i.message} id={i.id}/>)
+    const{dialogs,messages,dispatch,messagesText} = props
 
+    let dialogsElements = dialogs.map((i) => <DialogItem name={i.name} id={i.id}/>)
+    let messageElements = messages.map((i) => <Message message={i.message} id={i.id}/>)
+
+    let[error,setError] = useState<null | string>(null)
+
+
+    const onChangeHandler = (event:ChangeEvent<HTMLInputElement>)=>{
+        const action = {
+            type: 'NEW-MESSAGE-TEXT',
+            newMessage: event.currentTarget.value
+        }
+        dispatch(action)
+    }
+    const onClickHandler = ()=> {
+        let textTrim = messagesText.trim()
+        const action = {type:'ADD-MESSAGE',newMessage: textTrim}
+        if(textTrim){
+            dispatch(action)
+        }else{
+            setError('Title is required')
+        }
+
+    }
+    const onKeyPressHandler = (event:KeyboardEvent<HTMLInputElement>)=>{
+        setError(null)
+        if(event.key === 'Enter'){
+        onClickHandler()
+        }
+    }
 
 
     return (
@@ -32,10 +61,12 @@ const Dialogs: React.FC<PropsType> = (props) => {
                     {
                         messageElements
                     }
+
                 </div>
-                <div className={c.textarea}><textarea></textarea></div>
-                <div>
-                    <button></button>
+                <div className={c.textarea}>
+                    <input className={c.input} value={messagesText} onChange={onChangeHandler} onKeyPress={onKeyPressHandler}/>
+                    <button onClick={onClickHandler}>click</button>
+                    {error && <div className={c.error}>{error}</div>}
                 </div>
             </div>
         </div>

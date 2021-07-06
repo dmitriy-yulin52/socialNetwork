@@ -24,9 +24,19 @@
     color: greenyellow;
     padding: 10px;
 }
-.message{
 
-}
 .textarea {
     margin-top: 20px;
+}
+
+.error{
+    color: white;
+    border: 1px solid red;
+    width: 168px;
+    margin-top: 5px;
+    background-color: red;
+    text-align: center;
+}
+.input{
+    margin-right: 5px;
 }

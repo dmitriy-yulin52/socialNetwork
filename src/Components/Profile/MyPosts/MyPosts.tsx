@@ -1,42 +1,65 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 import c from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostType} from "../../../Redux/state";
 
 
 type PropsType = {
-    profilePage: Array<PostType>
-    newPost: (postText: string)=> void
-
+    posts: Array<PostType>
+    messageForNewPost: string
+    dispatch: (action: any) => void
 }
 
 
-const MyPosts: React.FC<PropsType> = (props) => {
-    const { newPost } = props;
+export const MyPosts: React.FC<PropsType> = (props) => {
+    const {posts,messageForNewPost,dispatch} = props;
 
 
-    let postElement = props.profilePage.map((i) => <Post id={i.id}
-                                                                 message={i.message}
-                                                                 like={i.like}
-                                                                 time={i.time}/>)
+    let postElement = posts.map((i) =>
+        <Post
+            id={i.id}
+            message={i.message}
+            like={i.like}
+            time={i.time}
+        />)
+
+    const [error,setError] = useState<string | null>(null)
 
 
-        let [newMessagePost, setNewMessagePost] = useState('')
-
-        let addPost = ()=> {
-            newPost(newMessagePost)
-            setNewMessagePost('')
+    const onClickHandler = () => {
+        const messageTrim =  messageForNewPost.trim()
+        const action = {type:'ADD-POST',postText: messageTrim }
+        if(messageTrim){
+            dispatch(action)
+        }else {
+            setError('Title is required')
         }
+    }
+    const onChangeHandler = (event:ChangeEvent<HTMLInputElement>) =>{
+        const action = {type:'UPDATE-NEW-POST-TEXT',newText: event.currentTarget.value }
+        dispatch(action)
+        setError(null)
+    }
+    const onChangePressKey = (event: KeyboardEvent<HTMLInputElement>)=> {
+        setError(null)
+        if(event.key === 'Enter'){
+            onClickHandler()
+        }
+    }
+
+
     return (
         <div>
             <h2 className={c.item}>My post</h2>
-            <div>
-                <textarea value={newMessagePost} onChange={(event)=> setNewMessagePost(event.currentTarget.value)}></textarea>
+            <div className={c.input}>
+                <input value={messageForNewPost} onChange={onChangeHandler} onKeyPress={onChangePressKey}/>
+                <button onClick={onClickHandler}>click</button>
+                <div className={c.error}>
+                    <span>{error}</span>
+                </div>
             </div>
-            <div>
-                <button onClick={addPost}>click</button>
-            </div>
-            <div>
+
+            <div className={c.newPost}>
                 New post
             </div>
             <div className={c.posts}>
@@ -46,4 +69,3 @@ const MyPosts: React.FC<PropsType> = (props) => {
     )
 }
 
-export default MyPosts;

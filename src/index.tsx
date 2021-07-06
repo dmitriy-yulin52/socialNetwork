@@ -1,18 +1,13 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
-import App from './App'
 import reportWebVitals from './reportWebVitals'
-import {newPost, state} from './Redux/state'
+import {renderTree} from "./render";
+import {store} from "./Redux/state";
 
-// addPost('SamuraiJs.com')
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App state={state} newPost={newPost}/>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+store.subscribe(renderTree)
+renderTree()
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

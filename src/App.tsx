@@ -9,30 +9,47 @@ import {BrowserRouter, Route} from "react-router-dom"
 import Music from "./Components/Music/Music"
 import News from "./Components/News/News"
 import Setting from "./Components/Settings/Settings"
-import {StateType} from "./Redux/state";
+import {StateType, StoreType} from "./Redux/state";
 import Friends from "./Components/Friends/Friends"
 
 
 export type PropsType = {
-    state: StateType
-    newPost: (postText: string)=> void
+    store: StoreType
+    dispatch:(action:any)=> void
 }
 
 
-const App:React.FC <PropsType>= (props) => {
-    const {state, newPost} = props
+const App: React.FC<PropsType> = (props) => {
+
+    const {store,dispatch} = props
+
+    const state = store.getState()
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <NavBar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={()=> <Dialogs messages={props.state.messagesPage.messages} dialogs={props.state.messagesPage.dialogs}/>}/>
-                    <Route path='/profile' render={()=> <Profile profilePage={props.state.profilePage.posts} newPost={props.newPost}/>}/>
-                    <Route path='/news' render={()=> <News/>}/>
-                    <Route path='/music' render={()=> <Music/>}/>
-                    <Route path='/settings' render={()=> <Setting/>}/>
-                    <Route path='/friends' render={()=> <Friends/>}/>
+                    <Route path='/dialogs'
+                           render={() =>
+                               <Dialogs
+                                   messages={state.messagesPage.messages}
+                                   dialogs={state.messagesPage.dialogs}
+                                   dispatch={dispatch}
+                                   messagesText={state.messagesPage.newDialogsMessage}
+                               />}
+                    />
+                    <Route path='/profile'
+                           render={() =>
+                               <Profile
+                                   profilePage={state.profilePage}
+                                   dispatch={dispatch}
+                               />}
+                    />
+                    <Route path='/news' render={() => <News/>}/>
+                    <Route path='/music' render={() => <Music/>}/>
+                    <Route path='/settings' render={() => <Setting/>}/>
+                    <Route path='/friends' render={() => <Friends/>}/>
                 </div>
             </div>
         </BrowserRouter>

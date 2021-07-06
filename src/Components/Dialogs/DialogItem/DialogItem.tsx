@@ -4,18 +4,18 @@ import c from './DialogsItem.module.css'
 
 
 type PropsType = {
-    id: number
+    id: string
     name: string
 }
 
 const DialogItem: React.FC<PropsType> = (props) => {
     const {id, name} = props;
 
-    let path = `/dialogs/${props.id}`;
+    let path = `/dialogs/${id}`;
 
     return <div className={`${c.dialog} ${c.active}`}>
                 <NavLink to={path}>
-                    {props.name}
+                    {name}
                 </NavLink>
     </div>
 }
