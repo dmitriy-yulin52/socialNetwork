@@ -1,7 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 import c from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {PostType} from "../../../Redux/state";
+import {addPostActionCreator, PostType, updateNewPostTextActionCreator} from "../../../Redux/state";
 
 
 type PropsType = {
@@ -11,9 +11,9 @@ type PropsType = {
 }
 
 
+
 export const MyPosts: React.FC<PropsType> = (props) => {
     const {posts,messageForNewPost,dispatch} = props;
-
 
     let postElement = posts.map((i) =>
         <Post
@@ -28,7 +28,7 @@ export const MyPosts: React.FC<PropsType> = (props) => {
 
     const onClickHandler = () => {
         const messageTrim =  messageForNewPost.trim()
-        const action = {type:'ADD-POST',postText: messageTrim }
+        const action = addPostActionCreator(messageTrim)
         if(messageTrim){
             dispatch(action)
         }else {
@@ -36,7 +36,7 @@ export const MyPosts: React.FC<PropsType> = (props) => {
         }
     }
     const onChangeHandler = (event:ChangeEvent<HTMLInputElement>) =>{
-        const action = {type:'UPDATE-NEW-POST-TEXT',newText: event.currentTarget.value }
+        const action = updateNewPostTextActionCreator(event.currentTarget.value)
         dispatch(action)
         setError(null)
     }

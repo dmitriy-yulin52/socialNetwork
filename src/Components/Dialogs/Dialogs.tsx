@@ -2,7 +2,7 @@ import React, {ChangeEvent, KeyboardEvent,useState} from 'react';
 import c from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import {MessagesDataType} from "../../Redux/state";
+import {addMessageActionCreator, MessagesDataType, updateNewMessageCreator} from "../../Redux/state";
 import {DialogsData} from "../../Redux/state";
 
 
@@ -25,15 +25,12 @@ const Dialogs: React.FC<PropsType> = (props) => {
 
 
     const onChangeHandler = (event:ChangeEvent<HTMLInputElement>)=>{
-        const action = {
-            type: 'NEW-MESSAGE-TEXT',
-            newMessage: event.currentTarget.value
-        }
+        const action = updateNewMessageCreator(event.currentTarget.value)
         dispatch(action)
     }
     const onClickHandler = ()=> {
         let textTrim = messagesText.trim()
-        const action = {type:'ADD-MESSAGE',newMessage: textTrim}
+        const action = addMessageActionCreator(textTrim)
         if(textTrim){
             dispatch(action)
         }else{

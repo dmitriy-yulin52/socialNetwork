@@ -39,6 +39,12 @@ export type StoreType = {
     dispatch: (action: any) => void
 }
 
+
+
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const NEW_MESSAGE_TEXT = 'NEW-MESSAGE-TEXT';
+
 export const store: StoreType = {
     _state: {
         profilePage: {
@@ -54,7 +60,7 @@ export const store: StoreType = {
             newDialogsMessage: '',
             dialogs: [
                 {id: v1(), name: 'dmitriy'},
-                {id: v1(), name: 'vicroriy'},
+                {id: v1(), name: 'vicrory'},
                 {id: v1(), name: 'sasha'},
                 {id: v1(), name: 'leonid'},
                 {id: v1(), name: 'victor'},
@@ -72,7 +78,6 @@ export const store: StoreType = {
     _onChange() {
         console.log('hello')
     },
-
     getState() {
         return this._state
     },
@@ -130,6 +135,31 @@ export const store: StoreType = {
             this._state.messagesPage.newDialogsMessage = action.newMessage
             this._onChange()
         }
+    }
+}
+
+export const addPostActionCreator = (message: string)=> {
+    return {
+        type: ADD_POST,
+        postText: message
+    }
+}
+export const updateNewPostTextActionCreator = (event: string)=> {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText:event
+    }
+}
+export const addMessageActionCreator = (message:string)=> {
+    return {
+        type: NEW_MESSAGE_TEXT,
+        newMessage:message
+    }
+}
+export const updateNewMessageCreator = (event:string)=> {
+    return {
+        type: NEW_MESSAGE_TEXT,
+        newMessage:event
     }
 }
 
