@@ -2,24 +2,24 @@ import React, {ChangeEvent, KeyboardEvent,useState} from 'react';
 import c from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import {addMessageActionCreator, MessagesDataType, updateNewMessageCreator} from "../../Redux/state";
-import {DialogsData} from "../../Redux/state";
+import {MessagesDataType, StoreType} from "../../Redux/store";
+import {DialogsData} from "../../Redux/store";
+import {addMessageActionCreator, updateNewMessageCreator} from "../../Redux/DialogsReducer";
 
 
 type PropsType = {
-    dialogs: Array<DialogsData>
-    messages: Array<MessagesDataType>
     dispatch: (action: any)=> void
     messagesText:string
+    store: StoreType
 }
 
 
 const Dialogs: React.FC<PropsType> = (props) => {
+    const{dispatch,messagesText,store} = props
+    const state = store.getState().messagesPage
 
-    const{dialogs,messages,dispatch,messagesText} = props
-
-    let dialogsElements = dialogs.map((i) => <DialogItem name={i.name} id={i.id}/>)
-    let messageElements = messages.map((i) => <Message message={i.message} id={i.id}/>)
+    let dialogsElements = state.dialogs.map((i) => <DialogItem name={i.name} id={i.id}/>)
+    let messageElements = state.messages.map((i) => <Message message={i.message} id={i.id}/>)
 
     let[error,setError] = useState<null | string>(null)
 

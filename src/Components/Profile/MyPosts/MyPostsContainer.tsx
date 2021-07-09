@@ -3,6 +3,7 @@ import c from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostType} from "../../../Redux/store";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Redux/ProfileReducer";
+import {MyPosts} from "./MyPosts";
 
 
 type PropsType = {
@@ -13,7 +14,7 @@ type PropsType = {
 
 
 
-export const MyPosts: React.FC<PropsType> = (props) => {
+export const MyPostsContainer: React.FC<PropsType> = (props) => {
     const {posts,dispatch} = props;
 
     let postElement = posts.map((i) =>
@@ -51,23 +52,7 @@ export const MyPosts: React.FC<PropsType> = (props) => {
 
 
     return (
-        <div>
-            <h2 className={c.item}>My post</h2>
-            <div className={c.input}>
-                <input value={messageForNewPost} onChange={onChangeHandler} onKeyPress={onChangePressKey}/>
-                <button onClick={onClickHandler}>click</button>
-                <div className={c.error}>
-                    <span>{error}</span>
-                </div>
-            </div>
-
-            <div className={c.newPost}>
-                New post
-            </div>
-            <div className={c.posts}>
-                {postElement}
-            </div>
-        </div>
+        <MyPosts/>
     )
 }
 

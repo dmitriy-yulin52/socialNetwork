@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
-import {store} from "./Redux/state";
+import {store} from "./Redux/store";
 
 export const renderTree = () => {
     ReactDOM.render(

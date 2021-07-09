@@ -9,7 +9,7 @@ import {BrowserRouter, Route} from "react-router-dom"
 import Music from "./Components/Music/Music"
 import News from "./Components/News/News"
 import Setting from "./Components/Settings/Settings"
-import {StateType, StoreType} from "./Redux/state";
+import {StateType, StoreType} from "./Redux/store";
 import Friends from "./Components/Friends/Friends"
 
 
@@ -23,7 +23,7 @@ const App: React.FC<PropsType> = (props) => {
 
     const {store,dispatch} = props
 
-    const state = store.getState()
+    let state = store.getState()
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -33,10 +33,9 @@ const App: React.FC<PropsType> = (props) => {
                     <Route path='/dialogs'
                            render={() =>
                                <Dialogs
-                                   messages={state.messagesPage.messages}
-                                   dialogs={state.messagesPage.dialogs}
                                    dispatch={dispatch}
                                    messagesText={state.messagesPage.newDialogsMessage}
+                                   store={store}
                                />}
                     />
                     <Route path='/profile'
