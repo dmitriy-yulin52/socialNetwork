@@ -2,19 +2,18 @@ import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 import c from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostType} from "../../../Redux/store";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Redux/ProfileReducer";
 
 
 type PropsType = {
     posts: Array<PostType>
     messageForNewPost: string
-    dispatch: (action: any) => void
+    updateNewPostText: (event:string)=> void
+    addPost:(message: string)=> void
 }
 
 
-
 export const MyPosts: React.FC<PropsType> = (props) => {
-    const {posts,dispatch} = props;
+    const {posts,addPost,updateNewPostText,messageForNewPost} = props;
 
     let postElement = posts.map((i) =>
         <Post
@@ -25,37 +24,35 @@ export const MyPosts: React.FC<PropsType> = (props) => {
         />)
 
     const [error,setError] = useState<string | null>(null)
-    const messageForNewPost = props.messageForNewPost
 
-
-    const onClickHandler = () => {
+    const onAddPostClickHandler = () => {
         const messageTrim =  messageForNewPost.trim()
-        const action = addPostActionCreator(messageTrim)
         if(messageTrim){
-            dispatch(action)
+            addPost(messageTrim)
         }else {
             setError('Title is required')
         }
     }
-    const onChangeHandler = (event:ChangeEvent<HTMLInputElement>) =>{
-        const action = updateNewPostTextActionCreator(event.currentTarget.value)
-        dispatch(action)
+    const onPostChangeHandler = (event:ChangeEvent<HTMLInputElement>) =>{
+        const newText = event.currentTarget.value
+        updateNewPostText(newText)
+        // const text = updateNewPostTextActionCreator(event.currentTarget.value)
+        // dispatch(action)
         setError(null)
     }
-    const onChangePressKey = (event: KeyboardEvent<HTMLInputElement>)=> {
+    const onPostChangePressKey = (event: KeyboardEvent<HTMLInputElement>)=> {
         setError(null)
         if(event.key === 'Enter'){
-            onClickHandler()
+            onAddPostClickHandler()
         }
     }
-
 
     return (
         <div>
             <h2 className={c.item}>My post</h2>
             <div className={c.input}>
-                <input value={messageForNewPost} onChange={onChangeHandler} onKeyPress={onChangePressKey}/>
-                <button onClick={onClickHandler}>click</button>
+                <input value={messageForNewPost} onChange={onPostChangeHandler} onKeyPress={onPostChangePressKey}/>
+                <button onClick={onAddPostClickHandler}>click</button>
                 <div className={c.error}>
                     <span>{error}</span>
                 </div>

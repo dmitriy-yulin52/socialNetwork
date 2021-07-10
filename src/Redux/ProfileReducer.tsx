@@ -17,6 +17,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 //     }
 
 export const profileReducer = (state: ProfilePostsType, action: ActionTypes) => {
+
     switch (action.type) {
         case ADD_POST:
             const newPost: PostType = {

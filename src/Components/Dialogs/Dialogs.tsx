@@ -2,37 +2,33 @@ import React, {ChangeEvent, KeyboardEvent,useState} from 'react';
 import c from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import {MessagesDataType, StoreType} from "../../Redux/store";
-import {DialogsData} from "../../Redux/store";
-import {addMessageActionCreator, updateNewMessageCreator} from "../../Redux/DialogsReducer";
+import {MessageDialogType} from "../../Redux/store";
 
 
 type PropsType = {
-    dispatch: (action: any)=> void
-    messagesText:string
-    store: StoreType
+    newDialogsMessage:string
+    updateNewMessage: (event: string)=> void
+    addMessage: (message: string)=> void
+    messagesPage: MessageDialogType
 }
 
 
 const Dialogs: React.FC<PropsType> = (props) => {
-    const{dispatch,messagesText,store} = props
-    const state = store.getState().messagesPage
+    const{newDialogsMessage,addMessage,updateNewMessage,messagesPage} = props
 
-    let dialogsElements = state.dialogs.map((i) => <DialogItem name={i.name} id={i.id}/>)
-    let messageElements = state.messages.map((i) => <Message message={i.message} id={i.id}/>)
+    let dialogsElements = messagesPage.dialogs.map((i) => <DialogItem name={i.name} id={i.id}/>)
+    let messageElements = messagesPage.messages.map((i) => <Message message={i.message} id={i.id}/>)
 
     let[error,setError] = useState<null | string>(null)
 
 
     const onChangeHandler = (event:ChangeEvent<HTMLInputElement>)=>{
-        const action = updateNewMessageCreator(event.currentTarget.value)
-        dispatch(action)
+        updateNewMessage(event.currentTarget.value)
     }
     const onClickHandler = ()=> {
-        let textTrim = messagesText.trim()
-        const action = addMessageActionCreator(textTrim)
+        let textTrim = newDialogsMessage.trim()
         if(textTrim){
-            dispatch(action)
+            addMessage(textTrim)
         }else{
             setError('Title is required')
         }
@@ -61,7 +57,11 @@ const Dialogs: React.FC<PropsType> = (props) => {
 
                 </div>
                 <div className={c.textarea}>
-                    <input className={c.input} value={messagesText} onChange={onChangeHandler} onKeyPress={onKeyPressHandler}/>
+                    <input className={c.input}
+                           value={newDialogsMessage}
+                           onChange={onChangeHandler}
+                           onKeyPress={onKeyPressHandler}
+                    />
                     <button onClick={onClickHandler}>click</button>
                     {error && <div className={c.error}>{error}</div>}
                 </div>
