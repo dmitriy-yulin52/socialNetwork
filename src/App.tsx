@@ -8,7 +8,7 @@ import Music from "./Components/Music/Music"
 import News from "./Components/News/News"
 import Setting from "./Components/Settings/Settings"
 import Friends from "./Components/Friends/Friends"
-import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
 // export type PropsType = {

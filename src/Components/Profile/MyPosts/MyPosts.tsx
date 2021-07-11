@@ -36,9 +36,10 @@ export const MyPosts: React.FC<PropsType> = (props) => {
     const onPostChangeHandler = (event:ChangeEvent<HTMLInputElement>) =>{
         const newText = event.currentTarget.value
         updateNewPostText(newText)
+        setError(null)
+
         // const text = updateNewPostTextActionCreator(event.currentTarget.value)
         // dispatch(action)
-        setError(null)
     }
     const onPostChangePressKey = (event: KeyboardEvent<HTMLInputElement>)=> {
         setError(null)

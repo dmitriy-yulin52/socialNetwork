@@ -2,22 +2,23 @@ import React, {ChangeEvent, KeyboardEvent,useState} from 'react';
 import c from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import {MessageDialogType} from "../../Redux/store";
+import {DialogType, MessageType} from "../../Redux/DialogsReducer";
 
 
 type PropsType = {
     newDialogsMessage:string
     updateNewMessage: (event: string)=> void
     addMessage: (message: string)=> void
-    messagesPage: MessageDialogType
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
 }
 
 
 const Dialogs: React.FC<PropsType> = (props) => {
-    const{newDialogsMessage,addMessage,updateNewMessage,messagesPage} = props
+    const{newDialogsMessage,addMessage,updateNewMessage,dialogs,messages} = props
 
-    let dialogsElements = messagesPage.dialogs.map((i) => <DialogItem name={i.name} id={i.id}/>)
-    let messageElements = messagesPage.messages.map((i) => <Message message={i.message} id={i.id}/>)
+    let dialogsElements = dialogs.map((i) => <DialogItem name={i.name} id={i.id}/>)
+    let messageElements = messages.map((i) => <Message message={i.message} id={i.id}/>)
 
     let[error,setError] = useState<null | string>(null)
 
