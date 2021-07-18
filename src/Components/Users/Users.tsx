@@ -15,6 +15,7 @@ export const Users:React.FC<UsersPropsType> = (props)=> {
     const {users, follow, unfollow, setUsers} = props
 
     if(users.length === 0){
+
         setUsers(
             [
                 {
@@ -63,6 +64,7 @@ export const Users:React.FC<UsersPropsType> = (props)=> {
 
     return (
         <div>
+            <span>hello</span>
             {users.map( u => {
 
                 const onClickFollowHandler = ()=> {
