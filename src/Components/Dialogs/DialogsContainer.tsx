@@ -65,7 +65,6 @@ type DispatchStateToPropsType = {
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-
     return {
         newDialogsMessage: state.messagesPage.newDialogsMessage,
         dialogs: state.messagesPage.dialogs,

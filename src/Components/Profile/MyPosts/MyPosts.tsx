@@ -25,6 +25,7 @@ export const MyPosts: React.FC<PropsType> = (props) => {
 
     const [error,setError] = useState<string | null>(null)
 
+
     const onAddPostClickHandler = () => {
         const messageTrim =  messageForNewPost.trim()
         if(messageTrim){

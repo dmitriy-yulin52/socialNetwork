@@ -15,7 +15,7 @@ import {Dispatch} from 'redux'
 // }
 
 
-// export const MyPostsContainer = (props: any) => {
+// export const MyPostsContainer = (store: AppStateType) => {
 //     // const {store} = props;
 //
 //
@@ -59,7 +59,6 @@ type MapDispatchToPropsType = {
 }
 
 let mapStateToProps = (state:AppStateType):MapStateToPropsType => {
-
     return {
         posts: state.profilePage.posts,
         messageForNewPost: state.profilePage.messageForNewPost

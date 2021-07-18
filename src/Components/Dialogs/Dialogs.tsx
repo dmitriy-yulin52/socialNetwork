@@ -17,8 +17,8 @@ type PropsType = {
 const Dialogs: React.FC<PropsType> = (props) => {
     const{newDialogsMessage,addMessage,updateNewMessage,dialogs,messages} = props
 
-    let dialogsElements = dialogs.map((i) => <DialogItem name={i.name} id={i.id}/>)
-    let messageElements = messages.map((i) => <Message message={i.message} id={i.id}/>)
+    let dialogsElements = dialogs.map((i) => <DialogItem key={i.id} name={i.name} id={i.id}/>)
+    let messageElements = messages.map((i) => <Message key={i.id} message={i.message} id={i.id}/>)
 
     let[error,setError] = useState<null | string>(null)
 

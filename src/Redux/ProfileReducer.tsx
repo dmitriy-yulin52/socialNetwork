@@ -1,6 +1,8 @@
 import {v1} from "uuid";
-import {ActionTypes} from "./store";
 
+
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 export type PostType = {
     id: string
@@ -12,6 +14,10 @@ export type InitialStateType = {
     messageForNewPost: string
     posts: Array<PostType>
 }
+export type ActionTypes =
+    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateNewPostTextActionCreator>
+
 
 let initialState: InitialStateType = {
     messageForNewPost: '',
@@ -23,13 +29,11 @@ let initialState: InitialStateType = {
     ]
 }
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
 export const profileReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
 
     switch (action.type) {
         case ADD_POST:
-            const message = state.messageForNewPost
             return {
                 ...state,
                 messageForNewPost: '',
@@ -37,7 +41,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                     ...state.posts,
                     {
                         id: v1(),
-                        message: message,
+                        message: action.postText,
                         like: 4,
                         time: 7
                     },
@@ -67,11 +71,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 
+
+
 export const addPostActionCreator = (message: string) => {
     return {
         type: ADD_POST,
         postText: message,
-    } as const
+    }as const
 }
 export const updateNewPostTextActionCreator = (event: string) => {
     return {

@@ -9,6 +9,7 @@ import News from "./Components/News/News"
 import Setting from "./Components/Settings/Settings"
 import Friends from "./Components/Friends/Friends"
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import {UsersContainer} from "./Components/Users/Users.container";
 
 
 // export type PropsType = {
@@ -37,10 +38,13 @@ const App = () => {
                                // store={store}
                            />}
                 />
-                <Route path='/news' render={() => <News/>}/>
-                <Route path='/music' render={() => <Music/>}/>
-                <Route path='/settings' render={() => <Setting/>}/>
-                <Route path='/friends' render={() => <Friends/>}/>
+                <Route path='/users'
+                       render={ () => <UsersContainer/>}
+                />
+                {/*<Route path='/news' render={() => <News/>}/>*/}
+                {/*<Route path='/music' render={() => <Music/>}/>*/}
+                {/*<Route path='/settings' render={() => <Setting/>}/>*/}
+                {/*<Route path='/friends' render={() => <Friends/>}/>*/}
             </div>
         </div>
     );
