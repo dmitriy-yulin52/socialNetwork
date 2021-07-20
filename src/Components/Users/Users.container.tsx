@@ -7,27 +7,26 @@ import {Dispatch} from "redux";
 
 
 type MapStateToProps = {
-    users:Array<UsersType>
+    items:Array<UsersType>
 }
 
 type DispatchStateToProps = {
-    follow:(userId: string) => void
-    unfollow:(userId: string) => void
+    follow:(userId: number) => void
+    unfollow:(userId: number) => void
     setUsers:(users: Array<UsersType>) => void
-
 }
 
 const mapStateToProps = (state:AppStateType):MapStateToProps => {
     return {
-        users: state.usersPage.users
+        items: state.usersPage.items
     }
 }
 const mapDispatchToProps = (dispatch:Dispatch):DispatchStateToProps => {
     return {
-        follow: (userId: string)=>{
+        follow: (userId: number)=>{
             dispatch(followAC(userId))
         },
-        unfollow: (userId: string)=> {
+        unfollow: (userId: number)=> {
             dispatch(unfollowAC(userId))
         },
         setUsers: (users: Array<UsersType>)=> {

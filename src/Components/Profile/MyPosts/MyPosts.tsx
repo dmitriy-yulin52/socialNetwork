@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
-import c from './MyPosts.module.css';
+import style from './MyPosts.module.sass'
 import Post from "./Post/Post";
 import {PostType} from "../../../Redux/store";
 
@@ -51,19 +51,19 @@ export const MyPosts: React.FC<PropsType> = (props) => {
 
     return (
         <div>
-            <h2 className={c.item}>My post</h2>
-            <div className={c.input}>
+            <h2 className={style.item}>My post</h2>
+            <div className={style.input}>
                 <input value={messageForNewPost} onChange={onPostChangeHandler} onKeyPress={onPostChangePressKey}/>
                 <button onClick={onAddPostClickHandler}>click</button>
-                <div className={c.error}>
+                <div className={style.error}>
                     <span>{error}</span>
                 </div>
             </div>
 
-            <div className={c.newPost}>
+            <div className={style.newPost}>
                 New post
             </div>
-            <div className={c.posts}>
+            <div className={style.posts}>
                 {postElement}
             </div>
         </div>

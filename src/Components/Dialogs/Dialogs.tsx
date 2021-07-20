@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent,useState} from 'react';
-import c from './Dialogs.module.css'
+import style from './Dialogs.module.sass'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import {DialogType, MessageType} from "../../Redux/DialogsReducer";
@@ -44,27 +44,27 @@ const Dialogs: React.FC<PropsType> = (props) => {
 
 
     return (
-        <div className={c.dialogs}>
-            <div className={c.dialogsItems}>
+        <div className={style.dialogs}>
+            <div className={style.dialogsItems}>
                 {
                     dialogsElements
                 }
             </div>
-            <div className={c.messages}>
+            <div className={style.messages}>
                 <div>
                     {
                         messageElements
                     }
 
                 </div>
-                <div className={c.textarea}>
-                    <input className={c.input}
+                <div className={style.textarea}>
+                    <input className={style.input}
                            value={newDialogsMessage}
                            onChange={onChangeHandler}
                            onKeyPress={onKeyPressHandler}
                     />
                     <button onClick={onClickHandler}>click</button>
-                    {error && <div className={c.error}>{error}</div>}
+                    {error && <div className={style.error}>{error}</div>}
                 </div>
             </div>
         </div>

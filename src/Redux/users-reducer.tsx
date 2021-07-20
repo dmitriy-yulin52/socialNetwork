@@ -1,4 +1,3 @@
-import {v1} from "uuid";
 
 
 const FOLLOW = 'FOLLOW'
@@ -6,20 +5,21 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 
 
-type LocationType = {
-    city: string
-    country: string
+type PhotosType = {
+    small: string | null
+    large: string | null
 }
 export type UsersType = {
-    id: string
-    photoUrl: string
+    id: number
+    photos: PhotosType
     followed: boolean
-    fullName: string
+    name: string
     status: string
-    location: LocationType
 }
 type InitialStateType = {
-    users: Array<UsersType>
+    items: Array<UsersType>
+    totalCount: number
+    error: string | null
 }
 
 type ActionTypes =
@@ -28,7 +28,7 @@ type ActionTypes =
     | ReturnType<typeof setUsersAC>
 
 let initialState: InitialStateType = {
-     users: [
+    items: [
     //     {
     //         id: v1(),
     //         photoUrl: 'https://static.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg/revision/latest/top-crop/width/360/height/450?cb=20160110111842&path-prefix=ru',
@@ -69,7 +69,9 @@ let initialState: InitialStateType = {
     //         status: 'I am a boss to',
     //         location: {city: 'Minsk', country: 'Belarus'}
     //     }
-    ] as Array<UsersType>
+    ] as Array<UsersType>,
+    totalCount: 25,
+    error: null
 }
 
 
@@ -79,17 +81,17 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map(users => {
-                    if (users.id === action.userId) {
-                        return {...users, followed: true}
+                items: state.items.map(items => {
+                    if (items.id === action.userId) {
+                        return {...items, followed: true}
                     }
-                    return users
+                    return items
                 })
             }
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(users => {
+                items: state.items.map(users => {
                     if(users.id === action.userId){
                         return {...users,followed: false}
                     }
@@ -99,7 +101,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                items: [...state.items, ...action.users]
             }
         default:
             return state
@@ -107,13 +109,13 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
 }
 
 
-export const followAC = (userId: string) => {
+export const followAC = (userId: number) => {
     return {
         type: FOLLOW,
         userId: userId
     } as const
 }
-export const unfollowAC = (userId: string) => {
+export const unfollowAC = (userId: number) => {
     return {
         type: UNFOLLOW,
         userId: userId
