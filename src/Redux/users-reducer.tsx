@@ -22,54 +22,15 @@ type InitialStateType = {
     error: string | null
 }
 
+
+
 type ActionTypes =
     ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
 
 let initialState: InitialStateType = {
-    items: [
-    //     {
-    //         id: v1(),
-    //         photoUrl: 'https://static.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg/revision/latest/top-crop/width/360/height/450?cb=20160110111842&path-prefix=ru',
-    //         followed: true,
-    //         fullName: 'Dmitriy',
-    //         status: 'I am a boss',
-    //         location: {city: 'N.Novgorod', country: 'Russia'}
-    //     },
-    //     {
-    //         id: v1(),
-    //         photoUrl: 'https://static.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg/revision/latest/top-crop/width/360/height/450?cb=20160110111842&path-prefix=ru',
-    //         followed: false,
-    //         fullName: 'Victor',
-    //         status: 'I am a boss to',
-    //         location: {city: 'Moscow', country: 'Russia'}
-    //     },
-    //     {
-    //         id: v1(),
-    //         photoUrl: 'https://static.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg/revision/latest/top-crop/width/360/height/450?cb=20160110111842&path-prefix=ru',
-    //         followed: true,
-    //         fullName: 'Sasha',
-    //         status: 'I am a boss to',
-    //         location: {city: 'St-Peterburg', country: 'Russia'}
-    //     },
-    //     {
-    //         id: v1(),
-    //         photoUrl: 'https://static.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg/revision/latest/top-crop/width/360/height/450?cb=20160110111842&path-prefix=ru',
-    //         followed: false,
-    //         fullName: 'Leonid',
-    //         status: 'I am a boss to',
-    //         location: {city: 'Kazan', country: 'Russia'}
-    //     },
-    //     {
-    //         id: v1(),
-    //         photoUrl: 'https://static.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg/revision/latest/top-crop/width/360/height/450?cb=20160110111842&path-prefix=ru',
-    //         followed: true,
-    //         fullName: 'Sergey',
-    //         status: 'I am a boss to',
-    //         location: {city: 'Minsk', country: 'Belarus'}
-    //     }
-    ] as Array<UsersType>,
+    items: [] as Array<UsersType>,
     totalCount: 25,
     error: null
 }
