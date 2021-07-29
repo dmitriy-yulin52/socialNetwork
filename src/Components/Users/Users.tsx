@@ -1,8 +1,8 @@
 import React from 'react';
 import {UsersType} from "../../Redux/users-reducer";
 import style from './style.module.sass'
-import axios from "axios";
 import userPhoto from '../../assets/images/users-icon.jpg'
+import styles from "./style.module.sass";
 
 
 export type UsersPropsType = {
@@ -10,32 +10,41 @@ export type UsersPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (users: Array<UsersType>) => void
+    onPageChanged: (pageNumber:number)=> void
+    pageSize:number
+    totalCount:number
+    currentPage:number
 }
 export const Users: React.FC<UsersPropsType> = (props) => {
-    const {items, follow, unfollow, setUsers} = props
+    const {items, follow, unfollow,onPageChanged,pageSize,totalCount,currentPage} = props
 
-    const getUsers = () => {
-        if (items.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                setUsers(response.data.items)
-            })
-        }
+    let pagesCount = Math.ceil(totalCount / pageSize)
+    let pages = []
+    for(let i = 1; i <= pagesCount; i++){
+        pages.push(i)
     }
-
 
     return (
         <div>
-            <button onClick={getUsers}>Get users</button>
-            {items.map(u => {
-
-                const onClickFollowHandler = () => {
-                    follow(u.id)
-                }
-                const onClickUnfollowHandler = () => {
-                    unfollow(u.id)
-                }
-                return (
-                    <div key={u.id}>
+            <div>
+                {pages.map((el) => {
+                    return <span className={currentPage === el ? styles.selectedPage : styles.start}
+                                 onClick={() => {
+                                     onPageChanged(el)
+                                 }}
+                    >{el}</span>
+                })}
+            </div>
+            <div>
+                {items.map(u => {
+                    const onClickFollowHandler = () => {
+                        follow(u.id)
+                    }
+                    const onClickUnfollowHandler = () => {
+                        unfollow(u.id)
+                    }
+                    return (
+                        <div key={u.id}>
                         <span>
                             <div>
                                 <img src={u.photos.small != null ? u.photos.small : userPhoto}
@@ -46,7 +55,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                                     <button onClick={onClickFollowHandler}>Follow</button>}
                             </div>
                         </span>
-                        <span>
+                            <span>
                             <span>
                                 <div>{u.name}</div>
                                 <div>{u.status}</div>
@@ -56,9 +65,10 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                                 <div>{'u.location.city'}</div>
                             </span>
                         </span>
-                    </div>
-                )
-            },)}
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }
