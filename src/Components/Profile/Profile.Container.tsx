@@ -45,7 +45,6 @@ function ProfileContainer (props:ProfilePropsType){
     return (
         <div>
             <Profile profile={props.profile}/>
-            <span></span>
         </div>
     )
 
