@@ -3,6 +3,8 @@ import {v1} from "uuid";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const NEW_MESSAGE_TEXT = 'NEW-MESSAGE-TEXT';
+const LOCAL_STORAGE_MESSAGE = 'LOCAL-STORAGE-MESSAGE';
+const REMOVE_MESSAGE = 'REMOVE-MESSAGE';
 
 export type DialogType = {
     id: string
@@ -21,6 +23,8 @@ type InitialStateType = {
 export type ActionTypes =
     ReturnType<typeof addMessageActionCreator>
     | ReturnType<typeof updateNewMessageCreator>
+    | ReturnType<typeof localStorageMessageCreator>
+    | ReturnType<typeof RemoveMessageCreator>
 
 const initialState = {
         newDialogsMessage: '',
@@ -69,6 +73,14 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
             }
             // state.newDialogsMessage = action.newMessage
             // return state
+        case LOCAL_STORAGE_MESSAGE:
+            return{
+                ...state,
+                messages:action.messages
+            }
+        case "REMOVE-MESSAGE":
+            return{...state,messages: state.messages.filter(el=>el.id !== action.messagesId)}
+
         default:
             return state
     }
@@ -85,5 +97,17 @@ export const updateNewMessageCreator = (event:string) => {
     return {
         type: NEW_MESSAGE_TEXT,
         newMessage:event
+    }as const
+}
+export const localStorageMessageCreator = (messages:Array<MessageType>) => {
+    return {
+        type: LOCAL_STORAGE_MESSAGE,
+        messages
+    }as const
+}
+export const RemoveMessageCreator = (messagesId:string) => {
+    return {
+        type: REMOVE_MESSAGE,
+        messagesId
     }as const
 }

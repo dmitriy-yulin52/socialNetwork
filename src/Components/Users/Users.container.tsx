@@ -55,10 +55,11 @@ class UsersClassComponents extends React.Component<UsersPropsType> {
     }
 
     render() {
+        let UsersMemo = React.memo(Users)
         return (
             <div>
                 {this.props.isFetching ? <Preloader/> : null}
-                <Users setUsers={this.props.setUsers}
+                <UsersMemo setUsers={this.props.setUsers}
                        follow={this.props.follow}
                        unfollow={this.props.unfollow}
                        items={this.props.items}
@@ -106,9 +107,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchStateToPropsType => {
 }
 
 
-export const UsersContainer = connect(mapStateToProps,
-    mapDispatchToProps
-    )(UsersClassComponents)
+export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(UsersClassComponents)
 
 
 

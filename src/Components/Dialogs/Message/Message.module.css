@@ -1,3 +1,8 @@
-
+.message {
+    display: flex;
+}
+button{
+    margin-left: 5px;
+}
 
 /*# sourceMappingURL=Message.module.css.map */

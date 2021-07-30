@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {UsersType} from "../../Redux/users-reducer";
 import style from './style.module.sass'
 import userPhoto from '../../assets/images/users-icon.jpg'
@@ -19,11 +19,18 @@ export type UsersPropsType = {
 export const Users: React.FC<UsersPropsType> = (props) => {
     const {items, follow, unfollow, onPageChanged, pageSize, totalCount, currentPage} = props
 
+
     let pagesCount = Math.ceil(totalCount / pageSize)
-    let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
+    let pagesCountMemo = useMemo(() => {
+        let pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+        return pages
+    }, [])
+
+    let pages = pagesCountMemo
+
 
     return (
         <div>
@@ -49,7 +56,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                         <span>
                             <div>
                                 <NavLink to={'/profile/' + u.id}>
-                                    <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                    <img src={u.photos.small !== null ? u.photos.small : userPhoto}
                                          className={style.userPhoto}/>
                                 </NavLink>
                             </div>

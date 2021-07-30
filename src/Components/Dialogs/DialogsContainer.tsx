@@ -1,5 +1,11 @@
 import React from 'react';
-import {addMessageActionCreator, DialogType, MessageType, updateNewMessageCreator} from "../../Redux/DialogsReducer";
+import {
+    addMessageActionCreator,
+    DialogType,
+    localStorageMessageCreator,
+    MessageType, RemoveMessageCreator,
+    updateNewMessageCreator
+} from "../../Redux/DialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
@@ -62,13 +68,15 @@ type MapStateToPropsType = {
 type DispatchStateToPropsType = {
     updateNewMessage:(message: string)=> void
     addMessage:(newMessage: string)=> void
+    localStorageMessage:(messages:Array<MessageType>)=>void
+    RemoveMessage:(messagesId:string)=>void
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         newDialogsMessage: state.messagesPage.newDialogsMessage,
         dialogs: state.messagesPage.dialogs,
-        messages: state.messagesPage.messages
+        messages: state.messagesPage.messages,
     }
 }
 
@@ -79,6 +87,12 @@ const mapDispatchStateToProps = (dispatch: Dispatch):DispatchStateToPropsType =>
         },
         addMessage: (newMessage: string) => {
             dispatch(addMessageActionCreator(newMessage))
+        },
+        localStorageMessage:(messages:Array<MessageType>)=>{
+            dispatch(localStorageMessageCreator(messages))
+        },
+        RemoveMessage:(messagesId:string)=>{
+            dispatch(RemoveMessageCreator(messagesId))
         }
     }
 }

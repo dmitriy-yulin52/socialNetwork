@@ -1,18 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import c from './Message.module.css'
 
 
 type PropsType = {
     id: string
     message: string
+    RemoveMessage:(messagesId:string)=>void
 }
 
 const Message: React.FC<PropsType> = (props) => {
-    const {id, message} = props;
+
+
+    const {id, message,RemoveMessage} = props;
     return (
-        <div>
-            <div className={c.message}>{message}</div>
-        </div>)
+        <div id={id} className={c.message}>
+            <div>
+                <div className={c.message}>{message}</div>
+            </div>
+            <button onClick={()=>RemoveMessage(id)}>X</button>
+        </div>
+
+
+    )
 }
 
 export default Message;

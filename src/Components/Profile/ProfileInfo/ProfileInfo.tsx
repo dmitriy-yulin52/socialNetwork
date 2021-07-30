@@ -21,7 +21,7 @@ const ProfileInfo:React.FC<ProfileInfoType> = (props) =>{
                      src='https://wallbox.ru/resize/800x480/wallpapers/main2/201726/14986676245953da68df7d32.08263646.jpg'/>
             </div>
             <div className={c.descriptionBlock}>
-                <img src={profile.photos.large} alt=""/>
+                <img src={profile.photos.small} alt=""/>
                 <div>{profile.aboutMe}</div>
                 <div>
                     {

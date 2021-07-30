@@ -21,7 +21,7 @@ type MapDispatchToProps = {
 type OwnPropsType = MapStateToProps & MapDispatchToProps
 type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
-// class ProfileContainerClass extends React.Component<ProfilePropsType> {
+// class ProfileContainerClass extends React.Component<OwnPropsType> {
 //
 //     componentDidMount() {
 //         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
@@ -41,13 +41,6 @@ type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 function ProfileContainer (props:ProfilePropsType){
 
-    useEffect(() => {
-        let userId = props.match.params.userId
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
-            .then(response => {
-                props.setUserProfile(response.data)
-            })
-    }, [])
 
     return (
         <div>

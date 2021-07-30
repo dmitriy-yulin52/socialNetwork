@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent,useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 import style from './Dialogs.module.sass'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
@@ -6,42 +6,56 @@ import {DialogType, MessageType} from "../../Redux/DialogsReducer";
 
 
 type PropsType = {
-    newDialogsMessage:string
-    updateNewMessage: (event: string)=> void
-    addMessage: (message: string)=> void
+    newDialogsMessage: string
+    updateNewMessage: (event: string) => void
+    addMessage: (message: string) => void
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    localStorageMessage:(messages:Array<MessageType>)=>void
+    RemoveMessage:(messagesId:string)=>void
 }
 
 
 const Dialogs: React.FC<PropsType> = (props) => {
-    const{newDialogsMessage,addMessage,updateNewMessage,dialogs,messages} = props
+    const {newDialogsMessage, addMessage, updateNewMessage, dialogs, messages,localStorageMessage,RemoveMessage} = props
 
     let dialogsElements = dialogs.map((i) => <DialogItem key={i.id} name={i.name} id={i.id}/>)
-    let messageElements = messages.map((i) => <Message key={i.id} message={i.message} id={i.id}/>)
-
-    let[error,setError] = useState<null | string>(null)
+    let messageElements = messages.map((i) => <Message key={i.id} message={i.message} id={i.id} RemoveMessage={RemoveMessage}/>)
 
 
-    const onChangeHandler = (event:ChangeEvent<HTMLInputElement>)=>{
+
+
+    let [error, setError] = useState<null | string>(null)
+
+
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         updateNewMessage(event.currentTarget.value)
     }
-    const onClickHandler = ()=> {
+    const onClickHandler = () => {
         let textTrim = newDialogsMessage.trim()
-        if(textTrim){
+        if (textTrim) {
             addMessage(textTrim)
-        }else{
+        } else {
             setError('Title is required')
         }
-
     }
-    const onKeyPressHandler = (event:KeyboardEvent<HTMLInputElement>)=>{
+    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
-        if(event.key === 'Enter'){
-        onClickHandler()
+        if (event.key === 'Enter') {
+            onClickHandler()
         }
     }
 
+    useEffect(()=>{
+        let data = localStorage.getItem('message')
+        if(data){
+            let newData = JSON.parse(data)
+            localStorageMessage(newData)
+        }
+    },[])
+    useEffect(()=>{
+        localStorage.setItem('message',JSON.stringify(messages))
+    })
 
     return (
         <div className={style.dialogs}>
