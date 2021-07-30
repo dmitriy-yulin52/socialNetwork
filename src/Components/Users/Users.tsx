@@ -3,6 +3,7 @@ import {UsersType} from "../../Redux/users-reducer";
 import style from './style.module.sass'
 import userPhoto from '../../assets/images/users-icon.jpg'
 import styles from "./style.module.sass";
+import {NavLink} from 'react-router-dom';
 
 
 export type UsersPropsType = {
@@ -10,17 +11,17 @@ export type UsersPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (users: Array<UsersType>) => void
-    onPageChanged: (pageNumber:number)=> void
-    pageSize:number
-    totalCount:number
-    currentPage:number
+    onPageChanged: (pageNumber: number) => void
+    pageSize: number
+    totalCount: number
+    currentPage: number
 }
 export const Users: React.FC<UsersPropsType> = (props) => {
-    const {items, follow, unfollow,onPageChanged,pageSize,totalCount,currentPage} = props
+    const {items, follow, unfollow, onPageChanged, pageSize, totalCount, currentPage} = props
 
     let pagesCount = Math.ceil(totalCount / pageSize)
     let pages = []
-    for(let i = 1; i <= pagesCount; i++){
+    for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
 
@@ -47,8 +48,10 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                         <div key={u.id}>
                         <span>
                             <div>
-                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
-                                     className={style.userPhoto}/>
+                                <NavLink to={'/profile/' + u.id}>
+                                    <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                         className={style.userPhoto}/>
+                                </NavLink>
                             </div>
                             <div>
                                 {u.followed ? <button onClick={onClickUnfollowHandler}>Unfollow</button> :

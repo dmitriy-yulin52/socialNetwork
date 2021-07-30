@@ -2,24 +2,14 @@ import React from 'react';
 import './App.css'
 import Header from "./Components/Header/Header"
 import NavBar from "./Components/NavBar/NavBar"
-import Profile from "./Components/Profile/Profile"
 import {Route} from "react-router-dom"
-import Music from "./Components/Music/Music"
-import News from "./Components/News/News"
-import Setting from "./Components/Settings/Settings"
-import Friends from "./Components/Friends/Friends"
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/Users.container";
-
-
-// export type PropsType = {
-//     // store: StoreType
-// }
+import ProfileContainer from './Components/Profile/Profile.Container';
 
 
 const App = () => {
 
-    // const {store} = props
 
     return (
         <div className="app-wrapper">
@@ -32,11 +22,10 @@ const App = () => {
                                // store={store}
                            />}
                 />
-                <Route path='/profile'
+                <Route path='/profile/:userId'
                        render={() =>
-                           <Profile
-                               // store={store}
-                           />}
+                           <ProfileContainer/>
+                       }
                 />
                 <Route path='/users'
                        render={ () => <UsersContainer/>}

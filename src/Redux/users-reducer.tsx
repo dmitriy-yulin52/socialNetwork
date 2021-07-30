@@ -6,6 +6,8 @@ const SET_TOTAL_USERS_COUNT = 'SET-USERS-TOTAL-COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 
 
+
+
 type PhotosType = {
     small: string | null
     large: string | null
