@@ -3,9 +3,9 @@ import './App.css'
 import Header from "./Components/Header/Header"
 import NavBar from "./Components/NavBar/NavBar"
 import {Route} from "react-router-dom"
-import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/Users.container";
 import {WithUrlDataContainerComponent} from "./Components/Profile/Profile.Container";
+import Dialogs from "./Components/Dialogs/Dialogs";
 
 
 const App = () => {
@@ -18,8 +18,7 @@ const App = () => {
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
                        render={() =>
-                           <DialogsContainer
-                               // store={store}
+                           <Dialogs
                            />}
                 />
                 <Route path='/profile/:userId?'

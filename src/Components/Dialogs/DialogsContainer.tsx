@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ActionACTypes,
     addMessageActionCreator,
     DialogType,
     localStorageMessageCreator,
@@ -7,7 +8,7 @@ import {
     updateNewMessageCreator
 } from "../../Redux/DialogsReducer";
 import Dialogs from "./Dialogs";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 import {Dispatch} from 'redux'
 
@@ -60,16 +61,24 @@ import {Dispatch} from 'redux'
 // }
 
 
+export const DialogsContainer = () => {
+
+
+    return (
+        <Dialogs/>
+    )
+}
+
 type MapStateToPropsType = {
     newDialogsMessage: string
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
 type DispatchStateToPropsType = {
-    updateNewMessage:(message: string)=> void
-    addMessage:(newMessage: string)=> void
-    localStorageMessage:(messages:Array<MessageType>)=>void
-    RemoveMessage:(messagesId:string)=>void
+    updateNewMessage: (message: string) => void
+    addMessage: (newMessage: string) => void
+    localStorageMessage: (messages: Array<MessageType>) => void
+    RemoveMessage: (messagesId: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -80,7 +89,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-const mapDispatchStateToProps = (dispatch: Dispatch):DispatchStateToPropsType => {
+const mapDispatchStateToProps = (dispatch: Dispatch): DispatchStateToPropsType => {
     return {
         updateNewMessage: (message: string) => {
             dispatch(updateNewMessageCreator(message))
@@ -88,16 +97,16 @@ const mapDispatchStateToProps = (dispatch: Dispatch):DispatchStateToPropsType =>
         addMessage: (newMessage: string) => {
             dispatch(addMessageActionCreator(newMessage))
         },
-        localStorageMessage:(messages:Array<MessageType>)=>{
+        localStorageMessage: (messages: Array<MessageType>) => {
             dispatch(localStorageMessageCreator(messages))
         },
-        RemoveMessage:(messagesId:string)=>{
+        RemoveMessage: (messagesId: string) => {
             dispatch(RemoveMessageCreator(messagesId))
         }
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchStateToProps)(Dialogs);
+// const DialogsContainer = connect(mapStateToProps, mapDispatchStateToProps)(Dialogs);
 
-export default DialogsContainer
+// export default DialogsContainer
 

@@ -2,13 +2,14 @@ import React from 'react';
 import c from './Message.module.css'
 
 
+
 type PropsType = {
     id: string
     message: string
     RemoveMessage:(messagesId:string)=>void
 }
 
-const Message: React.FC<PropsType> =  (props) => {
+const Message: React.FC<PropsType> =  React.memo((props) => {
     console.log('message')
 
     const {id, message,RemoveMessage} = props;
@@ -22,6 +23,6 @@ const Message: React.FC<PropsType> =  (props) => {
 
 
     )
-}
+})
 
 export default Message;

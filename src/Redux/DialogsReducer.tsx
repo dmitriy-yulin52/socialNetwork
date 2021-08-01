@@ -1,16 +1,12 @@
 import {v1} from "uuid";
 
 
-export enum ACTION_TYPES  {
+export enum ACTION_TYPE_TYPE {
     ADD_MESSAGE = 'ADD-MESSAGE',
-    NEW_MESSAGE_TEXT = 'NEW-MESSAGE-TEXT',
+    UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE',
     LOCAL_STORAGE_MESSAGE = 'LOCAL-STORAGE-MESSAGE',
     REMOVE_MESSAGE = 'REMOVE-MESSAGE'
 }
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const NEW_MESSAGE_TEXT = 'NEW-MESSAGE-TEXT';
-const LOCAL_STORAGE_MESSAGE = 'LOCAL-STORAGE-MESSAGE';
-const REMOVE_MESSAGE = 'REMOVE-MESSAGE';
 
 export type DialogType = {
     id: string
@@ -20,42 +16,61 @@ export type MessageType = {
     id: string
     message: string
 }
-type InitialStateType = {
+export type InitialStateDialogsType = {
     newDialogsMessage: string
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
 
-export type ActionTypes =
-    ReturnType<typeof addMessageActionCreator>
-    | ReturnType<typeof updateNewMessageCreator>
-    | ReturnType<typeof localStorageMessageCreator>
-    | ReturnType<typeof RemoveMessageCreator>
+type AddMessageType = {
+    type: ACTION_TYPE_TYPE.ADD_MESSAGE,
+    newMessage: string,
+}
+type UpdateNewMessage = {
+    type: ACTION_TYPE_TYPE.UPDATE_NEW_MESSAGE,
+    newMessage: string,
+}
+type LocalStorageMessage = {
+    type: ACTION_TYPE_TYPE.LOCAL_STORAGE_MESSAGE,
+    messages: Array<MessageType>,
+}
+type RemoveMessage = {
+    type: ACTION_TYPE_TYPE.REMOVE_MESSAGE,
+    messagesId: string,
+}
 
-const initialState = {
-        newDialogsMessage: '',
-        dialogs: [
-            {id: v1(), name: 'dmitriy'},
-            {id: v1(), name: 'vicrory'},
-            {id: v1(), name: 'sasha'},
-            {id: v1(), name: 'leonid'},
-            {id: v1(), name: 'victor'},
-            {id: v1(), name: 'john'},
-            {id: v1(), name: 'dddd'}
+export type ActionACTypes =
+    AddMessageType
+    | UpdateNewMessage
+    | LocalStorageMessage
+    | RemoveMessage
 
-        ],
-        messages: [
-            {id: v1(), message: 'hello'},
-            {id: v1(), message: 'hi'},
-            {id: v1(), message: 'yo'}
-        ]
+const initialStateDialogs:InitialStateDialogsType = {
+    newDialogsMessage: '',
+    dialogs: [
+        {id: v1(), name: 'dmitriy'},
+        {id: v1(), name: 'vicrory'},
+        {id: v1(), name: 'sasha'},
+        {id: v1(), name: 'leonid'},
+        {id: v1(), name: 'victor'},
+        {id: v1(), name: 'john'},
+        {id: v1(), name: 'dddd'}
+
+    ],
+    messages: [
+        {id: v1(), message: 'hello'},
+        {id: v1(), message: 'hi'},
+        {id: v1(), message: 'yo'}
+    ]
 }
 
 
-export const dialogsReducer = (state: InitialStateType = initialState, action: ActionTypes)=> {
+export const dialogsReducer = (state: InitialStateDialogsType = initialStateDialogs, action: ActionACTypes) => {
 
-    switch(action.type) {
-        case ADD_MESSAGE:
+    //newDialogsMessage = '' - is equal to an empty string because the input field needs to be updated
+
+    switch (action.type) {
+        case ACTION_TYPE_TYPE.ADD_MESSAGE:
             return {
                 ...state,
                 newDialogsMessage: '',
@@ -64,28 +79,28 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
                     {id: v1(), message: action.newMessage}
                 ]
             }
-            // const newMessageDialog = {
-            //     id: v1(),
-            //     message: action.newMessage
-            // }
-            // state.messages.push(newMessageDialog)
-            // state.newDialogsMessage = ''
-            // return state
+        // const newMessageDialog = {
+        //     id: v1(),
+        //     message: action.newMessage
+        // }
+        // state.messages.push(newMessageDialog)
+        // state.newDialogsMessage = ''
+        // return state
 
-        case NEW_MESSAGE_TEXT:
+        case ACTION_TYPE_TYPE.UPDATE_NEW_MESSAGE:
             return {
                 ...state,
                 newDialogsMessage: action.newMessage
             }
-            // state.newDialogsMessage = action.newMessage
-            // return state
-        case LOCAL_STORAGE_MESSAGE:
-            return{
+        // state.newDialogsMessage = action.newMessage
+        // return state
+        case ACTION_TYPE_TYPE.LOCAL_STORAGE_MESSAGE:
+            return {
                 ...state,
-                messages:action.messages
+                messages: action.messages
             }
-        case "REMOVE-MESSAGE":
-            return{...state,messages: state.messages.filter(el=>el.id !== action.messagesId)}
+        case ACTION_TYPE_TYPE.REMOVE_MESSAGE:
+            return {...state, messages: state.messages.filter(el => el.id !== action.messagesId)}
 
         default:
             return state
@@ -93,27 +108,27 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
 
 }
 
-export const addMessageActionCreator = (message:string) => {
+export const addMessageActionCreator = (message: string) => {
     return {
-        type: ADD_MESSAGE,
-        newMessage:message
-    }as const
+        type: ACTION_TYPE_TYPE.ADD_MESSAGE,
+        newMessage: message
+    } as const
 }
-export const updateNewMessageCreator = (event:string) => {
+export const updateNewMessageCreator = (event: string) => {
     return {
-        type: NEW_MESSAGE_TEXT,
-        newMessage:event
-    }as const
+        type: ACTION_TYPE_TYPE.UPDATE_NEW_MESSAGE,
+        newMessage: event
+    } as const
 }
-export const localStorageMessageCreator = (messages:Array<MessageType>) => {
+export const localStorageMessageCreator = (messages: Array<MessageType>) => {
     return {
-        type: LOCAL_STORAGE_MESSAGE,
+        type: ACTION_TYPE_TYPE.LOCAL_STORAGE_MESSAGE,
         messages
-    }as const
+    } as const
 }
-export const RemoveMessageCreator = (messagesId:string) => {
+export const RemoveMessageCreator = (messagesId: string) => {
     return {
-        type: REMOVE_MESSAGE,
+        type: ACTION_TYPE_TYPE.REMOVE_MESSAGE,
         messagesId
-    }as const
+    } as const
 }

@@ -2,37 +2,40 @@ import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 import style from './Dialogs.module.sass'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import {DialogType, MessageType} from "../../Redux/DialogsReducer";
+import {
+    ActionACTypes,
+    addMessageActionCreator, InitialStateDialogsType,
+    localStorageMessageCreator, RemoveMessageCreator,
+    updateNewMessageCreator
+} from "../../Redux/DialogsReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {Dispatch} from "redux";
+import {selectStateMessagesPage} from "../../Redux/selectors";
+import {AppStateType} from "../../Redux/reduxStore";
 
 
-type PropsType = {
-    newDialogsMessage: string
-    updateNewMessage: (event: string) => void
-    addMessage: (message: string) => void
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    localStorageMessage:(messages:Array<MessageType>)=>void
-    RemoveMessage:(messagesId:string)=>void
-}
 
 
-const Dialogs: React.FC<PropsType> = (props) => {
-    const {newDialogsMessage, addMessage, updateNewMessage, dialogs, messages,localStorageMessage,RemoveMessage} = props
 
-    let dialogsElements = dialogs.map((i) => <DialogItem key={i.id} name={i.name} id={i.id}/>)
-    let messageElements = messages.map((i) => <Message key={i.id} message={i.message} id={i.id} RemoveMessage={RemoveMessage}/>)
+const Dialogs = () => {
 
+    const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
+    const dispatch = useDispatch<Dispatch<ActionACTypes>>()
+
+
+    let dialogsElements = messagesPage.dialogs.map((i) => <DialogItem key={i.id} name={i.name} id={i.id}/>)
+    let messageElements = messagesPage.messages.map((i) => <Message key={i.id} message={i.message} id={i.id} RemoveMessage={()=>dispatch(RemoveMessageCreator(i.id))}/>)
 
     let [error, setError] = useState<null | string>(null)
 
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        updateNewMessage(event.currentTarget.value)
+        dispatch(updateNewMessageCreator(event.currentTarget.value))
     }
     const onClickHandler = () => {
-        let textTrim = newDialogsMessage.trim()
+        let textTrim = messagesPage.newDialogsMessage.trim()
         if (textTrim) {
-            addMessage(textTrim)
+            dispatch(addMessageActionCreator(textTrim))
         } else {
             setError('Title is required')
         }
@@ -48,13 +51,13 @@ const Dialogs: React.FC<PropsType> = (props) => {
         let data = localStorage.getItem('message')
         if(data){
             let newData = JSON.parse(data)
-            localStorageMessage(newData)
+            dispatch(localStorageMessageCreator(newData))
         }
     },[])
 
     useEffect(()=>{
-        localStorage.setItem('message',JSON.stringify(messages))
-    }, [messages])
+        localStorage.setItem('message',JSON.stringify(messagesPage.messages))
+    }, [messagesPage.messages])
 
     return (
         <div className={style.dialogs}>
@@ -71,7 +74,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
                 </div>
                 <div className={style.textarea}>
                     <input className={style.input}
-                           value={newDialogsMessage}
+                           value={messagesPage.newDialogsMessage}
                            onChange={onChangeHandler}
                            onKeyPress={onKeyPressHandler}
                     />
