@@ -7,7 +7,7 @@ import {NavLink} from 'react-router-dom';
 
 
 export type UsersPropsType = {
-    items: Array<UsersType>
+    users: Array<UsersType>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (users: Array<UsersType>) => void
@@ -17,7 +17,7 @@ export type UsersPropsType = {
     currentPage: number
 }
 export const Users: React.FC<UsersPropsType> = React.memo( (props) => {
-    const {items, follow, unfollow, onPageChanged, pageSize, totalCount, currentPage} = props
+    const {users, follow, unfollow, onPageChanged, pageSize, totalCount, currentPage} = props
 
 
     let pagesCount = Math.ceil(totalCount / pageSize)
@@ -45,7 +45,7 @@ export const Users: React.FC<UsersPropsType> = React.memo( (props) => {
                 })}
             </div>
             <div>
-                {items.map(u => {
+                {users.map(u => {
                     const onClickFollowHandler = () => {
                         follow(u.id)
                     }

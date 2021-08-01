@@ -1,9 +1,12 @@
 import {v1} from "uuid";
 
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SET_USER_PROFILE = 'SET-USER-PROFILE';
+
+enum ACTION_TYPE_TYPE {
+    ADD_POST = ' profile-reducer/ADD-POST',
+    UPDATE_NEW_POST_TEXT = ' profile-reducer/UPDATE-NEW-POST-TEXT',
+    SET_USER_PROFILE = ' profile-reducer/SET-USER-PROFILE',
+}
 
 export type PostType = {
     id: string
@@ -11,10 +14,7 @@ export type PostType = {
     like: number
     time: number
 }
-// export type InitialStateType = {
-//     messageForNewPost: string
-//     posts: Array<PostType>
-// }
+
 type ContactsType = {
     github: string
     vk: string
@@ -27,37 +27,44 @@ type ContactsType = {
 }
 type PhotosType = {
     small: string
-    large:string
+    large: string
 }
 export type ProfileType = {
-    lookingForAJob:boolean
-    lookingForAJobDescription:string
-    fullName:string
-    contacts:ContactsType
-    photos:PhotosType
-    userId:number
-    aboutMe:string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+    userId: number
+    aboutMe: string
 }
 export type InitialStateType = {
     messageForNewPost: string
     posts: Array<PostType>
     profile: ProfileType
 }
-export type ActionTypes =
-    ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextActionCreator>
-    | ReturnType<typeof setUserProfile>
 
 
-// let initialState: InitialStateType = {
-//     messageForNewPost: '',
-//     posts: [
-//         {id: v1(), message: 'Hi, how are you', like: 4, time: 7},
-//         {id: v1(), message: 'It,s my first post', like: 22, time: 19},
-//         {id: v1(), message: 'yo', like: 14, time: 12},
-//         {id: v1(), message: 'it-camasutra', like: 11, time: 90}
-//     ]
-// }
+
+type AddPostActionCreatorType = {
+    type: ACTION_TYPE_TYPE.ADD_POST,
+    postText: string,
+}
+type UpdateNewPostTextActionCreatorType = {
+    type: ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT,
+    newText: string,
+}
+type SetUserProfileACType = {
+    type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
+    profile: ProfileType,
+}
+
+export type ActionTypeAC =
+    AddPostActionCreatorType
+    | UpdateNewPostTextActionCreatorType
+    | SetUserProfileACType
+
+
 let initialState: InitialStateType = {
 
     messageForNewPost: '',
@@ -68,7 +75,7 @@ let initialState: InitialStateType = {
         {id: v1(), message: 'it-camasutra', like: 11, time: 90}
     ],
     profile: {
-        userId:2,
+        userId: 2,
         aboutMe: '',
         lookingForAJob: true,
         lookingForAJobDescription: 'required(string)',
@@ -91,11 +98,11 @@ let initialState: InitialStateType = {
 }
 
 
-
-export const profileReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionTypeAC): InitialStateType => {
 
     switch (action.type) {
-        case ADD_POST:
+        case ACTION_TYPE_TYPE.ADD_POST:
+            //messageForNewPost = '' - after redrawing the state, the input field will be empty
             return {
                 ...state,
                 messageForNewPost: '',
@@ -110,24 +117,12 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 ]
             }
 
-        // const newPost: PostType = {
-        //     id: v1(),
-        //     message: action.postText,
-        //     like: 14,
-        //     time: 22
-        // }
-        // state.posts.unshift(newPost);
-        // state.messageForNewPost = ''
-        // return state
-
-        case UPDATE_NEW_POST_TEXT:
-            // state.messageForNewPost = action.newText
+        case ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT:
             return {
                 ...state,
                 messageForNewPost: action.newText
             }
-            case SET_USER_PROFILE:
-            // state.messageForNewPost = action.newText
+        case ACTION_TYPE_TYPE.SET_USER_PROFILE:
             return {
                 ...state,
                 profile: action.profile
@@ -138,23 +133,21 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 
-
-
-export const addPostActionCreator = (message: string) => {
+export const addPostActionCreator = (message: string):AddPostActionCreatorType => {
     return {
-        type: ADD_POST,
+        type: ACTION_TYPE_TYPE.ADD_POST,
         postText: message,
-    }as const
-}
-export const updateNewPostTextActionCreator = (event: string) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: event
     } as const
 }
-export const setUserProfile = (profile: ProfileType) => {
+export const updateNewPostTextActionCreator = (text: string):UpdateNewPostTextActionCreatorType => {
     return {
-        type: SET_USER_PROFILE,
+        type: ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT,
+        newText: text
+    } as const
+}
+export const setUserProfileAC = (profile: ProfileType):SetUserProfileACType => {
+    return {
+        type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
         profile
     } as const
 }
