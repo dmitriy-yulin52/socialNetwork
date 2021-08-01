@@ -40,8 +40,6 @@ type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 // }
 
 function ProfileContainer (props:ProfilePropsType){
-
-
     return (
         <div>
             <Profile profile={props.profile}/>

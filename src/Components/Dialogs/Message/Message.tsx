@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import c from './Message.module.css'
 
 
@@ -8,8 +8,8 @@ type PropsType = {
     RemoveMessage:(messagesId:string)=>void
 }
 
-const Message: React.FC<PropsType> = (props) => {
-
+const Message: React.FC<PropsType> =  (props) => {
+    console.log('message')
 
     const {id, message,RemoveMessage} = props;
     return (

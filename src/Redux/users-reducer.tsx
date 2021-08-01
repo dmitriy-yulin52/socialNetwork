@@ -1,12 +1,13 @@
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET_USERS'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET-USERS-TOTAL-COUNT'
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 
 
-
+export enum USERS_ACTION_TYPE {
+    FOLLOW = 'users-reducer/FOLLOW',
+    UNFOLLOW = 'users-reducer/UNFOLLOW',
+    SET_USERS = 'users-reducer/SET_USERS',
+    SET_CURRENT_PAGE = 'users-reducer/SET_CURRENT_PAGE',
+    SET_TOTAL_USERS_COUNT = 'users-reducer/SET_TOTAL_USERS_COUNT',
+    TOGGLE_IS_FETCHING = 'users-reducer/TOGGLE_IS_FETCHING',
+}
 
 type PhotosType = {
     small: string | null
@@ -25,7 +26,7 @@ type InitialStateType = {
     error: string | null
     pageSize: number
     currentPage: number
-    isFetching:boolean
+    isFetching: boolean
 }
 
 
@@ -44,28 +45,28 @@ type ActionTypes =
 
 
 type FollowACType = {
-    type:'FOLLOW'
+    type: USERS_ACTION_TYPE.FOLLOW
     userId: number
 }
 type UnfollowACType = {
-    type:'UNFOLLOW'
+    type: USERS_ACTION_TYPE.UNFOLLOW
     userId: number
 }
 type SetUsersACType = {
-    type:'SET_USERS'
+    type: USERS_ACTION_TYPE.SET_USERS
     users: Array<UsersType>
 }
-type SetCurrentUsersACType = {
-    type:'SET-CURRENT-PAGE'
-    currentPage:number
+ export type SetCurrentUsersACType = {
+    type: USERS_ACTION_TYPE.SET_CURRENT_PAGE
+    currentPage: number
 }
 type SetTotalUsersCountACType = {
-    type:'SET-USERS-TOTAL-COUNT'
-    totalUsersCount:number
+    type: USERS_ACTION_TYPE.SET_TOTAL_USERS_COUNT
+    totalUsersCount: number
 }
 type isFetchingACType = {
-    type:'TOGGLE-IS-FETCHING'
-    isFetching:boolean
+    type: USERS_ACTION_TYPE.TOGGLE_IS_FETCHING
+    isFetching: boolean
 }
 
 let initialState: InitialStateType = {
@@ -74,14 +75,14 @@ let initialState: InitialStateType = {
     totalCount: 0,
     error: null,
     currentPage: 1,
-    isFetching:false
+    isFetching: false
 }
 
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
 
     switch (action.type) {
-        case FOLLOW:
+        case USERS_ACTION_TYPE.FOLLOW:
             return {
                 ...state,
                 items: state.items.map(items => {
@@ -91,7 +92,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
                     return items
                 })
             }
-        case UNFOLLOW:
+        case USERS_ACTION_TYPE.UNFOLLOW:
             return {
                 ...state,
                 items: state.items.map(users => {
@@ -101,25 +102,25 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
                     return users
                 })
             }
-        case SET_USERS:
+        case USERS_ACTION_TYPE.SET_USERS:
             return {
                 ...state,
-                items:action.users
+                items: action.users
             }
-        case SET_CURRENT_PAGE:
+        case USERS_ACTION_TYPE.SET_CURRENT_PAGE:
             return {
                 ...state,
-                currentPage:action.currentPage
+                currentPage: action.currentPage
             }
-            case SET_TOTAL_USERS_COUNT:
+        case USERS_ACTION_TYPE.SET_TOTAL_USERS_COUNT:
             return {
                 ...state,
-                totalCount:action.totalUsersCount
+                totalCount: action.totalUsersCount
             }
-        case TOGGLE_IS_FETCHING:
-            return{
+        case USERS_ACTION_TYPE.TOGGLE_IS_FETCHING:
+            return {
                 ...state,
-                isFetching:action.isFetching
+                isFetching: action.isFetching
             }
         default:
             return state
@@ -127,39 +128,39 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
 }
 
 
-export const followAC = (userId: number):FollowACType => {
+export const followAC = (userId: number): FollowACType => {
     return {
-        type: FOLLOW,
+        type: USERS_ACTION_TYPE.FOLLOW,
         userId: userId
     } as const
 }
-export const unfollowAC = (userId: number):UnfollowACType => {
+export const unfollowAC = (userId: number): UnfollowACType => {
     return {
-        type: UNFOLLOW,
+        type: USERS_ACTION_TYPE.UNFOLLOW,
         userId: userId
     } as const
 }
-export const setUsersAC = (users: Array<UsersType>):SetUsersACType => {
+export const setUsersAC = (users: Array<UsersType>): SetUsersACType => {
     return {
-        type: SET_USERS,
+        type: USERS_ACTION_TYPE.SET_USERS,
         users: users
     } as const
 }
-export const setCurrentPageAC = (currentPage:number):SetCurrentUsersACType => {
+export const setCurrentPageAC = (currentPage: number): SetCurrentUsersACType => {
     return {
-        type: SET_CURRENT_PAGE,
+        type: USERS_ACTION_TYPE.SET_CURRENT_PAGE,
         currentPage
     } as const
 }
-export const setTotalUsersCountAC = (totalUsersCount:number):SetTotalUsersCountACType => {
+export const setTotalUsersCountAC = (totalUsersCount: number): SetTotalUsersCountACType => {
     return {
-        type: SET_TOTAL_USERS_COUNT,
+        type: USERS_ACTION_TYPE.SET_TOTAL_USERS_COUNT,
         totalUsersCount
     } as const
 }
-export const setIsFetchingAC = (isFetching:boolean):isFetchingACType => {
+export const setIsFetchingAC = (isFetching: boolean): isFetchingACType => {
     return {
-        type: TOGGLE_IS_FETCHING,
+        type: USERS_ACTION_TYPE.TOGGLE_IS_FETCHING,
         isFetching
     } as const
 }

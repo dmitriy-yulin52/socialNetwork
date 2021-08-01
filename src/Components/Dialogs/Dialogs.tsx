@@ -23,8 +23,6 @@ const Dialogs: React.FC<PropsType> = (props) => {
     let messageElements = messages.map((i) => <Message key={i.id} message={i.message} id={i.id} RemoveMessage={RemoveMessage}/>)
 
 
-
-
     let [error, setError] = useState<null | string>(null)
 
 
@@ -53,9 +51,10 @@ const Dialogs: React.FC<PropsType> = (props) => {
             localStorageMessage(newData)
         }
     },[])
+
     useEffect(()=>{
         localStorage.setItem('message',JSON.stringify(messages))
-    })
+    }, [messages])
 
     return (
         <div className={style.dialogs}>
@@ -69,7 +68,6 @@ const Dialogs: React.FC<PropsType> = (props) => {
                     {
                         messageElements
                     }
-
                 </div>
                 <div className={style.textarea}>
                     <input className={style.input}

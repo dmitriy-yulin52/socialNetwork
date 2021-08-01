@@ -16,7 +16,7 @@ export type UsersPropsType = {
     totalCount: number
     currentPage: number
 }
-export const Users: React.FC<UsersPropsType> = (props) => {
+export const Users: React.FC<UsersPropsType> = React.memo( (props) => {
     const {items, follow, unfollow, onPageChanged, pageSize, totalCount, currentPage} = props
 
 
@@ -27,10 +27,11 @@ export const Users: React.FC<UsersPropsType> = (props) => {
             pages.push(i)
         }
         return pages
-    }, [])
+    }, [pagesCount])
 
     let pages = pagesCountMemo
 
+    console.log('users')
 
     return (
         <div>
@@ -81,4 +82,4 @@ export const Users: React.FC<UsersPropsType> = (props) => {
             </div>
         </div>
     )
-}
+})
