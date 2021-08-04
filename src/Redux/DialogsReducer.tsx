@@ -79,21 +79,12 @@ export const dialogsReducer = (state: InitialStateDialogsType = initialStateDial
                     {id: v1(), message: action.newMessage}
                 ]
             }
-        // const newMessageDialog = {
-        //     id: v1(),
-        //     message: action.newMessage
-        // }
-        // state.messages.push(newMessageDialog)
-        // state.newDialogsMessage = ''
-        // return state
 
         case ACTION_TYPE_TYPE.UPDATE_NEW_MESSAGE:
             return {
                 ...state,
                 newDialogsMessage: action.newMessage
             }
-        // state.newDialogsMessage = action.newMessage
-        // return state
         case ACTION_TYPE_TYPE.LOCAL_STORAGE_MESSAGE:
             return {
                 ...state,

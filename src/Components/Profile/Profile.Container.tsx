@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Profile from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
-import {ActionTypeAC,ProfileType, setUserProfileAC} from "../../Redux/ProfileReducer";
+import {ActionTypeAC, setUserProfileAC} from "../../Redux/ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import axios from "axios";
 import {Dispatch} from "redux";

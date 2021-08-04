@@ -30,11 +30,6 @@ type InitialStateType = {
 }
 
 
-// type ActionTypes =
-//     ReturnType<typeof followAC>
-//     | ReturnType<typeof unfollowAC>
-//     | ReturnType<typeof setUsersAC>
-
 export type ActionACTypes =
     FollowACType
     | UnfollowACType

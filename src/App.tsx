@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css'
-import Header from "./Components/Header/Header"
 import NavBar from "./Components/NavBar/NavBar"
 import {Route} from "react-router-dom"
 import {UsersContainer} from "./Components/Users/Users.container";
 import {WithUrlDataContainerComponent} from "./Components/Profile/Profile.Container";
 import Dialogs from "./Components/Dialogs/Dialogs";
+import HeaderContainer from "./Components/Header/HeaderContainer";
 
 
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
 
     return (
         <div className="app-wrapper">
-            <Header/>
+            <HeaderContainer/>
             <NavBar/>
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
