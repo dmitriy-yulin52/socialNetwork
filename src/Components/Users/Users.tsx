@@ -1,9 +1,13 @@
 import React, {useMemo} from 'react';
-import {UsersType} from "../../Redux/users-reducer";
+import {ActionACTypes, setIsFetchingAC, setTotalUsersCountAC, setUsersAC, UsersType} from "../../Redux/users-reducer";
 import style from './style.module.sass'
 import userPhoto from '../../assets/images/users-icon.jpg'
 import styles from "./style.module.sass";
 import {NavLink} from 'react-router-dom';
+import axios from "axios";
+import {useDispatch} from "react-redux";
+import {Dispatch} from "redux";
+import {usersAPI} from "../../api/api";
 
 
 export type UsersPropsType = {
@@ -16,9 +20,17 @@ export type UsersPropsType = {
     totalCount: number
     currentPage: number
 }
-export const Users: React.FC<UsersPropsType> = React.memo( (props) => {
-    const {users, follow, unfollow, onPageChanged, pageSize, totalCount, currentPage} = props
-
+export const Users: React.FC<UsersPropsType> = React.memo((props) => {
+    const
+        {
+            users,
+            follow,
+            unfollow,
+            onPageChanged,
+            pageSize,
+            totalCount,
+            currentPage
+        } = props
 
     let pagesCount = Math.ceil(totalCount / pageSize)
     let pagesCountMemo = useMemo(() => {
@@ -31,7 +43,6 @@ export const Users: React.FC<UsersPropsType> = React.memo( (props) => {
 
     let pages = pagesCountMemo
 
-    console.log('users')
 
     return (
         <div>
@@ -46,12 +57,6 @@ export const Users: React.FC<UsersPropsType> = React.memo( (props) => {
             </div>
             <div>
                 {users.map(u => {
-                    const onClickFollowHandler = () => {
-                        follow(u.id)
-                    }
-                    const onClickUnfollowHandler = () => {
-                        unfollow(u.id)
-                    }
                     return (
                         <div key={u.id}>
                         <span>
@@ -62,8 +67,27 @@ export const Users: React.FC<UsersPropsType> = React.memo( (props) => {
                                 </NavLink>
                             </div>
                             <div>
-                                {u.followed ? <button onClick={onClickUnfollowHandler}>Unfollow</button> :
-                                    <button onClick={onClickFollowHandler}>Follow</button>}
+                                {u.followed
+                                    ? <button
+                                        onClick={() => {
+                                                usersAPI.deleteUsers(u.id).then(response => {
+                                                    if (response.data.resultCode === 0) {
+                                                        unfollow(u.id)
+                                                    }
+                                                })
+                                        }
+                                        }
+                                    >Unfollow</button>
+                                    : <button
+                                        onClick={()=>{
+                                            usersAPI.postUsers(u.id).then((response)=>{
+                                                    if(response.data.resultCode === 0){
+                                                        follow(u.id)
+                                                    }
+                                            })
+                                        }}
+                                    >Follow</button>}
+
                             </div>
                         </span>
                             <span>

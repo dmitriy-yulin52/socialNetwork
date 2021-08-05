@@ -10,13 +10,10 @@ import {
     UsersType
 } from "../../Redux/users-reducer";
 import {Dispatch} from "redux";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {selectStateUsersPage} from "../../Redux/selectors";
-
-
-
+import {usersAPI} from "../../api/api";
 
 
 export const UsersContainer = () => {
@@ -33,20 +30,22 @@ export const UsersContainer = () => {
 
     React.useEffect(() => {
         dispatch(setIsFetchingAC(true))
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`).then(response => {
-            dispatch(setUsersAC(response.data.items))
-            dispatch(setTotalUsersCountAC(response.data.totalCount))
+
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setUsersAC(data.items))
+            dispatch(setTotalUsersCountAC(data.totalCount))
             dispatch(setIsFetchingAC(false))
         })
     }, [])
 
 
     const onPageChanged = (pageNumber: number) => {
-        console.log('change')
         dispatch(setIsFetchingAC(true))
         dispatch(setCurrentPageAC(pageNumber))
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`).then(response => {
-            dispatch(setUsersAC(response.data.items))
+
+        usersAPI.getUsers(pageNumber, pageSize).then(data => {
+            debugger
+            dispatch(setUsersAC(data.items))
             dispatch(setIsFetchingAC(false))
         })
     }
