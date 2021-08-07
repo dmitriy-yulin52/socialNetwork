@@ -2,18 +2,15 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     ActionACTypes,
-    followAC,
-    setCurrentPageAC, setIsFetchingAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    unfollowAC,
+    followSuccessAC, getUsersThunkCreator,
+    setUsersAC, toggleIsFollowingProgressAC,
+    unfollowSuccessAC,
     UsersType
 } from "../../Redux/users-reducer";
 import {Dispatch} from "redux";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {selectStateUsersPage} from "../../Redux/selectors";
-import {usersAPI} from "../../api/api";
 
 
 export const UsersContainer = () => {
@@ -24,40 +21,32 @@ export const UsersContainer = () => {
         totalCount,
         currentPage,
         isFetching,
+        followingInProgress,
     } = useSelector(selectStateUsersPage)
     const dispatch = useDispatch<Dispatch<ActionACTypes>>()
 
 
     React.useEffect(() => {
-        dispatch(setIsFetchingAC(true))
-
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
-            dispatch(setUsersAC(data.items))
-            dispatch(setTotalUsersCountAC(data.totalCount))
-            dispatch(setIsFetchingAC(false))
-        })
+        getUsersThunkCreator(currentPage,pageSize)(dispatch)
     }, [])
 
 
     const onPageChanged = (pageNumber: number) => {
-        dispatch(setIsFetchingAC(true))
-        dispatch(setCurrentPageAC(pageNumber))
-
-        usersAPI.getUsers(pageNumber, pageSize).then(data => {
-            debugger
-            dispatch(setUsersAC(data.items))
-            dispatch(setIsFetchingAC(false))
-        })
+        getUsersThunkCreator(pageNumber,pageSize)(dispatch)
     }
 
     const setUsers = (users: Array<UsersType>) => {
         dispatch(setUsersAC(users))
     }
     const unfollow = (userId: number) => {
-        dispatch(unfollowAC(userId))
+        dispatch(unfollowSuccessAC(userId))
     }
     const follow = (userId: number) => {
-        dispatch(followAC(userId))
+        dispatch(followSuccessAC(userId))
+    }
+
+    const toggleFollowingProgress = (isFetching:boolean)=> {
+        dispatch(toggleIsFollowingProgressAC(isFetching))
     }
 
     console.log('userContainer')
@@ -65,13 +54,13 @@ export const UsersContainer = () => {
         <div>
             {isFetching ? <Preloader/> : null}
             <Users setUsers={setUsers}
-                   follow={follow}
-                   unfollow={unfollow}
                    users={items}
                    onPageChanged={onPageChanged}
                    pageSize={pageSize}
                    totalCount={totalCount}
                    currentPage={currentPage}
+                   toggleFollowingProgress={toggleFollowingProgress}
+                   followingInProgress={followingInProgress}
             />
         </div>
     )

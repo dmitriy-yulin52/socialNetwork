@@ -1,5 +1,12 @@
 import React, {useMemo} from 'react';
-import {ActionACTypes, setIsFetchingAC, setTotalUsersCountAC, setUsersAC, UsersType} from "../../Redux/users-reducer";
+import {
+    ActionACTypes, follow,
+    setIsFetchingAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    unfollow,
+    UsersType
+} from "../../Redux/users-reducer";
 import style from './style.module.sass'
 import userPhoto from '../../assets/images/users-icon.jpg'
 import styles from "./style.module.sass";
@@ -12,37 +19,40 @@ import {usersAPI} from "../../api/api";
 
 export type UsersPropsType = {
     users: Array<UsersType>
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
     setUsers: (users: Array<UsersType>) => void
     onPageChanged: (pageNumber: number) => void
     pageSize: number
     totalCount: number
     currentPage: number
+    toggleFollowingProgress: (isFetching:boolean) => void
+    followingInProgress: boolean
 }
 export const Users: React.FC<UsersPropsType> = React.memo((props) => {
     const
         {
             users,
-            follow,
-            unfollow,
             onPageChanged,
             pageSize,
             totalCount,
-            currentPage
+            currentPage,
+            followingInProgress,
         } = props
 
     let pagesCount = Math.ceil(totalCount / pageSize)
-    let pagesCountMemo = useMemo(() => {
-        let pages = []
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
-        }
-        return pages
-    }, [pagesCount])
-
-    let pages = pagesCountMemo
-
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
+    // let pagesCountMemo = useMemo(() => {
+    //     let pages = []
+    //     for (let i = 1; i <= pagesCount; i++) {
+    //         pages.push(i)
+    //     }
+    //     return pages
+    // }, [pagesCount])
+    //
+    // let pages = pagesCountMemo
+const dispatch = useDispatch()
 
     return (
         <div>
@@ -69,22 +79,16 @@ export const Users: React.FC<UsersPropsType> = React.memo((props) => {
                             <div>
                                 {u.followed
                                     ? <button
+                                        disabled={followingInProgress}
                                         onClick={() => {
-                                                usersAPI.deleteUsers(u.id).then(response => {
-                                                    if (response.data.resultCode === 0) {
-                                                        unfollow(u.id)
-                                                    }
-                                                })
+                                            unfollow(u.id)
                                         }
                                         }
                                     >Unfollow</button>
                                     : <button
-                                        onClick={()=>{
-                                            usersAPI.postUsers(u.id).then((response)=>{
-                                                    if(response.data.resultCode === 0){
-                                                        follow(u.id)
-                                                    }
-                                            })
+                                        disabled={followingInProgress}
+                                        onClick={() => {
+                                            follow(u.id)
                                         }}
                                     >Follow</button>}
 

@@ -1,5 +1,4 @@
-import axios from "axios";
-import {instance, instanceHeader, instanceProfile, instanceUsers} from "./instance";
+import {instanceHeader, instanceProfile, instanceUsers} from "./instance";
 
 
 export const usersAPI = {
@@ -7,15 +6,20 @@ export const usersAPI = {
         return instanceUsers.get(`users?page=${currentPage}&count=${pageSize}`,)
             .then(response => response.data)
     },
-    postUsers(userId: number) {
-        return instance.post(`follow/${userId}`)
-            .then(response => response.data)
+    follow(userId:number){
+        return instanceUsers.post(`follow/${userId}`)
     },
-    deleteUsers(userId:number) {
-        return instance.delete(`follow/${userId}`)
-            .then(response => response.data)
-
-    }
+    unFollow(userId:number){
+        return instanceUsers.delete(`unfollow/${userId}`)
+    },
+    // postUsers(userId: number) {
+    //     return instance.post(`follow/${userId}`)
+    //         .then(response => response.data)
+    // },
+    // deleteUsers(userId:number) {
+    //     return instance.delete(`follow/${userId}`)
+    //         .then(response => response.data)
+    // }
 }
 
     export const headerAPI = {
