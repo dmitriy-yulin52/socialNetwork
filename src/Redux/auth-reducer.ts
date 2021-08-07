@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI, usersAPI} from "../api/api";
+
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
 }
@@ -51,5 +54,15 @@ export const setAuthUserDataAC = (data: UserDataType): SetUserDataACType => {
     return {
         type: AUTH_ACTION_TYPE.SET_USER_DATA,
         data
+    }
+}
+
+export const getAuthUserDataThunkCreator = () => {
+    return (dispatch:Dispatch<ActionACTypes>)=>{
+        authAPI.getHeader().then((response) => {
+            if(response.data.resultCode === 0){
+                dispatch(setAuthUserDataAC(response.data))
+            }
+        })
     }
 }

@@ -71,9 +71,7 @@ type ToggleIsFollowingProgressAC = {
     type: USERS_ACTION_TYPE.TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching: boolean
 }
-type FollowUsers = {
-    userId: number
-}
+
 
 
 let initialState: InitialStateType = {
@@ -198,7 +196,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
         })
     }
 }
-export const unfollow = (usersId: number) => {
+export const unfollowThunkCreator = (usersId: number) => {
     return (dispatch: Dispatch<ActionACTypes>) => {
         dispatch(toggleIsFollowingProgressAC(true))
         usersAPI.unFollow(usersId)
@@ -211,7 +209,7 @@ export const unfollow = (usersId: number) => {
     }
 }
 
-export const follow = (usersId: number) => {
+export const followThunkCreator = (usersId: number) => {
     return (dispatch: Dispatch<ActionACTypes>) => {
         dispatch(toggleIsFollowingProgressAC(true))
         usersAPI.follow(usersId)

@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 
 
@@ -78,17 +80,17 @@ let initialState: InitialStateType = {
         userId: 2,
         aboutMe: '',
         lookingForAJob: true,
-        lookingForAJobDescription: 'required(string)',
-        fullName: 'required(string)',
+        lookingForAJobDescription: '',
+        fullName: '',
         contacts: {
-            github: 'required(string)',
-            vk: 'required(string)',
-            facebook: 'required(string)',
-            instagram: 'required(string)',
-            twitter: 'required(string)',
-            website: 'required(string)',
-            youtube: 'required(string)',
-            mainLink: 'required(string)'
+            github: '',
+            vk: '',
+            facebook: '',
+            instagram: '',
+            twitter: '',
+            website: '',
+            youtube: '',
+            mainLink: ''
         },
         photos: {
             small: '(string)',
@@ -137,18 +139,28 @@ export const addPostActionCreator = (message: string):AddPostActionCreatorType =
     return {
         type: ACTION_TYPE_TYPE.ADD_POST,
         postText: message,
-    } as const
+    }
 }
 export const updateNewPostTextActionCreator = (text: string):UpdateNewPostTextActionCreatorType => {
     return {
         type: ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT,
         newText: text
-    } as const
+    }
 }
 export const setUserProfileAC = (profile: ProfileType):SetUserProfileACType => {
     return {
         type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
         profile
-    } as const
+    }
 }
+
+export const getUserProfileThunkCreator = (userId:string)=> {
+    return (dispatch:Dispatch<ActionTypeAC>)=> {
+        usersAPI.getProfile(userId).then(response => {
+            dispatch(setUserProfileAC(response.data))
+        })
+    }
+}
+
+
 

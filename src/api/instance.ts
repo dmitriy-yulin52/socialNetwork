@@ -1,18 +1,19 @@
 import axios from "axios";
 
-export const instanceUsers = axios.create({
-    withCredentials: true,
-    baseURL:'https://social-network.samuraijs.com/api/1.0/',
-})
-
-export const instanceHeader = axios.create({
-    withCredentials: true,
-    baseURL:'https://social-network.samuraijs.com/api/1.0/',
-})
-
-export const instanceProfile = axios.create({
-    baseURL:'https://social-network.samuraijs.com/api/1.0/',
-})
+// export const instanceUsers = axios.create({
+//     withCredentials: true,
+//     baseURL:'https://social-network.samuraijs.com/api/1.0/',
+// })
+//
+// export const instanceAuth = axios.create({
+//     withCredentials: true,
+//     baseURL:'https://social-network.samuraijs.com/api/1.0/',
+// })
+//
+// export const instanceProfile = axios.create({
+//     withCredentials: true,
+//     baseURL:'https://social-network.samuraijs.com/api/1.0/',
+// })
 
 
 export const instance = axios.create({

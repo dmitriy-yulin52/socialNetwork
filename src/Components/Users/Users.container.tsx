@@ -59,7 +59,6 @@ export const UsersContainer = () => {
                    pageSize={pageSize}
                    totalCount={totalCount}
                    currentPage={currentPage}
-                   toggleFollowingProgress={toggleFollowingProgress}
                    followingInProgress={followingInProgress}
             />
         </div>

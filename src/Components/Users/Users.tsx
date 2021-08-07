@@ -1,20 +1,14 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {
-    ActionACTypes, follow,
-    setIsFetchingAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    unfollow,
+    followThunkCreator,
+    unfollowThunkCreator,
     UsersType
 } from "../../Redux/users-reducer";
 import style from './style.module.sass'
 import userPhoto from '../../assets/images/users-icon.jpg'
 import styles from "./style.module.sass";
 import {NavLink} from 'react-router-dom';
-import axios from "axios";
 import {useDispatch} from "react-redux";
-import {Dispatch} from "redux";
-import {usersAPI} from "../../api/api";
 
 
 export type UsersPropsType = {
@@ -24,7 +18,6 @@ export type UsersPropsType = {
     pageSize: number
     totalCount: number
     currentPage: number
-    toggleFollowingProgress: (isFetching:boolean) => void
     followingInProgress: boolean
 }
 export const Users: React.FC<UsersPropsType> = React.memo((props) => {
@@ -52,7 +45,7 @@ export const Users: React.FC<UsersPropsType> = React.memo((props) => {
     // }, [pagesCount])
     //
     // let pages = pagesCountMemo
-const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     return (
         <div>
@@ -80,16 +73,11 @@ const dispatch = useDispatch()
                                 {u.followed
                                     ? <button
                                         disabled={followingInProgress}
-                                        onClick={() => {
-                                            unfollow(u.id)
-                                        }
-                                        }
+                                        onClick={() => unfollowThunkCreator(u.id)(dispatch)}
                                     >Unfollow</button>
                                     : <button
                                         disabled={followingInProgress}
-                                        onClick={() => {
-                                            follow(u.id)
-                                        }}
+                                        onClick={() => followThunkCreator(u.id)(dispatch)}
                                     >Follow</button>}
 
                             </div>

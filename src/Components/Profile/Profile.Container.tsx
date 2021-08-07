@@ -1,17 +1,16 @@
 import React, {useEffect} from 'react';
 import Profile from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
-import {ActionTypeAC, setUserProfileAC} from "../../Redux/ProfileReducer";
+import {ActionTypeAC, getUserProfileThunkCreator} from "../../Redux/ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {Dispatch} from "redux";
 import {selectStateProfilePage} from "../../Redux/selectors";
-import {profileAPI} from "../../api/api";
 
 
 export type PathParamsType = {
     userId: string,
 }
-type ProfilePropsType = RouteComponentProps<PathParamsType>
+export type ProfilePropsType = RouteComponentProps<PathParamsType>
 
 
 function ProfileContainer(props: ProfilePropsType) {
@@ -21,9 +20,7 @@ function ProfileContainer(props: ProfilePropsType) {
 
     useEffect(() => {
         let userId = props.match.params.userId
-        profileAPI.getProfile(userId).then(data => {
-            dispatch(setUserProfileAC(data))
-        })
+        getUserProfileThunkCreator(userId)(dispatch)
     }, [])
     return (
         <div>
