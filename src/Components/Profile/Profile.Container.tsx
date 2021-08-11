@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import Profile from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
-import {ActionTypeAC, getUserProfileThunkCreator} from "../../Redux/ProfileReducer";
+import {getUserProfileThunkCreator} from "../../Redux/ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {Dispatch} from "redux";
 import {selectStateProfilePage} from "../../Redux/selectors";
 
 
@@ -16,11 +15,15 @@ export type ProfilePropsType = RouteComponentProps<PathParamsType>
 function ProfileContainer(props: ProfilePropsType) {
 
     const {profile} = useSelector(selectStateProfilePage)
-    const dispatch = useDispatch<Dispatch<ActionTypeAC>>()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         let userId = props.match.params.userId
-        getUserProfileThunkCreator(userId)(dispatch)
+        if(userId === undefined){
+            userId = '2'
+        }
+        console.log(userId)
+        dispatch(getUserProfileThunkCreator(userId))
     }, [])
     return (
         <div>

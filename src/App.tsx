@@ -8,8 +8,7 @@ import Dialogs from "./Components/Dialogs/Dialogs";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 
 
-const App = () => {
-
+const App = React.memo(() => {
 
     return (
         <div className="app-wrapper">
@@ -36,6 +35,6 @@ const App = () => {
             </div>
         </div>
     );
-}
+})
 
 export default App;

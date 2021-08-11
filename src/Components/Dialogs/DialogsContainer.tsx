@@ -13,7 +13,6 @@ import {Dispatch} from 'redux'
 
 export const DialogsContainer = () => {
 
-
     return (
         <Dialogs/>
     )

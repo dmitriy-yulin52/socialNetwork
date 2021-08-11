@@ -1,5 +1,7 @@
 import React from 'react';
 import c from './Message.module.css'
+import {IconButton} from "@material-ui/core";
+import {Delete} from "@material-ui/icons";
 
 
 
@@ -18,7 +20,16 @@ const Message: React.FC<PropsType> =  React.memo((props) => {
             <div>
                 <div className={c.message}>{message}</div>
             </div>
-            <button onClick={()=>RemoveMessage(id)}>X</button>
+            <IconButton
+                aria-label="delete"
+                size="small"
+            >
+                <Delete
+                    onClick={()=>RemoveMessage(id)}
+                    fontSize="inherit"
+                />
+            </IconButton>
+            {/*<button onClick={()=>RemoveMessage(id)}>X</button>*/}
         </div>
 
 

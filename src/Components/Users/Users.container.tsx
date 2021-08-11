@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     ActionACTypes,
-    followSuccessAC, getUsersThunkCreator,
-    setUsersAC, toggleIsFollowingProgressAC,
-    unfollowSuccessAC,
+    getUsersThunkCreator,
+    setUsersAC,
     UsersType
 } from "../../Redux/users-reducer";
 import {Dispatch} from "redux";
@@ -13,7 +12,7 @@ import {Preloader} from "../common/Preloader/Preloader";
 import {selectStateUsersPage} from "../../Redux/selectors";
 
 
-export const UsersContainer = () => {
+export const UsersContainer = React.memo(() => {
 
     const {
         items,
@@ -27,27 +26,17 @@ export const UsersContainer = () => {
 
 
     React.useEffect(() => {
-        getUsersThunkCreator(currentPage,pageSize)(dispatch)
+        getUsersThunkCreator(currentPage, pageSize)(dispatch)
     }, [])
 
 
-    const onPageChanged = (pageNumber: number) => {
-        getUsersThunkCreator(pageNumber,pageSize)(dispatch)
-    }
+    const onPageChanged = useCallback((pageNumber: number) => {
+        getUsersThunkCreator(pageNumber, pageSize)(dispatch)
+    },[])
 
-    const setUsers = (users: Array<UsersType>) => {
+    const setUsers = useCallback((users: Array<UsersType>) => {
         dispatch(setUsersAC(users))
-    }
-    const unfollow = (userId: number) => {
-        dispatch(unfollowSuccessAC(userId))
-    }
-    const follow = (userId: number) => {
-        dispatch(followSuccessAC(userId))
-    }
-
-    const toggleFollowingProgress = (isFetching:boolean)=> {
-        dispatch(toggleIsFollowingProgressAC(isFetching))
-    }
+    },[])
 
     console.log('userContainer')
     return (
@@ -63,7 +52,7 @@ export const UsersContainer = () => {
             />
         </div>
     )
-}
+})
 
 
 //CLASS COMPONENT!!

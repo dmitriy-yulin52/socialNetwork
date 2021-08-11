@@ -155,7 +155,7 @@ export const setUserProfileAC = (profile: ProfileType):SetUserProfileACType => {
 }
 
 export const getUserProfileThunkCreator = (userId:string)=> {
-    return (dispatch:Dispatch<ActionTypeAC>)=> {
+    return (dispatch:Dispatch)=> {
         usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfileAC(response.data))
         })

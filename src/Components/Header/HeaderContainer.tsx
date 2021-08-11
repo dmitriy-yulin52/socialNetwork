@@ -3,6 +3,7 @@ import Header from "./Header";
 import {connect} from "react-redux";
 import {getAuthUserDataThunkCreator} from "../../Redux/auth-reducer";
 import {AppStateType} from "../../Redux/reduxStore";
+import HeaderCopy from "./HeaderCopy";
 
 
 type MapStateToPropsType = {
@@ -22,8 +23,10 @@ class HeaderContainer extends React.Component<HeaderPropsType> {
     }
     render() {
         return (
+            // <HeaderCopy {...this.props}/>
             <Header {...this.props}/>
         )
+
     }
 }
 

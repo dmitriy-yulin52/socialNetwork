@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useCallback, useEffect, useState} from 'react';
 import style from './Dialogs.module.sass'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
@@ -15,10 +15,7 @@ import {AppStateType} from "../../Redux/reduxStore";
 
 
 
-
-
-const Dialogs = () => {
-
+const Dialogs = React.memo(() => {
 
     const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
     const dispatch = useDispatch<Dispatch<ActionACTypes>>()
@@ -30,9 +27,10 @@ const Dialogs = () => {
     let [error, setError] = useState<null | string>(null)
 
 
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         dispatch(updateNewMessageCreator(event.currentTarget.value))
-    }
+    },[])
+
     const onClickHandler = () => {
         let textTrim = messagesPage.newDialogsMessage.trim()
         if (textTrim) {
@@ -41,6 +39,7 @@ const Dialogs = () => {
             setError('Title is required')
         }
     }
+
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
         if (event.key === 'Enter') {
@@ -85,6 +84,6 @@ const Dialogs = () => {
             </div>
         </div>
     )
-}
+})
 
 export default Dialogs;
