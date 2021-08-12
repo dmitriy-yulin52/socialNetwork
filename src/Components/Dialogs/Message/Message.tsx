@@ -14,7 +14,11 @@ type PropsType = {
 const Message: React.FC<PropsType> =  React.memo((props) => {
     console.log('message')
 
-    const {id, message,RemoveMessage} = props;
+    const {
+        id,
+        message,
+        RemoveMessage
+    } = props;
     return (
         <div id={id} className={c.message}>
             <div>

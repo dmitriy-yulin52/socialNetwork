@@ -5,7 +5,7 @@ import Message from './Message/Message'
 import {
     ActionACTypes,
     addMessageActionCreator, InitialStateDialogsType,
-    localStorageMessageCreator, RemoveMessageCreator,
+    localStorageMessageCreator, MessageType, RemoveMessageCreator,
     updateNewMessageCreator
 } from "../../Redux/DialogsReducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -14,27 +14,48 @@ import {selectStateMessagesPage} from "../../Redux/selectors";
 import {AppStateType} from "../../Redux/reduxStore";
 
 
+type DialogsPropsType = {
+    stateMessagesPage: InitialStateDialogsType
+    addMessage: (message: string) => void
+    updateMessage: (updMessage: string) => void
+}
 
-const Dialogs = React.memo(() => {
+
+const Dialogs = React.memo((props: DialogsPropsType) => {
+
+    const {
+        stateMessagesPage,
+        addMessage,
+        updateMessage
+    } = props
 
     const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
     const dispatch = useDispatch<Dispatch<ActionACTypes>>()
 
+    const removeMessage = useCallback((id: string) => {
+        dispatch(RemoveMessageCreator(id))
+    }, [RemoveMessageCreator])
 
-    let dialogsElements = messagesPage.dialogs.map((i) => <DialogItem key={i.id} name={i.name} id={i.id}/>)
-    let messageElements = messagesPage.messages.map((i) => <Message key={i.id} message={i.message} id={i.id} RemoveMessage={()=>dispatch(RemoveMessageCreator(i.id))}/>)
+
+    let dialogsElements = stateMessagesPage.dialogs.map((i) => <DialogItem key={i.id} name={i.name} id={i.id}/>)
+    let messageElements =
+        stateMessagesPage.messages
+            .map((i) => {
+                return <Message
+                    key={i.id} message={i.message} id={i.id}
+                    RemoveMessage={() => removeMessage(i.id)}/>
+            })
 
     let [error, setError] = useState<null | string>(null)
 
 
-    const onChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(updateNewMessageCreator(event.currentTarget.value))
-    },[])
-
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        updateMessage(event.currentTarget.value)
+    }
     const onClickHandler = () => {
-        let textTrim = messagesPage.newDialogsMessage.trim()
+        let textTrim = stateMessagesPage.newDialogsMessage.trim()
         if (textTrim) {
-            dispatch(addMessageActionCreator(textTrim))
+            addMessage(textTrim)
         } else {
             setError('Title is required')
         }
@@ -47,16 +68,15 @@ const Dialogs = React.memo(() => {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         let data = localStorage.getItem('message')
-        if(data){
+        if (data) {
             let newData = JSON.parse(data)
             dispatch(localStorageMessageCreator(newData))
         }
-    },[])
-
-    useEffect(()=>{
-        localStorage.setItem('message',JSON.stringify(messagesPage.messages))
+    }, [])
+    useEffect(() => {
+        localStorage.setItem('message', JSON.stringify(messagesPage.messages))
     }, [messagesPage.messages])
 
     return (

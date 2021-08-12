@@ -45,6 +45,8 @@ export type ActionACTypes =
     | LocalStorageMessage
     | RemoveMessage
 
+
+
 const initialStateDialogs:InitialStateDialogsType = {
     newDialogsMessage: '',
     dialogs: [
@@ -99,27 +101,27 @@ export const dialogsReducer = (state: InitialStateDialogsType = initialStateDial
 
 }
 
-export const addMessageActionCreator = (message: string) => {
+export const addMessageActionCreator = (message: string):AddMessageType => {
     return {
         type: ACTION_TYPE_TYPE.ADD_MESSAGE,
         newMessage: message
-    } as const
+    }
 }
-export const updateNewMessageCreator = (event: string) => {
+export const updateNewMessageCreator = (event: string):UpdateNewMessage => {
     return {
         type: ACTION_TYPE_TYPE.UPDATE_NEW_MESSAGE,
         newMessage: event
-    } as const
+    }
 }
-export const localStorageMessageCreator = (messages: Array<MessageType>) => {
+export const localStorageMessageCreator = (messages: Array<MessageType>):LocalStorageMessage => {
     return {
         type: ACTION_TYPE_TYPE.LOCAL_STORAGE_MESSAGE,
         messages
-    } as const
+    }
 }
-export const RemoveMessageCreator = (messagesId: string) => {
+export const RemoveMessageCreator = (messagesId: string):RemoveMessage => {
     return {
         type: ACTION_TYPE_TYPE.REMOVE_MESSAGE,
         messagesId
-    } as const
+    }
 }

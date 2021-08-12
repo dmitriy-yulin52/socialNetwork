@@ -4,8 +4,8 @@ import NavBar from "./Components/NavBar/NavBar"
 import {Route} from "react-router-dom"
 import {UsersContainer} from "./Components/Users/Users.container";
 import {WithUrlDataContainerComponent} from "./Components/Profile/Profile.Container";
-import Dialogs from "./Components/Dialogs/Dialogs";
 import HeaderContainer from "./Components/Header/HeaderContainer";
+import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 
 
 const App = React.memo(() => {
@@ -17,7 +17,7 @@ const App = React.memo(() => {
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
                        render={() =>
-                           <Dialogs
+                           <DialogsContainer
                            />}
                 />
                 <Route path='/profile/:userId?'

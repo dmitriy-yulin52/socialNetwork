@@ -36,15 +36,6 @@ export const Users: React.FC<UsersPropsType> = React.memo((props) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    // let pagesCountMemo = useMemo(() => {
-    //     let pages = []
-    //     for (let i = 1; i <= pagesCount; i++) {
-    //         pages.push(i)
-    //     }
-    //     return pages
-    // }, [pagesCount])
-    //
-    // let pages = pagesCountMemo
     const dispatch = useDispatch()
 
     return (
