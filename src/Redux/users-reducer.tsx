@@ -11,7 +11,7 @@ export enum USERS_ACTION_TYPE {
     TOGGLE_IS_FOLLOWING_PROGRESS = 'users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS',
 }
 
-type PhotosType = {
+export type PhotosType = {
     small: string | null
     large: string | null
 }
@@ -75,7 +75,7 @@ type ToggleIsFollowingProgressAC = {
 
 
 let initialState: InitialStateType = {
-    items: [] as Array<UsersType>,
+    items: [] as Array<UsersType> ,
     pageSize: 5,
     totalCount: 0,
     error: null,
@@ -184,9 +184,8 @@ export const toggleIsFollowingProgressAC = (isFetching: boolean): ToggleIsFollow
     }
 }
 
-
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch<ActionACTypes>) => {
+    return (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
 
         usersAPI.getUsers(currentPage, pageSize).then(data => {
@@ -197,7 +196,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     }
 }
 export const unfollowThunkCreator = (usersId: number) => {
-    return (dispatch: Dispatch<ActionACTypes>) => {
+    return (dispatch: Dispatch) => {
         dispatch(toggleIsFollowingProgressAC(true))
         usersAPI.unFollow(usersId)
             .then(response => {
@@ -208,9 +207,8 @@ export const unfollowThunkCreator = (usersId: number) => {
             })
     }
 }
-
 export const followThunkCreator = (usersId: number) => {
-    return (dispatch: Dispatch<ActionACTypes>) => {
+    return (dispatch: Dispatch) => {
         dispatch(toggleIsFollowingProgressAC(true))
         usersAPI.follow(usersId)
             .then(response => {

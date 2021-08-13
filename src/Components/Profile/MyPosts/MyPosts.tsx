@@ -7,13 +7,19 @@ import {PostType} from "../../../Redux/store";
 type PropsType = {
     posts: Array<PostType>
     messageForNewPost: string
-    updateNewPostText: (event:string)=> void
-    addPost:(message: string)=> void
+    updateNewPostText: (event: string) => void
+    addPost: (message: string) => void
 }
 
 
-export const MyPosts: React.FC<PropsType> = (props) => {
-    const {posts,addPost,updateNewPostText,messageForNewPost} = props;
+export const MyPosts = React.memo((props: PropsType) => {
+
+    const {
+        posts,
+        addPost,
+        updateNewPostText,
+        messageForNewPost
+    } = props;
 
     let postElement = posts.map((i) =>
         <Post
@@ -23,28 +29,26 @@ export const MyPosts: React.FC<PropsType> = (props) => {
             time={i.time}
         />)
 
-    const [error,setError] = useState<string | null>(null)
+    const [error, setError] = useState<string | null>(null)
 
 
     const onAddPostClickHandler = () => {
-        const messageTrim =  messageForNewPost.trim()
-        if(messageTrim){
+        const messageTrim = messageForNewPost.trim()
+        if (messageTrim) {
             addPost(messageTrim)
-        }else {
+        } else {
             setError('Title is required')
         }
     }
-    const onPostChangeHandler = (event:ChangeEvent<HTMLInputElement>) =>{
-        const newText = event.currentTarget.value
-        updateNewPostText(newText)
+    const onPostChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        updateNewPostText(event.currentTarget.value)
         setError(null)
-
-        // const text = updateNewPostTextActionCreator(event.currentTarget.value)
-        // dispatch(action)
     }
-    const onPostChangePressKey = (event: KeyboardEvent<HTMLInputElement>)=> {
-        setError(null)
-        if(event.key === 'Enter'){
+    const onPostChangePressKey = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (error !== null) {
+            setError(null)
+        }
+        if (event.key === 'Enter') {
             onAddPostClickHandler()
         }
     }
@@ -68,5 +72,5 @@ export const MyPosts: React.FC<PropsType> = (props) => {
             </div>
         </div>
     )
-}
+})
 

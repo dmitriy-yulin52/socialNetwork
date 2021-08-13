@@ -1,89 +1,46 @@
 import React from 'react';
 import {
-    followThunkCreator,
-    unfollowThunkCreator,
     UsersType
 } from "../../Redux/users-reducer";
-import style from './style.module.sass'
-import userPhoto from '../../assets/images/users-icon.jpg'
-import styles from "./style.module.sass";
-import {NavLink} from 'react-router-dom';
-import {useDispatch} from "react-redux";
+import {User} from "./User/User";
 
 
 export type UsersPropsType = {
     users: Array<UsersType>
-    setUsers: (users: Array<UsersType>) => void
-    onPageChanged: (pageNumber: number) => void
-    pageSize: number
-    totalCount: number
-    currentPage: number
-    followingInProgress: boolean
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    followingInProgress:boolean
 }
 export const Users: React.FC<UsersPropsType> = React.memo((props) => {
     const
         {
             users,
-            onPageChanged,
-            pageSize,
-            totalCount,
-            currentPage,
+            follow,
+            unfollow,
             followingInProgress,
         } = props
 
-    let pagesCount = Math.ceil(totalCount / pageSize)
-    let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-    const dispatch = useDispatch()
+    // let pagesCount = Math.ceil(totalCount / pageSize)
+    // let pages = []
+    // for (let i = 1; i <= pagesCount; i++) {
+    //     pages.push(i)
+    // }
 
     return (
         <div>
             <div>
-                {pages.map((el) => {
-                    return <span className={currentPage === el ? styles.selectedPage : styles.start}
-                                 onClick={() => {
-                                     onPageChanged(el)
-                                 }}
-                    >{el}</span>
-                })}
-            </div>
-            <div>
                 {users.map(u => {
                     return (
-                        <div key={u.id}>
-                        <span>
-                            <div>
-                                <NavLink to={'/profile/' + u.id}>
-                                    <img src={u.photos.small !== null ? u.photos.small : userPhoto}
-                                         className={style.userPhoto}/>
-                                </NavLink>
-                            </div>
-                            <div>
-                                {u.followed
-                                    ? <button
-                                        disabled={followingInProgress}
-                                        onClick={() => unfollowThunkCreator(u.id)(dispatch)}
-                                    >Unfollow</button>
-                                    : <button
-                                        disabled={followingInProgress}
-                                        onClick={() => followThunkCreator(u.id)(dispatch)}
-                                    >Follow</button>}
-
-                            </div>
-                        </span>
-                            <span>
-                            <span>
-                                <div>{u.name}</div>
-                                <div>{u.status}</div>
-                            </span>
-                            <span>
-                                <div>{'u.location.country'}</div>
-                                <div>{'u.location.city'}</div>
-                            </span>
-                        </span>
-                        </div>
+                        <User
+                            userId={u.id}
+                            photos={u.photos}
+                            name={u.name}
+                            status={u.status}
+                            followed={u.followed}
+                            unfollow={unfollow}
+                            follow={follow}
+                            followingInProgress={followingInProgress}
+                        />
                     )
                 })}
             </div>

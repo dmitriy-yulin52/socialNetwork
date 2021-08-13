@@ -8,7 +8,6 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
@@ -89,7 +88,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function HeaderCopy(props:PropsType) {
+export const HeaderCopy = React.memo((props:PropsType)=> {
+
+    const {
+        isAuth,
+        login,
+    }= props
+
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -128,8 +133,8 @@ export default function HeaderCopy(props:PropsType) {
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
             <MenuItem onClick={handleMenuClose}>
-                    {props.isAuth
-                        ? props.login
+                    {isAuth
+                        ? login
                         :
                         <NavLink to={'/login'}>Login</NavLink>
                     }
@@ -250,4 +255,4 @@ export default function HeaderCopy(props:PropsType) {
             </div>
         </header>
     );
-}
+})

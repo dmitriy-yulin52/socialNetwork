@@ -12,13 +12,13 @@ type PropsType = {
 }
 
 const Message: React.FC<PropsType> =  React.memo((props) => {
-    console.log('message')
 
     const {
         id,
         message,
         RemoveMessage
     } = props;
+
     return (
         <div id={id} className={c.message}>
             <div>
@@ -33,7 +33,6 @@ const Message: React.FC<PropsType> =  React.memo((props) => {
                     fontSize="inherit"
                 />
             </IconButton>
-            {/*<button onClick={()=>RemoveMessage(id)}>X</button>*/}
         </div>
 
 

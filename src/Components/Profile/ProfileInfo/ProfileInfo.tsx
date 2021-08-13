@@ -8,8 +8,10 @@ import userPhoto from "../../../assets/images/users-icon.jpg";
 type ProfileInfoType = {
     profile:ProfileType
 }
-const ProfileInfo:React.FC<ProfileInfoType> = (props) =>{
-    let {profile} = props
+const ProfileInfo = React.memo((props:ProfileInfoType) =>{
+    let {
+        profile
+    } = props
 
     if(!profile){
         return <Preloader/>
@@ -44,6 +46,6 @@ const ProfileInfo:React.FC<ProfileInfoType> = (props) =>{
             </div>
         </div>
     )
-}
+})
 
 export default ProfileInfo;

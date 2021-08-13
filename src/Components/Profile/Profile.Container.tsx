@@ -11,26 +11,24 @@ export type PathParamsType = {
 }
 export type ProfilePropsType = RouteComponentProps<PathParamsType>
 
-
-function ProfileContainer(props: ProfilePropsType) {
+const ProfileContainer = React.memo((props: ProfilePropsType) => {
 
     const {profile} = useSelector(selectStateProfilePage)
     const dispatch = useDispatch()
 
     useEffect(() => {
         let userId = props.match.params.userId
-        if(userId === undefined){
+        if (userId === undefined) {
             userId = '2'
         }
-        console.log(userId)
         dispatch(getUserProfileThunkCreator(userId))
-    }, [])
+    }, [getUserProfileThunkCreator])
     return (
         <div>
             <Profile profile={profile}/>
         </div>
     )
-}
+})
 
 export let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 

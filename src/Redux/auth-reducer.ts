@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI, usersAPI} from "../api/api";
+import {authAPI} from "../api/api";
 
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',

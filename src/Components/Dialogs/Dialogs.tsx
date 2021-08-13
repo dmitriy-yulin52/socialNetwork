@@ -4,14 +4,15 @@ import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import {
     ActionACTypes,
-    addMessageActionCreator, InitialStateDialogsType,
-    localStorageMessageCreator, MessageType, RemoveMessageCreator,
-    updateNewMessageCreator
+    InitialStateDialogsType,
+    localStorageMessageCreator, RemoveMessageCreator,
 } from "../../Redux/DialogsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from "redux";
 import {selectStateMessagesPage} from "../../Redux/selectors";
 import {AppStateType} from "../../Redux/reduxStore";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField/TextField';
 
 
 type DialogsPropsType = {
@@ -46,7 +47,7 @@ const Dialogs = React.memo((props: DialogsPropsType) => {
                     RemoveMessage={() => removeMessage(i.id)}/>
             })
 
-    let [error, setError] = useState<null | string>(null)
+    let [error, setError] = useState<null | boolean>(null)
 
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -57,12 +58,14 @@ const Dialogs = React.memo((props: DialogsPropsType) => {
         if (textTrim) {
             addMessage(textTrim)
         } else {
-            setError('Title is required')
+            setError(true)
         }
     }
 
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+        if (error !== null) {
+            setError(null)
+        }
         if (event.key === 'Enter') {
             onClickHandler()
         }
@@ -93,13 +96,41 @@ const Dialogs = React.memo((props: DialogsPropsType) => {
                     }
                 </div>
                 <div className={style.textarea}>
-                    <input className={style.input}
-                           value={messagesPage.newDialogsMessage}
-                           onChange={onChangeHandler}
-                           onKeyPress={onKeyPressHandler}
-                    />
-                    <button onClick={onClickHandler}>click</button>
-                    {error && <div className={style.error}>{error}</div>}
+                    {
+                        error
+                            ? <TextField
+                                error
+                                id="outlined-error-helper-text"
+                                label="Error"
+                                defaultValue="Hello World"
+                                helperText="Title is required."
+                                variant="outlined"
+                                onChange={onChangeHandler}
+                                onKeyPress={onKeyPressHandler}
+                                size={'small'}
+                            />
+                            : <TextField
+                                id="outlined-basic"
+                                label="Outlined"
+                                variant="outlined"
+                                value={messagesPage.newDialogsMessage}
+                                onChange={onChangeHandler}
+                                onKeyPress={onKeyPressHandler}
+                                size={'small'}
+                                className={style.textFieldDialogs}
+                            />
+                    }
+                    <>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            disableElevation
+                            onClick={onClickHandler}
+                            size={'small'}
+                        >
+                            click
+                        </Button>
+                    </>
                 </div>
             </div>
         </div>

@@ -4,8 +4,8 @@ import NavBar from "./Components/NavBar/NavBar"
 import {Route} from "react-router-dom"
 import {UsersContainer} from "./Components/Users/Users.container";
 import {WithUrlDataContainerComponent} from "./Components/Profile/Profile.Container";
-import HeaderContainer from "./Components/Header/HeaderContainer";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
+import { HeaderContainer } from './Components/Header/HeaderContainer';
 
 
 const App = React.memo(() => {

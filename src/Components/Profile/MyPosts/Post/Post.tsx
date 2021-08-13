@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './Post.module.sass'
+
 type PropsType = {
     id: string
     message: string
@@ -7,7 +8,7 @@ type PropsType = {
     time: number
 }
 
-const Post:React.FC <PropsType> = (props) => {
+const Post = React.memo((props:PropsType) => {
     return(
         <div className={style.item}>
             <img className={style.logo_img}  src='https://fsb.zobj.net/crop.php?r=7-v795zJWgH85Pz0R8KUaEPB83xdbyUIvqhQ-WDJ2rCUE4-J34DiS8qZBrLTHWG4dql2g1gC4MIeYhczKRul_Rb--xilzH_LINSipRmJCEV83LubDPvzl-wqYdrjEmdLxpYuC5nXj1WgVRQQ'/>
@@ -18,6 +19,6 @@ const Post:React.FC <PropsType> = (props) => {
 
         </div>
     )
-}
+})
 
 export default Post;

@@ -35,6 +35,9 @@ export const DialogsContainer = () => {
     )
 }
 
+
+
+
 // type MapStateToPropsType = {
 //     newDialogsMessage: string
 //     dialogs: Array<DialogType>
@@ -71,8 +74,8 @@ export const DialogsContainer = () => {
 //         }
 //     }
 // }
-
+//
 // const DialogsContainer = connect(mapStateToProps, mapDispatchStateToProps)(Dialogs);
-
+//
 // export default DialogsContainer
 

@@ -1,15 +1,15 @@
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    ActionACTypes,
+    followThunkCreator,
     getUsersThunkCreator,
-    setUsersAC,
-    UsersType
+    unfollowThunkCreator,
+
 } from "../../Redux/users-reducer";
-import {Dispatch} from "redux";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {selectStateUsersPage} from "../../Redux/selectors";
+import {Paginator} from "../Paginator/Paginator";
 
 
 export const UsersContainer = React.memo(() => {
@@ -22,33 +22,37 @@ export const UsersContainer = React.memo(() => {
         isFetching,
         followingInProgress,
     } = useSelector(selectStateUsersPage)
-    const dispatch = useDispatch<Dispatch<ActionACTypes>>()
+    const dispatch = useDispatch()
 
 
     React.useEffect(() => {
-        getUsersThunkCreator(currentPage, pageSize)(dispatch)
-    }, [])
-
+        dispatch(getUsersThunkCreator(currentPage, pageSize))
+    }, [currentPage, pageSize])
 
     const onPageChanged = useCallback((pageNumber: number) => {
-        getUsersThunkCreator(pageNumber, pageSize)(dispatch)
-    },[])
+        dispatch(getUsersThunkCreator(pageNumber, pageSize))
+    }, [getUsersThunkCreator, pageSize])
+    const follow = useCallback((userId: number) => {
+        dispatch(followThunkCreator(userId))
+    }, [followThunkCreator])
+    const unfollow = useCallback((userId: number) => {
+        dispatch(unfollowThunkCreator(userId))
+    }, [unfollowThunkCreator])
 
-    const setUsers = useCallback((users: Array<UsersType>) => {
-        dispatch(setUsersAC(users))
-    },[])
-
-    console.log('userContainer')
     return (
         <div>
             {isFetching ? <Preloader/> : null}
-            <Users setUsers={setUsers}
-                   users={items}
-                   onPageChanged={onPageChanged}
-                   pageSize={pageSize}
-                   totalCount={totalCount}
-                   currentPage={currentPage}
-                   followingInProgress={followingInProgress}
+            <Paginator
+                pageSize={pageSize}
+                totalCount={totalCount}
+                currentPage={currentPage}
+                onPageChanged={onPageChanged}
+            />
+            <Users
+                users={items}
+                followingInProgress={followingInProgress}
+                follow={follow}
+                unfollow={unfollow}
             />
         </div>
     )
