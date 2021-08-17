@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ProfileType} from "../../Redux/ProfileReducer";
 import { MyPostsContainer } from './MyPosts/MyPostsContainer';
 
@@ -9,7 +9,7 @@ type ProfilePropsType = {
 }
 
 
-const Profile = React.memo((props:ProfilePropsType) => {
+export const Profile = React.memo((props:ProfilePropsType) => {
 
     let {
         profile
@@ -24,4 +24,3 @@ const Profile = React.memo((props:ProfilePropsType) => {
     )
 })
 
-export default Profile;

@@ -1,5 +1,5 @@
-import styles from "../Users/Users.module.sass";
 import React from "react";
+import style from './Paginator.module.sass'
 
 
 type PaginatorType = {
@@ -19,6 +19,7 @@ export const Paginator = (props: PaginatorType) => {
         onPageChanged,
 } = props
 
+
     let pagesCount = Math.ceil(totalCount / pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
@@ -27,7 +28,7 @@ export const Paginator = (props: PaginatorType) => {
     return (
         <div>
             {pages.map((el) => {
-                return <span className={currentPage === el ? styles.selectedPage : styles.start}
+                return <span className={currentPage === el ? style.selectedPage : style.start}
                              onClick={() => {
                                  onPageChanged(el)
                              }}

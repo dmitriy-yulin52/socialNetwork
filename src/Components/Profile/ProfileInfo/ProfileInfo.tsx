@@ -8,7 +8,7 @@ import userPhoto from "../../../assets/images/users-icon.jpg";
 type ProfileInfoType = {
     profile:ProfileType
 }
-const ProfileInfo = React.memo((props:ProfileInfoType) =>{
+export const ProfileInfo = React.memo((props:ProfileInfoType) =>{
     let {
         profile
     } = props
@@ -41,11 +41,8 @@ const ProfileInfo = React.memo((props:ProfileInfoType) =>{
                 <div>{profile.contacts.youtube}</div>
                 <div>{profile.contacts.mainLink}</div>
                 <div>{profile.contacts.instagram}</div>
-
-                ava + description
             </div>
         </div>
     )
 })
 
-export default ProfileInfo;

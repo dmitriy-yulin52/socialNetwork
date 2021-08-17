@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import Profile from "./Profile";
+import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserProfileThunkCreator} from "../../Redux/ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';

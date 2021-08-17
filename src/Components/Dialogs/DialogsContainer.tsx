@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectStateMessagesPage} from "../../Redux/selectors";
 
 
-export const DialogsContainer = () => {
+export const DialogsContainer = React.memo(() => {
 
     const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
     const dispatch = useDispatch<Dispatch<ActionACTypes>>()
@@ -33,7 +33,7 @@ export const DialogsContainer = () => {
             updateMessage={updateMessage}
         />
     )
-}
+})
 
 
 

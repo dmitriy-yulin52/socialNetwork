@@ -9,7 +9,7 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {selectStateUsersPage} from "../../Redux/selectors";
-import {Paginator} from "../Paginator/Paginator";
+import {Paginator} from "./Paginator/Paginator";
 
 
 export const UsersContainer = React.memo(() => {
