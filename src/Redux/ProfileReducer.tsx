@@ -99,19 +99,20 @@ let initialState: InitialStateType = {
     }
 }
 
+export let idUser = v1()
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionTypeAC): InitialStateType => {
-
     switch (action.type) {
         case ACTION_TYPE_TYPE.ADD_POST:
             //messageForNewPost = '' - after redrawing the state, the input field will be empty
+
             return {
                 ...state,
                 messageForNewPost: '',
                 posts: [
                     ...state.posts,
                     {
-                        id: v1(),
+                        id: idUser,
                         message: action.postText,
                         like: 4,
                         time: 7

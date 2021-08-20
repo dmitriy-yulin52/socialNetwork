@@ -6,6 +6,10 @@ import {UsersContainer} from "./Components/Users/Users.container";
 import {WithUrlDataContainerComponent} from "./Components/Profile/Profile.Container";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import { HeaderContainer } from './Components/Header/HeaderContainer';
+import Music from "./Components/Music/Music";
+import Setting from "./Components/Settings/Settings";
+import {FriendsContainer} from "./Components/Friends/Friends.container";
+import {NewsContainer} from "./Components/News/NewsContainer";
 
 
 const App = React.memo(() => {
@@ -28,10 +32,10 @@ const App = React.memo(() => {
                 <Route path='/users'
                        render={ () => <UsersContainer/>}
                 />
-                {/*<Route path='/news' render={() => <News/>}/>*/}
-                {/*<Route path='/music' render={() => <Music/>}/>*/}
-                {/*<Route path='/settings' render={() => <Setting/>}/>*/}
-                {/*<Route path='/friends' render={() => <Friends/>}/>*/}
+                <Route path='/news' render={() => <NewsContainer/>}/>
+                <Route path='/music' render={() => <Music/>}/>
+                <Route path='/settings' render={() => <Setting/>}/>
+                <Route path='/friends' render={() => <FriendsContainer/>}/>
             </div>
         </div>
     );
