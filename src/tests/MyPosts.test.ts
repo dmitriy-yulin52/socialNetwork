@@ -8,10 +8,8 @@ import {
     profileReducer,
     updateNewPostTextActionCreator
 } from "../Redux/ProfileReducer";
-import {v1} from "uuid";
 
 let startState : InitialStateType
-let todoListId: string
 beforeEach(()=>{
 
     startState = {
@@ -71,16 +69,6 @@ test('correct messagePostText should be update',()=> {
     expect(endState.messageForNewPost).toBe(newPostText)
 
 })
-test('correct message should be removed',()=> {
 
-    const action = RemoveMessageCreator('3')
-    const endState = dialogsReducer(startState,action)
 
-    expect(endState.messages.length).toBe(2)
-    expect(endState.messages[1].message).toBe('hi')
 
-})
-
-function ProfileReducer(startState: InitialStateType, action: { type: ACTION_TYPE_TYPE.ADD_POST; postText: string; }) {
-    throw new Error("Function not implemented.");
-}
