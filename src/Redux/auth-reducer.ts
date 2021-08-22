@@ -61,6 +61,7 @@ export const getAuthUserDataThunkCreator = () => {
     return (dispatch:Dispatch<ActionACTypes>)=>{
         authAPI.getHeader().then((response) => {
             if(response.data.resultCode === 0){
+                debugger
                 dispatch(setAuthUserDataAC(response.data))
             }
         })

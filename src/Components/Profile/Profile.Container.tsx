@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserProfileThunkCreator} from "../../Redux/ProfileReducer";
-import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {selectStateProfilePage} from "../../Redux/selectors";
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {selectStateAuthPage, selectStateProfilePage} from "../../Redux/selectors";
 
 
 export type PathParamsType = {
@@ -14,6 +14,7 @@ export type ProfilePropsType = RouteComponentProps<PathParamsType>
 const ProfileContainer = React.memo((props: ProfilePropsType) => {
 
     const {profile} = useSelector(selectStateProfilePage)
+    const {isAuth} = useSelector(selectStateAuthPage)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -23,9 +24,15 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
         }
         dispatch(getUserProfileThunkCreator(userId))
     }, [getUserProfileThunkCreator])
+
+
+
     return (
         <div>
-            <Profile profile={profile}/>
+            <Profile
+                profile={profile}
+                isAuth={isAuth}
+            />
         </div>
     )
 })

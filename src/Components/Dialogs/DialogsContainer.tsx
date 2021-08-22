@@ -12,9 +12,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectStateMessagesPage} from "../../Redux/selectors";
 
 
+
 export const DialogsContainer = React.memo(() => {
 
     const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
+    const authPage = useSelector<AppStateType, boolean>((state)=> state.auth.isAuth)
     const dispatch = useDispatch<Dispatch<ActionACTypes>>()
 
 
@@ -31,6 +33,7 @@ export const DialogsContainer = React.memo(() => {
             stateMessagesPage={messagesPage}
             addMessage={addMessage}
             updateMessage={updateMessage}
+            isAuth={authPage}
         />
     )
 })

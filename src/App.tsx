@@ -10,6 +10,7 @@ import Music from "./Components/Music/Music";
 import Setting from "./Components/Settings/Settings";
 import {FriendsContainer} from "./Components/Friends/Friends.container";
 import {NewsContainer} from "./Components/News/NewsContainer";
+import {Login} from "./Components/Login/Login";
 
 
 const App = React.memo(() => {
@@ -36,6 +37,7 @@ const App = React.memo(() => {
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Setting/>}/>
                 <Route path='/friends' render={() => <FriendsContainer/>}/>
+                <Route path='/login' render={() => <Login/>}/>
             </div>
         </div>
     );

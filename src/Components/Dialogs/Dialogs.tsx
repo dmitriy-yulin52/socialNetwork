@@ -13,18 +13,21 @@ import {selectStateMessagesPage} from "../../Redux/selectors";
 import {AppStateType} from "../../Redux/reduxStore";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField/TextField';
+import {Redirect} from "react-router-dom";
 
 
 type DialogsPropsType = {
     stateMessagesPage: InitialStateDialogsType
     addMessage: (message: string) => void
     updateMessage: (updMessage: string) => void
+    isAuth:boolean
 }
 
 
 const Dialogs = React.memo((props: DialogsPropsType) => {
 
     const {
+        isAuth,
         stateMessagesPage,
         addMessage,
         updateMessage
@@ -81,6 +84,11 @@ const Dialogs = React.memo((props: DialogsPropsType) => {
     useEffect(() => {
         localStorage.setItem('message', JSON.stringify(messagesPage.messages))
     }, [messagesPage.messages])
+
+
+    if(isAuth){
+        return <Redirect to={'/login'}/>
+    }
 
     return (
         <div className={style.dialogs}>
