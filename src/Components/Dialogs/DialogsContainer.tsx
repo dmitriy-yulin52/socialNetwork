@@ -10,6 +10,7 @@ import {AppStateType} from "../../Redux/reduxStore";
 import {Dispatch} from 'redux'
 import {useDispatch, useSelector} from "react-redux";
 import {selectStateMessagesPage} from "../../Redux/selectors";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 
 
@@ -28,6 +29,9 @@ export const DialogsContainer = React.memo(() => {
         dispatch(addMessageActionCreator(message))
     }, [addMessageActionCreator])
 
+
+
+
     return (
         <Dialogs
             stateMessagesPage={messagesPage}
@@ -37,6 +41,9 @@ export const DialogsContainer = React.memo(() => {
         />
     )
 })
+
+
+export const WithDataDialogsContainerComponent = withAuthRedirect(DialogsContainer)
 
 
 
