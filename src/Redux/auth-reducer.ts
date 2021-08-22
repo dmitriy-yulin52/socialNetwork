@@ -23,7 +23,7 @@ type SetUserDataACType = {
 export type ActionACTypes = SetUserDataACType
 
 
-let initialState: InitialStateType = {
+export let initialState: InitialStateType = {
     // userId: null,
     // email: null,
     // login: null,
