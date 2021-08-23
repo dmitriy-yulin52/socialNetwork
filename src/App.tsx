@@ -3,9 +3,6 @@ import './App.css'
 import NavBar from "./Components/NavBar/NavBar"
 import {Route} from "react-router-dom"
 import {UsersContainerComponent} from "./Components/Users/Users.container";
-import {
-    WithUrlDataContainerComponent
-} from "./Components/Profile/Profile.Container";
 import {DialogsContainerComponent} from "./Components/Dialogs/DialogsContainer";
 import { HeaderContainer } from './Components/Header/HeaderContainer';
 import Music from "./Components/Music/Music";
@@ -13,6 +10,7 @@ import Setting from "./Components/Settings/Settings";
 import {FriendsContainer} from "./Components/Friends/Friends.container";
 import {NewsContainer} from "./Components/News/NewsContainer";
 import {Login} from "./Components/Login/Login";
+import ProfileContainer from "./Components/Profile/Profile.Container";
 
 
 const App = React.memo(() => {
@@ -29,7 +27,7 @@ const App = React.memo(() => {
                 />
                 <Route path='/profile/:userId?'
                        render={() =>
-                           <WithUrlDataContainerComponent/>
+                           <ProfileContainer/>
                        }
                 />
                 <Route path='/users'

@@ -27,14 +27,14 @@ export const ProfileInfo = React.memo((props: ProfileInfoType) => {
             <div className={c.descriptionBlock}>
                 <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt=""/>
 
-                <ProfileStatus status={'Hello my friends'}/>
-                <div>{profile.aboutMe}</div>
-                <div>
+                <ProfileStatus status={'set the status'}/>
+                <div><span className={c.status}>About me: </span>{profile.aboutMe}</div>
+                <div> <span className={c.status}>Job: </span>
                     {
                         profile.lookingForAJob ? <span>Нашел работу</span> : <div>Ищу работу!</div>
                     }
                 </div>
-                <div>{profile.fullName}</div>
+                <div><span className={c.status}>Name: </span>{profile.fullName}</div>
                 <div>{profile.lookingForAJobDescription}</div>
                 <div>{profile.contacts.vk}</div>
                 <div>{profile.contacts.facebook}</div>
