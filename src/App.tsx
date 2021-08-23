@@ -2,8 +2,7 @@ import React from 'react';
 import './App.css'
 import NavBar from "./Components/NavBar/NavBar"
 import {Route} from "react-router-dom"
-import {UsersContainerComponent} from "./Components/Users/Users.container";
-import {DialogsContainerComponent} from "./Components/Dialogs/DialogsContainer";
+import UsersContainer from "./Components/Users/Users.container";
 import { HeaderContainer } from './Components/Header/HeaderContainer';
 import Music from "./Components/Music/Music";
 import Setting from "./Components/Settings/Settings";
@@ -11,6 +10,7 @@ import {FriendsContainer} from "./Components/Friends/Friends.container";
 import {NewsContainer} from "./Components/News/NewsContainer";
 import {Login} from "./Components/Login/Login";
 import ProfileContainer from "./Components/Profile/Profile.Container";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
 const App = React.memo(() => {
@@ -22,7 +22,7 @@ const App = React.memo(() => {
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
                        render={() =>
-                           <DialogsContainerComponent
+                           <DialogsContainer
                            />}
                 />
                 <Route path='/profile/:userId?'
@@ -31,7 +31,7 @@ const App = React.memo(() => {
                        }
                 />
                 <Route path='/users'
-                       render={ () => <UsersContainerComponent/>}
+                       render={ () => <UsersContainer/>}
                 />
                 <Route path='/news' render={() => <NewsContainer/>}/>
                 <Route path='/music' render={() => <Music/>}/>

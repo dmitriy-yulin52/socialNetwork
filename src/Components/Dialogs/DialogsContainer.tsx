@@ -14,7 +14,7 @@ import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 
 
-export const DialogsContainer = React.memo(() => {
+const DialogsContainer = React.memo(() => {
 
     const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
     const dispatch = useDispatch<Dispatch<ActionACTypes>>()
@@ -41,12 +41,11 @@ export const DialogsContainer = React.memo(() => {
 })
 
 
-compose(withAuthRedirect)(DialogsContainer)
-
-export const DialogsContainerComponent = withAuthRedirect(DialogsContainer)
+export default compose(withAuthRedirect)(DialogsContainer)
 
 
 
+// export const DialogsContainerComponent = withAuthRedirect(DialogsContainer)
 
 // type MapStateToPropsType = {
 //     newDialogsMessage: string

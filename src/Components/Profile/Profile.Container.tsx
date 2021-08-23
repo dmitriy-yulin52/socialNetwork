@@ -38,15 +38,13 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
 })
 
 
-
-// const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-// export let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
-
-
 export default compose<React.ComponentType>(
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
+
+// const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+// export let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 //class components
 // let mapStateToProps = (state: AppStateType): MapStateToProps => {
