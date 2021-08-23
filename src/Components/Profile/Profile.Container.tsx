@@ -5,6 +5,7 @@ import {getUserProfileThunkCreator} from "../../Redux/ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {selectStateProfilePage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
+import { compose } from 'redux';
 
 
 export type PathParamsType = {
@@ -36,9 +37,11 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
     )
 })
 
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+// compose(withRouter,withAuthRedirect)(ProfileContainer)
 
+const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
 export let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
+
 
 
 //class components

@@ -10,6 +10,7 @@ import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {selectStateUsersPage} from "../../Redux/selectors";
 import {Paginator} from "./Paginator/Paginator";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 
 export const UsersContainer = React.memo(() => {
@@ -58,6 +59,7 @@ export const UsersContainer = React.memo(() => {
     )
 })
 
+export let UsersContainerComponent = withAuthRedirect(UsersContainer)
 
 //CLASS COMPONENT!!
 //

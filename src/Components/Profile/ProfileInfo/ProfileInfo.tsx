@@ -3,28 +3,31 @@ import c from './ProfileInfo.module.css';
 import {ProfileType} from "../../../Redux/ProfileReducer";
 import {Preloader} from "../../common/Preloader/Preloader";
 import userPhoto from "../../../assets/images/users-icon.jpg";
+import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
 
 type ProfileInfoType = {
-    profile:ProfileType
+    profile: ProfileType
 }
-export const ProfileInfo = React.memo((props:ProfileInfoType) =>{
+export const ProfileInfo = React.memo((props: ProfileInfoType) => {
     let {
         profile
     } = props
 
-    if(!profile){
+    if (!profile) {
         return <Preloader/>
     }
 
-    return(
+    return (
         <div>
             <div>
                 <img className={c.logoImg}
                      src='https://wallbox.ru/resize/800x480/wallpapers/main2/201726/14986676245953da68df7d32.08263646.jpg'/>
             </div>
             <div className={c.descriptionBlock}>
-                    <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt=""/>
+                <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt=""/>
+
+                <ProfileStatus status={'Hello my friends'}/>
                 <div>{profile.aboutMe}</div>
                 <div>
                     {

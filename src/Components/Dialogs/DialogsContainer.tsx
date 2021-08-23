@@ -7,7 +7,7 @@ import {
 } from "../../Redux/DialogsReducer";
 import Dialogs from "./Dialogs";
 import {AppStateType} from "../../Redux/reduxStore";
-import {Dispatch} from 'redux'
+import {compose, Dispatch} from 'redux'
 import {useDispatch, useSelector} from "react-redux";
 import {selectStateMessagesPage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
@@ -17,7 +17,6 @@ import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 export const DialogsContainer = React.memo(() => {
 
     const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
-    const authPage = useSelector<AppStateType, boolean>((state)=> state.auth.isAuth)
     const dispatch = useDispatch<Dispatch<ActionACTypes>>()
 
 
@@ -37,13 +36,14 @@ export const DialogsContainer = React.memo(() => {
             stateMessagesPage={messagesPage}
             addMessage={addMessage}
             updateMessage={updateMessage}
-            isAuth={authPage}
         />
     )
 })
 
 
-export const WithDataDialogsContainerComponent = withAuthRedirect(DialogsContainer)
+compose(withAuthRedirect)(DialogsContainer)
+
+export const DialogsContainerComponent = withAuthRedirect(DialogsContainer)
 
 
 
