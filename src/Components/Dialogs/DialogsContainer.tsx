@@ -30,7 +30,6 @@ const DialogsContainer = React.memo(() => {
 
 
 
-
     return (
         <Dialogs
             stateMessagesPage={messagesPage}
@@ -41,7 +40,7 @@ const DialogsContainer = React.memo(() => {
 })
 
 
-export default compose(withAuthRedirect)(DialogsContainer)
+export default compose<React.ComponentType>(withAuthRedirect)(DialogsContainer)
 
 
 

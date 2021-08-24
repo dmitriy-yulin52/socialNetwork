@@ -7,7 +7,7 @@ type ProfileStatusType = {
 }
 
 
-export const ProfileStatus = (props: ProfileStatusType) => {
+export const ProfileStatus = React.memo((props: ProfileStatusType) => {
     const {status} = props
 
     const [message, setMessage] = useState('')
@@ -44,4 +44,4 @@ export const ProfileStatus = (props: ProfileStatusType) => {
             </div>}
         </div>
     )
-}
+})

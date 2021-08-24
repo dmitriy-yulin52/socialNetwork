@@ -61,7 +61,7 @@ const UsersContainer = React.memo(() => {
 })
 
 
-export default compose(withAuthRedirect)(UsersContainer)
+export default compose<React.ComponentType>(withAuthRedirect)(UsersContainer)
 
 // export let UsersContainerComponent = withAuthRedirect(UsersContainer)
 
