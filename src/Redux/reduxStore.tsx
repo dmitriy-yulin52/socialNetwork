@@ -1,7 +1,7 @@
 import React from 'react'
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {profileReducer} from "./ProfileReducer";
-import {dialogsReducer} from "./DialogsReducer";
+import {profileReducer} from "../Components/Profile/ProfileReducer";
+import {dialogsReducer} from "../Components/Dialogs/DialogsReducer";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import ThunkMiddleware from 'redux-thunk'

@@ -4,7 +4,7 @@ import {
     addMessageActionCreator,
     InitialStateDialogsType,
     updateNewMessageCreator
-} from "../../Redux/DialogsReducer";
+} from "./DialogsReducer";
 import Dialogs from "./Dialogs";
 import {AppStateType} from "../../Redux/reduxStore";
 import {compose, Dispatch} from 'redux'

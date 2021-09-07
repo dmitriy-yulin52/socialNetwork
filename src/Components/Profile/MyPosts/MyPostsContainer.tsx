@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {
     addPostActionCreator,
     updateNewPostTextActionCreator
-} from "../../../Redux/ProfileReducer";
+} from "../ProfileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {MyPosts} from "./MyPosts";
 import {AppStateType} from "../../../Redux/reduxStore";

@@ -6,7 +6,7 @@ import {
     ActionACTypes,
     InitialStateDialogsType,
     localStorageMessageCreator, RemoveMessageCreator,
-} from "../../Redux/DialogsReducer";
+} from "./DialogsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from "redux";
 import {selectStateMessagesPage} from "../../Redux/selectors";

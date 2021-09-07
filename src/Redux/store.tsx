@@ -3,41 +3,41 @@ import {
     addPostActionCreator,
     profileReducer,
     updateNewPostTextActionCreator
-} from './ProfileReducer';
+} from '../Components/Profile/ProfileReducer';
 import {
     addMessageActionCreator,
     dialogsReducer,
     updateNewMessageCreator
-} from './DialogsReducer';
+} from '../Components/Dialogs/DialogsReducer';
 
 
-export type PostType = {
-    id: string
-    message: string
-    like: number
-    time: number
-}
-export type MessagesDataType = {
-    id: string
-    message: string
-}
-export type DialogsData = {
-    id: string
-    name: string
-}
-export type ProfilePostsType = {
-    messageForNewPost: string
-    posts: Array<PostType>
-}
-export type MessageDialogType = {
-    messages: Array<MessagesDataType>
-    dialogs: Array<DialogsData>
-    newDialogsMessage: string
-}
-export type StateType = {
-    profilePage: ProfilePostsType
-    messagesPage: MessageDialogType
-}
+// export type PostType = {
+//     id: string
+//     message: string
+//     like: number
+//     time: number
+// }
+// export type MessagesDataType = {
+//     id: string
+//     message: string
+// }
+// export type DialogsData = {
+//     id: string
+//     name: string
+// }
+// export type ProfilePostsType = {
+//     messageForNewPost: string
+//     posts: Array<PostType>
+// }
+// export type MessageDialogType = {
+//     messages: Array<MessagesDataType>
+//     dialogs: Array<DialogsData>
+//     newDialogsMessage: string
+// }
+// export type StateType = {
+//     profilePage: ProfilePostsType
+//     messagesPage: MessageDialogType
+// }
 // export type StoreType = {
 //     _state: StateType
 //     _onChange: () => void

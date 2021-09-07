@@ -11,12 +11,13 @@ import {NewsContainer} from "./Components/News/NewsContainer";
 import {Login} from "./Components/Login/Login";
 import ProfileContainer from "./Components/Profile/Profile.Container";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import {ErrorSnackBar} from "./Components/SnackBar/ErrorSnackBar";
 
 
 const App = React.memo(() => {
-
     return (
         <div className="app-wrapper">
+            <ErrorSnackBar/>
             <HeaderContainer/>
             <NavBar/>
             <div className='app-wrapper-content'>

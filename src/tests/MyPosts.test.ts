@@ -1,13 +1,13 @@
 import {
 
-} from "../Redux/DialogsReducer";
+} from "../Components/Dialogs/DialogsReducer";
 import {
     addPostActionCreator,
     idUser,
     InitialStateType,
     profileReducer,
     updateNewPostTextActionCreator
-} from "../Redux/ProfileReducer";
+} from "../Components/Profile/ProfileReducer";
 
 let startState : InitialStateType
 beforeEach(()=>{

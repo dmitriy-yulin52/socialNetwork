@@ -20,6 +20,8 @@ type SetUserDataACType = {
     data: UserDataType
 }
 
+
+
 export type ActionACTypes = SetUserDataACType
 
 

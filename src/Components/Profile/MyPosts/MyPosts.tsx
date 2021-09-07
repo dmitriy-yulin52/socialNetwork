@@ -1,7 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent,useState} from 'react';
 import style from './MyPosts.module.sass'
 import Post from "./Post/Post";
-import {PostType} from "../../../Redux/store";
+import {PostType} from "../ProfileReducer";
+
 
 
 type PropsType = {
