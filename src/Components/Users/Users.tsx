@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     UsersType
-} from "../../Redux/users-reducer";
+} from "./users-reducer";
 import {User} from "./User/User";
 
 

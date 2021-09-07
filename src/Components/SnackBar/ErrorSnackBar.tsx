@@ -10,7 +10,7 @@ function Alert(props: AlertProps) {
 
 
 export function ErrorSnackBar() {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {

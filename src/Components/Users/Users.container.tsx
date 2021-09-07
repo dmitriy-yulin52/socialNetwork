@@ -5,7 +5,7 @@ import {
     getUsersThunkCreator,
     unfollowThunkCreator,
 
-} from "../../Redux/users-reducer";
+} from "./users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {selectStateUsersPage} from "../../Redux/selectors";

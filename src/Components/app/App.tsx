@@ -1,17 +1,17 @@
 import React from 'react';
 import './App.css'
-import NavBar from "./Components/NavBar/NavBar"
+import NavBar from "../NavBar/NavBar"
 import {Route} from "react-router-dom"
-import UsersContainer from "./Components/Users/Users.container";
-import { HeaderContainer } from './Components/Header/HeaderContainer';
-import Music from "./Components/Music/Music";
-import Setting from "./Components/Settings/Settings";
-import {FriendsContainer} from "./Components/Friends/Friends.container";
-import {NewsContainer} from "./Components/News/NewsContainer";
-import {Login} from "./Components/Login/Login";
-import ProfileContainer from "./Components/Profile/Profile.Container";
-import DialogsContainer from "./Components/Dialogs/DialogsContainer";
-import {ErrorSnackBar} from "./Components/SnackBar/ErrorSnackBar";
+import UsersContainer from "../Users/Users.container";
+import { HeaderContainer } from '../Header/HeaderContainer';
+import Music from "../Music/Music";
+import Setting from "../Settings/Settings";
+import {FriendsContainer} from "../Friends/Friends.container";
+import {NewsContainer} from "../News/NewsContainer";
+import {Login} from "../Login/Login";
+import ProfileContainer from "../Profile/Profile.Container";
+import DialogsContainer from "../Dialogs/DialogsContainer";
+import {ErrorSnackBar} from "../SnackBar/ErrorSnackBar";
 
 
 const App = React.memo(() => {
