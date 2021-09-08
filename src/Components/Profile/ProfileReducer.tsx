@@ -10,66 +10,6 @@ enum ACTION_TYPE_TYPE {
     SET_STATUS = 'profile-reducer/SET_STATUS'
 }
 
-export type PostType = {
-    id: string
-    message: string
-    like: number
-    time: number
-}
-
-type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string | null
-    youtube: string | null
-    mainLink: string | null
-}
-type PhotosType = {
-    small: string
-    large: string
-}
-export type ProfileType = {
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsType
-    photos: PhotosType
-    userId: number
-    aboutMe: string
-}
-export type InitialStateType = {
-    messageForNewPost: string
-    posts: Array<PostType>
-    profile: ProfileType
-    status: string
-}
-
-
-type AddPostActionCreatorType = {
-    type: ACTION_TYPE_TYPE.ADD_POST,
-    postText: string,
-}
-type UpdateNewPostTextActionCreatorType = {
-    type: ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT,
-    newText: string,
-}
-type SetUserProfileACType = {
-    type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
-    profile: ProfileType,
-}
-type SetStatusType = {
-    type: ACTION_TYPE_TYPE.SET_STATUS,
-    status: string
-}
-
-export type ActionTypeAC =
-    AddPostActionCreatorType
-    | UpdateNewPostTextActionCreatorType
-    | SetUserProfileACType
-    | SetStatusType
 
 
 let initialState: InitialStateType = {
@@ -165,7 +105,7 @@ export const setUserProfileAC = (profile: ProfileType): SetUserProfileACType => 
         profile
     }
 }
-export const setStatusAC = (status: string):SetStatusType => {
+export const setStatusAC = (status: string): SetStatusType => {
     return {
         type: ACTION_TYPE_TYPE.SET_STATUS,
         status
@@ -177,6 +117,8 @@ export const getUserProfileThunkCreator = (userId: string) => {
     return (dispatch: Dispatch) => {
         usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfileAC(response.data))
+        }).catch((err)=> {
+            console.warn(err)
         })
     }
 }
@@ -184,8 +126,9 @@ export const getStatusProfileTC = (userId: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userId)
             .then(response => {
-                debugger
-            dispatch(setStatusAC(response.data))
+                dispatch(setStatusAC(response.data))
+            }).catch((err)=>{
+                console.warn(err)
         })
     }
 }
@@ -193,11 +136,76 @@ export const updateStatusProfileTC = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status)
             .then(response => {
-                debugger
-            dispatch(setStatusAC(response.data))
+                if (response.data.resultCode === 0) {
+                    dispatch(setStatusAC(status))
+                }else {
+                    dispatch(setStatusAC(response.data.messages))
+                }
+            }).catch((err)=>{
+            console.warn(err)
         })
     }
 }
 
 
+//types
+export type PostType = {
+    id: string
+    message: string
+    like: number
+    time: number
+}
 
+type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string | null
+    youtube: string | null
+    mainLink: string | null
+}
+type PhotosType = {
+    small: string
+    large: string
+}
+export type ProfileType = {
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+    userId: number
+    aboutMe: string
+}
+export type InitialStateType = {
+    messageForNewPost: string
+    posts: Array<PostType>
+    profile: ProfileType
+    status: string
+}
+
+
+type AddPostActionCreatorType = {
+    type: ACTION_TYPE_TYPE.ADD_POST,
+    postText: string,
+}
+type UpdateNewPostTextActionCreatorType = {
+    type: ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT,
+    newText: string,
+}
+type SetUserProfileACType = {
+    type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
+    profile: ProfileType,
+}
+type SetStatusType = {
+    type: ACTION_TYPE_TYPE.SET_STATUS,
+    status: string
+}
+
+export type ActionTypeAC =
+    AddPostActionCreatorType
+    | UpdateNewPostTextActionCreatorType
+    | SetUserProfileACType
+    | SetStatusType

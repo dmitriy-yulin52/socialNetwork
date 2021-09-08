@@ -8,10 +8,14 @@ import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
 type ProfileInfoType = {
     profile: ProfileType
+    status:string
+    updateStatus:(status:string)=> void
 }
 export const ProfileInfo = React.memo((props: ProfileInfoType) => {
     let {
-        profile
+        profile,
+        status,
+        updateStatus,
     } = props
 
     if (!profile) {
@@ -27,7 +31,7 @@ export const ProfileInfo = React.memo((props: ProfileInfoType) => {
             <div className={c.descriptionBlock}>
                 <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt=""/>
 
-                <ProfileStatus status={'set the status'}/>
+                <ProfileStatus status={status} updateStatus={updateStatus}/>
                 <div><span className={c.status}>About me: </span>{profile.aboutMe}</div>
                 <div> <span className={c.status}>Job: </span>
                     {

@@ -4,11 +4,15 @@ import style from './ProfileStatus.module.sass'
 
 type ProfileStatusType = {
     status: string
+    updateStatus:(status:string)=> void
 }
 
 
 export const ProfileStatus = React.memo((props: ProfileStatusType) => {
-    const {status} = props
+    const {
+        status,
+        updateStatus
+    } = props
 
     const [message, setMessage] = useState('')
     const [editMode, setEditMode] = useState(false)
@@ -19,11 +23,11 @@ export const ProfileStatus = React.memo((props: ProfileStatusType) => {
 
     const onEditMode = () => {
         setEditMode(true)
-        setMessage('')
+        setMessage(status)
     }
     const offEditMode = () => {
         setEditMode(false)
-        setMessage(message)
+        updateStatus(message)
     }
 
     return (

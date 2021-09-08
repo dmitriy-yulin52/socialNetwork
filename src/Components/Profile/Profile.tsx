@@ -6,6 +6,8 @@ import { MyPostsContainer } from './MyPosts/MyPostsContainer';
 
 type ProfilePropsType = {
     profile:ProfileType
+    status:string
+    updateStatus:(status:string)=>void
 }
 
 
@@ -13,12 +15,18 @@ export const Profile = React.memo((props:ProfilePropsType) => {
 
     let {
         profile,
+        status,
+        updateStatus
     } = props
 
 
     return (
         <div>
-            <ProfileInfo profile={profile}/>
+            <ProfileInfo
+                profile={profile}
+                status={status}
+                updateStatus={updateStatus}
+            />
             <MyPostsContainer
             />
         </div>

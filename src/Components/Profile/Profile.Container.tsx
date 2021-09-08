@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
-import {getUserProfileThunkCreator} from "./ProfileReducer";
+import {getStatusProfileTC, getUserProfileThunkCreator, updateStatusProfileTC} from "./ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {selectStateProfilePage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import { compose } from 'redux';
+import {AppStateType} from "../../Redux/reduxStore";
 
 
 export type PathParamsType = {
@@ -16,19 +17,21 @@ export type ProfilePropsType = RouteComponentProps<PathParamsType>
 const ProfileContainer = React.memo((props: ProfilePropsType) => {
 
     const {profile} = useSelector(selectStateProfilePage)
+    const status = useSelector<AppStateType , string>((state)=> state.profilePage.status)
     const dispatch = useDispatch()
 
     useEffect(() => {
         let userId = props.match.params.userId
         if (userId === undefined) {
-            userId = '2'
+            userId = '16664'
         }
         dispatch(getUserProfileThunkCreator(userId))
-    }, [getUserProfileThunkCreator])
-
-    useEffect(() => {
-
+        dispatch(getStatusProfileTC(userId))
     }, [])
+
+    const updateStatus = (status:string)=> {
+        dispatch(updateStatusProfileTC(status))
+    }
 
 
 
@@ -36,6 +39,8 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
         <div>
             <Profile
                 profile={profile}
+                status={status}
+                updateStatus={updateStatus}
             />
         </div>
     )
