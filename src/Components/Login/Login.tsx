@@ -1,24 +1,41 @@
 import React from 'react'
+import styles from './Login.module.sass'
+
+type LoginType = {
+
+}
 
 
-export const Login = () => {
+export const Login = (props:LoginType) => {
     return (
         <div>
             <h1>Login</h1>
+            <LoginForm/>
+        </div>
+    )
+}
+
+const LoginForm = () => {
+    return (
             <form action="">
                 <div>
-                    <input placeholder={'Login'}/>
+                    <input
+                        className={styles.input}
+                        placeholder={'Login'}/>
                 </div>
                 <div>
-                    <input placeholder={'Password'}/>
+                    <input
+                        className={styles.input}
+                        placeholder={'Password'}/>
                 </div>
                 <div>
-                    <input type={'checkbox'}/><span>remember me</span>
+                    <input
+                        className={styles.input}
+                        type={'checkbox'}/><span>remember me</span>
                 </div>
                 <div>
                     <button>Login</button>
                 </div>
             </form>
-        </div>
     )
 }
