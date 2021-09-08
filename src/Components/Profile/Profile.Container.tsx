@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {getStatusProfileTC, getUserProfileThunkCreator, updateStatusProfileTC} from "./ProfileReducer";
@@ -29,9 +29,9 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
         dispatch(getStatusProfileTC(userId))
     }, [])
 
-    const updateStatus = (status:string)=> {
+    const updateStatus = useCallback((status:string)=> {
         dispatch(updateStatusProfileTC(status))
-    }
+    },[])
 
 
 
