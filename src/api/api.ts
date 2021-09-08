@@ -13,8 +13,10 @@ export const usersAPI = {
         return instance.delete(`follow/${userId}`)
     },
     getProfile(userId: string) {
-        return instance.get(`profile/` + userId)
+        console.warn('Obsolete metHod. please profileAPI object')
+        return profileAPI.getProfile(userId)
     },
+
 }
 
 export const authAPI = {
@@ -24,4 +26,14 @@ export const authAPI = {
 }
 
 
-
+export const profileAPI = {
+    getProfile(userId: string) {
+        return instance.get(`profile/` + userId)
+    },
+    getStatus(userId:string){
+        return instance.get(`status/${userId}`)
+    },
+    updateStatus(status:string){
+        return instance.put(`status`,{status})
+    }
+}

@@ -1,13 +1,13 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import {usersAPI} from "../../api/api";
-
+import {profileAPI, usersAPI} from "../../api/api";
 
 
 enum ACTION_TYPE_TYPE {
     ADD_POST = ' profile-reducer/ADD-POST',
     UPDATE_NEW_POST_TEXT = ' profile-reducer/UPDATE-NEW-POST-TEXT',
     SET_USER_PROFILE = ' profile-reducer/SET-USER-PROFILE',
+    SET_STATUS = 'profile-reducer/SET_STATUS'
 }
 
 export type PostType = {
@@ -44,8 +44,8 @@ export type InitialStateType = {
     messageForNewPost: string
     posts: Array<PostType>
     profile: ProfileType
+    status: string
 }
-
 
 
 type AddPostActionCreatorType = {
@@ -60,11 +60,16 @@ type SetUserProfileACType = {
     type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
     profile: ProfileType,
 }
+type SetStatusType = {
+    type: ACTION_TYPE_TYPE.SET_STATUS,
+    status: string
+}
 
 export type ActionTypeAC =
     AddPostActionCreatorType
     | UpdateNewPostTextActionCreatorType
     | SetUserProfileACType
+    | SetStatusType
 
 
 let initialState: InitialStateType = {
@@ -96,7 +101,8 @@ let initialState: InitialStateType = {
             small: '(string)',
             large: '(string)'
         }
-    }
+    },
+    status: ''
 }
 
 export let idUser = v1()
@@ -130,35 +136,65 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 ...state,
                 profile: action.profile
             }
+        case ACTION_TYPE_TYPE.SET_STATUS:
+            return {
+                ...state,
+                status: action.status
+            }
         default:
             return state
     }
 }
 
-
-export const addPostActionCreator = (message: string):AddPostActionCreatorType => {
+//actions
+export const addPostActionCreator = (message: string): AddPostActionCreatorType => {
     return {
         type: ACTION_TYPE_TYPE.ADD_POST,
         postText: message,
     }
 }
-export const updateNewPostTextActionCreator = (text: string):UpdateNewPostTextActionCreatorType => {
+export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionCreatorType => {
     return {
         type: ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT,
         newText: text
     }
 }
-export const setUserProfileAC = (profile: ProfileType):SetUserProfileACType => {
+export const setUserProfileAC = (profile: ProfileType): SetUserProfileACType => {
     return {
         type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
         profile
     }
 }
+export const setStatusAC = (status: string):SetStatusType => {
+    return {
+        type: ACTION_TYPE_TYPE.SET_STATUS,
+        status
+    }
+}
 
-export const getUserProfileThunkCreator = (userId:string)=> {
-    return (dispatch:Dispatch)=> {
+//thunk
+export const getUserProfileThunkCreator = (userId: string) => {
+    return (dispatch: Dispatch) => {
         usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfileAC(response.data))
+        })
+    }
+}
+export const getStatusProfileTC = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.getStatus(userId)
+            .then(response => {
+                debugger
+            dispatch(setStatusAC(response.data))
+        })
+    }
+}
+export const updateStatusProfileTC = (status: string) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.updateStatus(status)
+            .then(response => {
+                debugger
+            dispatch(setStatusAC(response.data))
         })
     }
 }

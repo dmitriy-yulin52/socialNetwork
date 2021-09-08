@@ -26,6 +26,10 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
         dispatch(getUserProfileThunkCreator(userId))
     }, [getUserProfileThunkCreator])
 
+    useEffect(() => {
+
+    }, [])
+
 
 
     return (
