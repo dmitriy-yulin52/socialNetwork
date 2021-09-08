@@ -6,6 +6,7 @@ import {usersReducer} from "../Components/Users/users-reducer";
 import {authReducer} from "./auth-reducer";
 import ThunkMiddleware from 'redux-thunk'
 import {appReducer} from "../Components/app/app-reducer";
+import { reducer as formReducer } from 'redux-form'
 
 
 export let rootReducers = combineReducers({
