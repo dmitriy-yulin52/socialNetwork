@@ -2,7 +2,7 @@ import React from 'react'
 import reportWebVitals from './reportWebVitals'
 import {store} from "./Redux/reduxStore";
 import ReactDOM from "react-dom";
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import App from "./Components/app/App";
 import './style.sass'
@@ -10,11 +10,11 @@ import './style.sass'
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <App/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     </React.StrictMode>,document.getElementById('root')
 );
 
