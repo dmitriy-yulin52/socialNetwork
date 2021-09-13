@@ -6,20 +6,21 @@ import {usersReducer} from "../Components/Users/users-reducer";
 import {authReducer} from "./auth-reducer";
 import ThunkMiddleware from 'redux-thunk'
 import {appReducer} from "../Components/app/app-reducer";
-import { reducer as formReducer } from 'redux-form'
+import {reducer as formReducer} from 'redux-form'
 
 
 export let rootReducers = combineReducers({
-    profilePage:profileReducer,
-    messagesPage:dialogsReducer,
+    profilePage: profileReducer,
+    messagesPage: dialogsReducer,
     usersPage: usersReducer,
-    auth:authReducer,
-    app:appReducer
+    auth: authReducer,
+    app: appReducer,
+    form: formReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducers>
 
-export let store = createStore(rootReducers,applyMiddleware(ThunkMiddleware))
+export let store = createStore(rootReducers, applyMiddleware(ThunkMiddleware))
 
 // @ts-ignore
 window.store = store

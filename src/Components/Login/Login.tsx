@@ -1,18 +1,9 @@
 import React from 'react'
 import styles from './Login.module.sass'
+import Field, {reduxForm} from "redux-form";
 
 type LoginType = {
 
-}
-
-
-export const Login = (props:LoginType) => {
-    return (
-        <div>
-            <h1>Login</h1>
-            <LoginForm/>
-        </div>
-    )
 }
 
 const LoginForm = () => {
@@ -39,3 +30,17 @@ const LoginForm = () => {
             </form>
     )
 }
+export const Login = (props:LoginType) => {
+    return (
+        <div>
+            <h1>Login</h1>
+            <LoginReduxForm/>
+        </div>
+    )
+}
+
+const LoginReduxForm = reduxForm({
+    // a unique name for the form
+    form: 'login'
+})(LoginForm)
+
