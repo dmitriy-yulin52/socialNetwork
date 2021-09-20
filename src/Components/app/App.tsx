@@ -8,11 +8,11 @@ import Music from "../Music/Music";
 import Setting from "../Settings/Settings";
 import {FriendsContainer} from "../Friends/Friends.container";
 import {NewsContainer} from "../News/NewsContainer";
-import {Login} from "../Login/Login";
 import ProfileContainer from "../Profile/Profile.Container";
 import DialogsContainer from "../Dialogs/DialogsContainer";
 import {ErrorSnackBar} from "../SnackBar/ErrorSnackBar";
 import {Footer} from "../Footer/Footer";
+import {WithMaterialUI} from "../Login/Login";
 
 
 const App = React.memo(() => {
@@ -40,7 +40,7 @@ const App = React.memo(() => {
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/settings' render={() => <Setting/>}/>
                     <Route path='/friends' render={() => <FriendsContainer/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
+                    <Route path='/login' render={() => <WithMaterialUI/>}/>
                 </div>
 
             </div>
