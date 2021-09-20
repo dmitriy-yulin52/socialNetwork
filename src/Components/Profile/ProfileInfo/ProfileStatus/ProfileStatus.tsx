@@ -44,7 +44,9 @@ export const ProfileStatus = React.memo((props: ProfileStatusType) => {
             </div>
             :
             <div>
-                <span onDoubleClick={onEditMode}>{status || 'No status'}</span>
+                <span onDoubleClick={onEditMode}
+                      title={'Изменить статус!'}
+                >{status || 'No status'}</span>
             </div>}
         </div>
     )
