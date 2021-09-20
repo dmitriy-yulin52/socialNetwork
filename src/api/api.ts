@@ -22,6 +22,9 @@ export const usersAPI = {
 export const authAPI = {
     getHeader() {
         return instance.get(`auth/me`,)
+    },
+    setLogin (email:string,password:string){
+        return instance.put(`auth/login`,{email:email,password:password})
     }
 }
 
@@ -37,3 +40,4 @@ export const profileAPI = {
         return instance.put(`profile/status`,{status})
     }
 }
+

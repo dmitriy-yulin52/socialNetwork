@@ -13,6 +13,7 @@ import {selectStateMessagesPage} from "../../Redux/selectors";
 import {AppStateType} from "../../Redux/reduxStore";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField/TextField';
+import {AddMessageForm} from "../Form/AddMessageForm";
 
 
 type DialogsPropsType = {
@@ -98,43 +99,13 @@ const Dialogs = React.memo((props: DialogsPropsType) => {
                         messageElements
                     }
                 </div>
-                <div className={style.textarea}>
-                    {
-                        error
-                            ? <TextField
-                                error
-                                id="outlined-error-helper-text"
-                                label="Error"
-                                defaultValue="Hello World"
-                                helperText="Title is required."
-                                variant="outlined"
-                                onChange={onChangeHandler}
-                                onKeyPress={onKeyPressHandler}
-                                size={'small'}
-                            />
-                            : <TextField
-                                id="outlined-basic"
-                                label="Outlined"
-                                variant="outlined"
-                                value={messagesPage.newDialogsMessage}
-                                onChange={onChangeHandler}
-                                onKeyPress={onKeyPressHandler}
-                                size={'small'}
-                                className={style.textFieldDialogs}
-                            />
-                    }
-                    <>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            disableElevation
-                            onClick={onClickHandler}
-                            size={'small'}
-                        >
-                            click
-                        </Button>
-                    </>
-                </div>
+                <AddMessageForm
+                        error={error}
+                        onChangeHandler={onChangeHandler}
+                        onKeyPressHandler={onKeyPressHandler}
+                        newDialogsMessage={messagesPage.newDialogsMessage}
+                        onClickHandler={onClickHandler}
+                />
             </div>
         </div>
     )

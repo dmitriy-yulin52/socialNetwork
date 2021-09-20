@@ -1,6 +1,12 @@
-import React from 'react'
+import React, {ReactNode, useEffect} from 'react'
 import styles from './Login.module.sass'
-import {Field,InjectedFormProps, reduxForm} from "redux-form";
+import {reduxForm, Field, InjectedFormProps} from "redux-form";
+import {useDispatch} from "react-redux";
+import {SetLoginThunkCreator} from "../../Redux/auth-reducer";
+
+
+
+
 
 type FormDateType = {
     Login:string
@@ -8,7 +14,19 @@ type FormDateType = {
     rememberMe:boolean
 }
 
-const LoginForm:React.FC<InjectedFormProps<FormDateType>> = (props) => {
+const LoginForm:React.FC<InjectedFormProps <FormDateType>>   = (props) => {
+
+    // const {
+    //     Login,
+    //     password,
+    //     rememberMe
+    // } = props
+    //
+    //
+    // const dispatch = useDispatch()
+    // useEffect(()=> {
+    //     dispatch(SetLoginThunkCreator())
+    // })
     return (
             <form onSubmit={props.handleSubmit}>
                 <div>
