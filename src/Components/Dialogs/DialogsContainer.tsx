@@ -17,7 +17,7 @@ import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 const DialogsContainer = React.memo(() => {
 
     const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
-    const dispatch = useDispatch<Dispatch<ActionACTypes>>()
+    const dispatch = useDispatch()
 
 
     const updateMessage = useCallback((updMessage: string) => {

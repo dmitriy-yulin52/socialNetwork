@@ -3,7 +3,7 @@ import style from './Dialogs.module.sass'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import {
-    ActionACTypes,
+    ActionACTypes, addMessageActionCreator,
     InitialStateDialogsType,
     localStorageMessageCreator, RemoveMessageCreator,
 } from "./DialogsReducer";
@@ -13,7 +13,9 @@ import {selectStateMessagesPage} from "../../Redux/selectors";
 import {AppStateType} from "../../Redux/reduxStore";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField/TextField';
-import {AddMessageForm} from "../Form/AddMessageForm";
+import {AddMessageFrom, FormMessageDateType,} from "../Form/AddMessageForm";
+import {FormSubmitHandler, reset} from "redux-form";
+import {SubmitHandler} from "redux-form/lib/reduxForm";
 
 
 type DialogsPropsType = {
@@ -21,6 +23,7 @@ type DialogsPropsType = {
     addMessage: (message: string) => void
     updateMessage: (updMessage: string) => void
 }
+
 
 
 const Dialogs = React.memo((props: DialogsPropsType) => {
@@ -32,7 +35,7 @@ const Dialogs = React.memo((props: DialogsPropsType) => {
     } = props
 
     const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
-    const dispatch = useDispatch<Dispatch<ActionACTypes>>()
+    const dispatch = useDispatch()
 
     const removeMessage = useCallback((id: string) => {
         dispatch(RemoveMessageCreator(id))
@@ -84,8 +87,9 @@ const Dialogs = React.memo((props: DialogsPropsType) => {
     }, [messagesPage.messages])
 
 
-
-
+    const addNewMessage = (data:FormMessageDateType) =>{
+        dispatch(addMessageActionCreator(data.message))
+    }
     return (
         <div className={style.dialogs}>
             <div className={style.dialogsItems}>
@@ -99,12 +103,8 @@ const Dialogs = React.memo((props: DialogsPropsType) => {
                         messageElements
                     }
                 </div>
-                <AddMessageForm
-                        error={error}
-                        onChangeHandler={onChangeHandler}
-                        onKeyPressHandler={onKeyPressHandler}
-                        newDialogsMessage={messagesPage.newDialogsMessage}
-                        onClickHandler={onClickHandler}
+                <AddMessageFrom
+                    onSubmit={addNewMessage}
                 />
             </div>
         </div>
