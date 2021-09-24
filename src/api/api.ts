@@ -6,10 +6,10 @@ export const usersAPI = {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`,)
             .then(response => response.data)
     },
-    follow(userId:number){
+    follow(userId: number) {
         return instance.post(`follow/${userId}`)
     },
-    unFollow(userId:number){
+    unFollow(userId: number) {
         return instance.delete(`follow/${userId}`)
     },
     getProfile(userId: string) {
@@ -23,8 +23,8 @@ export const authAPI = {
     getHeader() {
         return instance.get(`auth/me`,)
     },
-    setLogin (email:string,password:string){
-        return instance.put(`auth/login`,{email:email,password:password})
+    setLogin(email: string, password: string) {
+        return instance.put(`auth/login`, {email: email, password: password})
     }
 }
 
@@ -33,11 +33,11 @@ export const profileAPI = {
     getProfile(userId: string) {
         return instance.get(`profile/` + userId)
     },
-    getStatus(userId:string){
+    getStatus(userId: string) {
         return instance.get(`profile/status/${userId}`)
     },
-    updateStatus(status:string){
-        return instance.put(`profile/status`,{status})
+    updateStatus(status: string) {
+        return instance.put(`profile/status`, {status})
     }
 }
 

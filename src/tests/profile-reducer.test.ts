@@ -6,7 +6,6 @@ let startState: InitialStateType
 beforeEach(()=>{
 
     startState = {
-        messageForNewPost: '',
         posts: [
             {id: '1', message: 'Hi, how are you', like: 4, time: 7},
             {id: '2', message: 'It,s my first post', like: 22, time: 19},
@@ -30,8 +29,8 @@ beforeEach(()=>{
                 mainLink: ''
             },
             photos: {
-                small: '(string)',
-                large: '(string)'
+                small: '',
+                large: ''
             }
         },
         status:''
@@ -45,6 +44,4 @@ test('correct status should be added',()=> {
     const endSate = profileReducer(startState,action)
 
     expect(endSate.status).toBe('I super man')
-
-
 })

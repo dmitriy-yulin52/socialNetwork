@@ -18,7 +18,7 @@ const validationSchema = yup.object({
         .required('Message is required'),
 });
 
-export const AddMessageFrom = (props:AddMessageFromType) => {
+export const AddMessageFrom = React.memo((props:AddMessageFromType) => {
 
     const {
         onSubmit
@@ -56,6 +56,6 @@ export const AddMessageFrom = (props:AddMessageFromType) => {
             >Submit</Button>
         </form>
     );
-};
+});
 
 

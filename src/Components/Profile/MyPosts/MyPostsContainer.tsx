@@ -25,7 +25,7 @@ export const MyPostsContainer = React.memo(()=> {
     return(
         <MyPosts
             posts={posts}
-            onSubmit={addPost}
+            addPost={addPost}
         />
     )
 })

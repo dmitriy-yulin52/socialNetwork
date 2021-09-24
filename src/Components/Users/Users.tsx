@@ -20,12 +20,6 @@ export const Users: React.FC<UsersPropsType> = React.memo((props) => {
             followingInProgress,
         } = props
 
-    // let pagesCount = Math.ceil(totalCount / pageSize)
-    // let pages = []
-    // for (let i = 1; i <= pagesCount; i++) {
-    //     pages.push(i)
-    // }
-
     return (
         <div>
             <div>

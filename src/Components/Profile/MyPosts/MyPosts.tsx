@@ -2,10 +2,7 @@ import React from 'react';
 import style from './MyPosts.module.sass'
 import Post from "./Post/Post";
 import {PostType} from "../ProfileReducer";
-import {TextField} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import {useFormik} from "formik";
-import * as yup from "yup";
+import {AddMessageFrom} from "../../Form/AddMessageForm";
 
 
 export type MessagePostType = {
@@ -13,20 +10,16 @@ export type MessagePostType = {
 }
 type PropsType = {
     posts: Array<PostType>
-    onSubmit: (message: MessagePostType) => void
+    addPost: (message: MessagePostType) => void
 }
 
-const validationSchema = yup.object({
-    message: yup
-        .string()
-        .required('Message is required'),
-});
+
 
 export const MyPosts = React.memo((props: PropsType) => {
 
     const {
         posts,
-        onSubmit,
+        addPost,
     } = props;
 
     let postElement = posts.map((i) =>
@@ -60,44 +53,12 @@ export const MyPosts = React.memo((props: PropsType) => {
     //     }
     // }
 
-    const formik = useFormik({
-        initialValues: {
-            message: '',
-        },
-        validationSchema: validationSchema,
-        onSubmit: values => {
-            onSubmit(values)
-            formik.resetForm()
-        },
-    });
 
     return (
         <div>
             <h2 className={style.item}>My post</h2>
             <div className={style.input}>
-                <form onSubmit={formik.handleSubmit}>
-                    <TextField
-                        id="message"
-                        name="message"
-                        type="text"
-                        error={Boolean(formik.errors.message)}
-                        onChange={formik.handleChange}
-                        value={formik.values.message}
-                        helperText={formik.errors.message}
-                    />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        size={'small'}
-                        onClick={()=> console.log(formik)}
-                    >Click</Button>
-                </form>
-                {/*<input value={messageForNewPost} onChange={onPostChangeHandler} onKeyPress={onPostChangePressKey}/>*/}
-                {/*<button onClick={onAddPostClickHandler}>click</button>*/}
-                {/*<div className={style.error}>*/}
-                {/*    <span>{error}</span>*/}
-                {/*</div>*/}
+                <AddMessageFrom onSubmit={addPost}/>
             </div>
 
             <div className={style.newPost}>

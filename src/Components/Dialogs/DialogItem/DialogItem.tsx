@@ -8,7 +8,7 @@ type PropsType = {
     name: string
 }
 
-const DialogItem: React.FC<PropsType> = (props) => {
+const DialogItem: React.FC<PropsType> = React.memo((props) => {
     const {id, name} = props;
 
     let path = `/dialogs/${id}`;
@@ -18,7 +18,7 @@ const DialogItem: React.FC<PropsType> = (props) => {
                     {name}
                 </NavLink>
     </div>
-}
+})
 
 
 

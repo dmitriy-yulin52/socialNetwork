@@ -1,5 +1,7 @@
 import React from 'react';
 import c from './Music.module.css';
+import {compose} from "redux";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 
 const Music = () => {
@@ -11,4 +13,4 @@ const Music = () => {
     )
 }
 
-export default Music;
+export default compose<React.ComponentType>(withAuthRedirect)(Music)

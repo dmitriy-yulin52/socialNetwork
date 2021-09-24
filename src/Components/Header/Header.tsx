@@ -8,7 +8,7 @@ type PropsType = {
     isAuth: boolean
     login: string | null
 }
-const Header = (props: PropsType) => {
+const Header = React.memo((props: PropsType) => {
     return (
         <header className={style.header}>
             <img className={style.logo} src={logo}/>
@@ -21,6 +21,6 @@ const Header = (props: PropsType) => {
             </div>
         </header>
     )
-}
+})
 
 export default Header;

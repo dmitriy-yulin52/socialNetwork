@@ -14,7 +14,7 @@ import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
 
 
-const UsersContainer = React.memo(() => {
+const UsersContainer = () => {
 
     const {
         items,
@@ -58,7 +58,7 @@ const UsersContainer = React.memo(() => {
             />
         </div>
     )
-})
+}
 
 
 export default compose<React.ComponentType>(withAuthRedirect)(UsersContainer)

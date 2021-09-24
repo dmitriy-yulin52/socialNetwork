@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 import {HeaderCopy} from "./HeaderCopy";
+import Header from "./Header";
 
 
 export const HeaderContainer = React.memo(()=> {
@@ -14,7 +15,7 @@ export const HeaderContainer = React.memo(()=> {
     }=useSelector(selector)
 
     return (
-        <HeaderCopy
+        <Header
             isAuth={isAuth}
             login={data.login}
         />
