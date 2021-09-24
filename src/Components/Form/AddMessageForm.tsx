@@ -5,11 +5,11 @@ import Button from "@material-ui/core/Button";
 import * as yup from 'yup';
 
 
-export type FormMessageDateType = {
+export type MessageType = {
     message: string
 }
- type PropsType = {
-    onSubmit: (formData:FormMessageDateType)=> void
+ type AddMessageFromType = {
+    onSubmit: (formData:MessageType)=> void
 }
 
 const validationSchema = yup.object({
@@ -18,14 +18,20 @@ const validationSchema = yup.object({
         .required('Message is required'),
 });
 
-export const AddMessageFrom = (props:PropsType) => {
+export const AddMessageFrom = (props:AddMessageFromType) => {
+
+    const {
+        onSubmit
+    }= props
+
+
     const formik = useFormik({
         initialValues: {
             message: '',
         },
         validationSchema: validationSchema,
         onSubmit: values => {
-            props.onSubmit(values)
+            onSubmit(values)
             formik.resetForm()
         },
     });
@@ -46,6 +52,7 @@ export const AddMessageFrom = (props:PropsType) => {
                 color="primary"
                 type="submit"
                 size={'small'}
+                onClick={()=> console.log(formik)}
             >Submit</Button>
         </form>
     );

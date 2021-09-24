@@ -7,7 +7,6 @@ import {
 import {
     addMessageActionCreator,
     dialogsReducer,
-    updateNewMessageCreator
 } from '../Components/Dialogs/DialogsReducer';
 
 

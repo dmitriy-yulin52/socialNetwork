@@ -13,7 +13,6 @@ beforeEach(()=>{
     todoListId = v1()
 
     startState = {
-        newDialogsMessage: '',
         dialogs: [
             {id: todoListId, name: 'dmitriy'},
             {id: todoListId, name: 'vicrory'},
@@ -48,7 +47,7 @@ test('correct message should be update',()=> {
     const action = updateNewMessageCreator('New dialog message')
     const endState = dialogsReducer(startState,action)
 
-    expect(endState.newDialogsMessage).toBe('New dialog message')
+    expect(endState.messages[3].message).toBe('New dialog message')
 
 })
 test('correct message should be removed',()=> {

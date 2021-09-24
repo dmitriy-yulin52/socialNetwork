@@ -1,16 +1,15 @@
 import React, {useCallback} from 'react';
 import {
-    ActionACTypes,
     addMessageActionCreator,
-    InitialStateDialogsType,
-    updateNewMessageCreator
+    InitialStateDialogsType, RemoveMessageCreator,
 } from "./DialogsReducer";
 import Dialogs from "./Dialogs";
 import {AppStateType} from "../../Redux/reduxStore";
-import {compose, Dispatch} from 'redux'
+import {compose,} from 'redux'
 import {useDispatch, useSelector} from "react-redux";
 import {selectStateMessagesPage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
+import {MessageType} from "../Form/AddMessageForm";
 
 
 
@@ -19,22 +18,19 @@ const DialogsContainer = React.memo(() => {
     const messagesPage = useSelector<AppStateType, InitialStateDialogsType>(selectStateMessagesPage)
     const dispatch = useDispatch()
 
-
-    const updateMessage = useCallback((updMessage: string) => {
-        dispatch(updateNewMessageCreator(updMessage))
-    }, [updateNewMessageCreator])
-
-    const addMessage = useCallback((message: string) => {
-        dispatch(addMessageActionCreator(message))
+    const addMessage = useCallback((data:MessageType) => {
+        dispatch(addMessageActionCreator(data.message))
     }, [addMessageActionCreator])
 
-
+    const removeMessage = useCallback((id: string) => {
+        dispatch(RemoveMessageCreator(id))
+    }, [RemoveMessageCreator])
 
     return (
         <Dialogs
             stateMessagesPage={messagesPage}
             addMessage={addMessage}
-            updateMessage={updateMessage}
+            removeMessage={removeMessage}
         />
     )
 })

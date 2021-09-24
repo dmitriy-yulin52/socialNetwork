@@ -15,7 +15,7 @@ import {Footer} from "../Footer/Footer";
 import {WithMaterialUI} from "../Login/Login";
 
 
-const App = React.memo(() => {
+const App = () => {
     return (
         <div>
             <div className="app-wrapper">
@@ -47,6 +47,6 @@ const App = React.memo(() => {
             <Footer/>
         </div>
     );
-})
+}
 
 export default App;

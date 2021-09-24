@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import s from './Login.module.sass'
 
 const validationSchema = yup.object({
     email: yup
@@ -29,7 +29,7 @@ export const WithMaterialUI = () => {
     });
 
     return (
-        <div style={{width:'300px'}}>
+        <div className={s.loginWrapper}>
             <form onSubmit={formik.handleSubmit}>
                 <TextField
                     fullWidth
@@ -52,7 +52,12 @@ export const WithMaterialUI = () => {
                     error={formik.touched.password && Boolean(formik.errors.password)}
                     helperText={formik.touched.password && formik.errors.password}
                 />
-                <Button color="primary" variant="contained" fullWidth type="submit">
+                <Button
+                    onClick={()=> console.log(formik)}
+                    className={s.button}
+                    color="primary"
+                    variant="contained"
+                    fullWidth type="submit">
                     Submit
                 </Button>
             </form>
