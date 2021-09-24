@@ -14,7 +14,6 @@ enum ACTION_TYPE_TYPE {
 
 let initialState: InitialStateType = {
 
-    messageForNewPost: '',
     posts: [
         {id: v1(), message: 'Hi, how are you', like: 4, time: 7},
         {id: v1(), message: 'It,s my first post', like: 22, time: 19},
@@ -54,7 +53,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 
             return {
                 ...state,
-                messageForNewPost: '',
                 posts: [
                     ...state.posts,
                     {
@@ -66,11 +64,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 ]
             }
 
-        case ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                messageForNewPost: action.newText
-            }
         case ACTION_TYPE_TYPE.SET_USER_PROFILE:
             return {
                 ...state,
@@ -93,12 +86,7 @@ export const addPostActionCreator = (message: string): AddPostActionCreatorType 
         postText: message,
     }
 }
-export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionCreatorType => {
-    return {
-        type: ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT,
-        newText: text
-    }
-}
+
 export const setUserProfileAC = (profile: ProfileType): SetUserProfileACType => {
     return {
         type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
@@ -180,7 +168,6 @@ export type ProfileType = {
     aboutMe: string
 }
 export type InitialStateType = {
-    messageForNewPost: string
     posts: Array<PostType>
     profile: ProfileType
     status: string

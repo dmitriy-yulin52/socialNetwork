@@ -2,14 +2,13 @@ import {
     addMessageActionCreator,
     dialogsReducer,
     InitialStateDialogsType,
-    MessageType, RemoveMessageCreator,
-    updateNewMessageCreator
+    RemoveMessageCreator,
 } from "../Components/Dialogs/DialogsReducer";
 import {v1} from "uuid";
 
-let startState : InitialStateDialogsType
+let startState: InitialStateDialogsType
 let todoListId: string
-beforeEach(()=>{
+beforeEach(() => {
     todoListId = v1()
 
     startState = {
@@ -33,27 +32,19 @@ beforeEach(()=>{
 })
 
 
-test('correct message should be added',()=> {
+test('correct message should be added', () => {
 
     const action = addMessageActionCreator('Hello world!')
-    const endState = dialogsReducer(startState,action)
+    const endState = dialogsReducer(startState, action)
 
     expect(endState.messages.length).toBe(4)
     expect(endState.messages[3].message).toBe('Hello world!')
     expect(endState.messages[0].message).toBe('hello')
 })
-test('correct message should be update',()=> {
-
-    const action = updateNewMessageCreator('New dialog message')
-    const endState = dialogsReducer(startState,action)
-
-    expect(endState.messages[3].message).toBe('New dialog message')
-
-})
-test('correct message should be removed',()=> {
+test('correct message should be removed', () => {
 
     const action = RemoveMessageCreator('3')
-    const endState = dialogsReducer(startState,action)
+    const endState = dialogsReducer(startState, action)
 
     expect(endState.messages.length).toBe(2)
     expect(endState.messages[1].message).toBe('hi')

@@ -1,10 +1,9 @@
 import React, {useCallback} from 'react';
 import {
     addPostActionCreator,
-    updateNewPostTextActionCreator
 } from "../ProfileReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {MyPosts} from "./MyPosts";
+import {MessagePostType, MyPosts} from "./MyPosts";
 import {AppStateType} from "../../../Redux/reduxStore";
 
 
@@ -14,24 +13,19 @@ export const MyPostsContainer = React.memo(()=> {
 
     const {
         posts,
-        messageForNewPost
+
     }= useSelector(selector)
     const dispatch = useDispatch()
 
-    const updateNewPostText = useCallback((message:string)=> {
-        dispatch(updateNewPostTextActionCreator(message))
-    },[updateNewPostTextActionCreator])
-    const addPost = useCallback((messagePost:string)=> {
-        dispatch(addPostActionCreator(messagePost))
+    const addPost = useCallback((formData:MessagePostType)=> {
+        dispatch(addPostActionCreator(formData.message))
     },[addPostActionCreator])
 
 
     return(
         <MyPosts
             posts={posts}
-            messageForNewPost={messageForNewPost}
-            updateNewPostText={updateNewPostText}
-            addPost={addPost}
+            onSubmit={addPost}
         />
     )
 })

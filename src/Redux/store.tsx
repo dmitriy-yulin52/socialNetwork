@@ -2,7 +2,6 @@ import {v1} from "uuid";
 import {
     addPostActionCreator,
     profileReducer,
-    updateNewPostTextActionCreator
 } from '../Components/Profile/ProfileReducer';
 import {
     addMessageActionCreator,

@@ -7,6 +7,7 @@ import {selectStateProfilePage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import { compose } from 'redux';
 import {AppStateType} from "../../Redux/reduxStore";
+import s from './Profile.module.css'
 
 
 export type PathParamsType = {
@@ -36,7 +37,7 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
 
 
     return (
-        <div>
+        <div className={s.profile}>
             <Profile
                 profile={profile}
                 status={status}
