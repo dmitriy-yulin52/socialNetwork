@@ -5,11 +5,11 @@ import Button from "@material-ui/core/Button";
 import * as yup from 'yup';
 import s from './AddMessageForm.module.css'
 
-export type MessageType = {
+export type MessagePostType = {
     message: string
 }
- type AddMessageFromType = {
-    onSubmit: (formData:MessageType)=> void
+type AddNewPostFormType = {
+    onSubmit: (formData:MessagePostType)=> void
 }
 
 const validationSchema = yup.object({
@@ -18,11 +18,7 @@ const validationSchema = yup.object({
         .required('Message is required'),
 });
 
-export const AddMessageFrom = React.memo((props:AddMessageFromType) => {
-
-    const {
-        onSubmit
-    }= props
+export const AddNewPostForm = React.memo((props:AddNewPostFormType) => {
 
 
     const formik = useFormik({
@@ -31,7 +27,7 @@ export const AddMessageFrom = React.memo((props:AddMessageFromType) => {
         },
         validationSchema: validationSchema,
         onSubmit: values => {
-            onSubmit(values)
+            props.onSubmit(values)
             formik.resetForm()
         },
     });
@@ -60,5 +56,7 @@ export const AddMessageFrom = React.memo((props:AddMessageFromType) => {
         </form>
     );
 });
+
+
 
 

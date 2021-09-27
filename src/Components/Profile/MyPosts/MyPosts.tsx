@@ -3,6 +3,7 @@ import style from './MyPosts.module.sass'
 import Post from "./Post/Post";
 import {PostType} from "../ProfileReducer";
 import {AddMessageFrom} from "../../Form/AddMessageForm";
+import {AddNewPostForm} from "../../Form/AddNewPostForm";
 
 
 export type MessagePostType = {
@@ -58,7 +59,7 @@ export const MyPosts = React.memo((props: PropsType) => {
         <div>
             <h2 className={style.item}>My post</h2>
             <div className={style.input}>
-                <AddMessageFrom onSubmit={addPost}/>
+                <AddNewPostForm onSubmit={addPost}/>
             </div>
 
             <div className={style.newPost}>
