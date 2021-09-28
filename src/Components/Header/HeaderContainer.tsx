@@ -11,13 +11,13 @@ export const HeaderContainer = React.memo(()=> {
 
     const {
         isAuth,
-        data,
+        login,
     }=useSelector(selector)
 
     return (
         <Header
             isAuth={isAuth}
-            login={data.login}
+            login={login}
         />
     )
 })

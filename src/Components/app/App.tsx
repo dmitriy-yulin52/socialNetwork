@@ -12,7 +12,7 @@ import ProfileContainer from "../Profile/Profile.Container";
 import DialogsContainer from "../Dialogs/DialogsContainer";
 import {ErrorSnackBar} from "../SnackBar/ErrorSnackBar";
 import {Footer} from "../Footer/Footer";
-import {Login} from "../Login/Login";
+import {LoginContainer} from "../Login/LoginContainer";
 
 
 const App = () => {
@@ -40,7 +40,7 @@ const App = () => {
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/settings' render={() => <Setting/>}/>
                     <Route path='/friends' render={() => <FriendsContainer/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
+                    <Route path='/login' render={() => <LoginContainer/>}/>
                 </div>
 
             </div>

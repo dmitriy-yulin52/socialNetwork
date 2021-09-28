@@ -32,7 +32,6 @@ export type ActionACTypes =
     SetUserDataACType
 
 
-// @ts-ignore
 export let initialState: InitialStateType = {
     // userId: null,
     // email: null,
@@ -78,11 +77,11 @@ export const getAuthUserDataThunkCreator = () => {
                     const {id, login, email} = response.data.data
                     dispatch(setAuthUserDataAC(login, email, id, true))
                 }
-            })
+            }).catch((err)=> console.warn(err))
     }
 }
 
-export const Login = (email: string, password: string, rememberMe: boolean) => {
+export const SetLogin = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: Dispatch) => {
         authAPI.Login(email, password, rememberMe)
             .then((response) => {
@@ -90,7 +89,7 @@ export const Login = (email: string, password: string, rememberMe: boolean) => {
                     // @ts-ignore
                     dispatch(getAuthUserDataThunkCreator())
                 }
-            })
+            }).catch((err)=> console.warn(err))
     }
 }
 export const logout = () => {
@@ -101,6 +100,6 @@ export const logout = () => {
                     // @ts-ignore
                     dispatch(dispatch(setAuthUserDataAC(null, null, null, false)))
                 }
-            })
+            }).catch((err)=> console.warn(err))
     }
 }
