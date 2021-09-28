@@ -7,6 +7,7 @@ import {NavLink} from 'react-router-dom';
 type PropsType = {
     isAuth: boolean
     login: string | null
+    logout:()=>void
 }
 const Header = React.memo((props: PropsType) => {
     return (
@@ -14,7 +15,7 @@ const Header = React.memo((props: PropsType) => {
             <img className={style.logo} src={logo}/>
             <div className={style.login_block}>
                 {props.isAuth
-                    ? props.login
+                    ? <div style={{display:'flex',flexDirection:'column'} }>{props.login}<button onClick={props.logout}>Log out</button></div>
                     :
                     <NavLink to={'/login'}>Login</NavLink>
                 }

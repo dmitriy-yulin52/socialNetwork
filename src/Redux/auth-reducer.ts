@@ -4,7 +4,7 @@ import {setIsFetchingAC} from "../Components/Users/users-reducer";
 
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
-    IS_AUTH = 'auth-reducer/IS_AUTH',
+    SET_IS_AUTH = 'auth-reducer/SET_IS_AUTH',
 }
 
 type InitialStateType = {
@@ -29,14 +29,14 @@ type SetUserDataACType = {
     type: AUTH_ACTION_TYPE.SET_USER_DATA,
     payload: UserDataType
 }
-type IsAuthACType = {
-    type: AUTH_ACTION_TYPE.IS_AUTH,
+type SetIsAuthACType = {
+    type: AUTH_ACTION_TYPE.SET_IS_AUTH,
     isAuth:boolean
 }
 
 export type ActionACTypes =
     SetUserDataACType
-    | IsAuthACType
+    | SetIsAuthACType
 
 
 export let initialState: InitialStateType = {
@@ -59,7 +59,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
                 ...action.payload,
                 isAuth: action.payload.isAuth,
             }
-        case AUTH_ACTION_TYPE.IS_AUTH:
+        case AUTH_ACTION_TYPE.SET_IS_AUTH:
             return {
                 ...state,
                 isAuth:true
@@ -81,9 +81,9 @@ export const setAuthUserDataAC = (login: string, email: string, userId: number, 
         }
     }
 }
-export const isAuthAC = (isAuth: boolean) => {
+export const setIsAuthAC = (isAuth: boolean):SetIsAuthACType => {
     return {
-        type: AUTH_ACTION_TYPE.IS_AUTH,
+        type: AUTH_ACTION_TYPE.SET_IS_AUTH,
         isAuth
     }
 }
@@ -110,16 +110,24 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean) =
                     dispatch(getAuthUserDataThunkCreator())
                     dispatch(setIsFetchingAC(false))
                 }
-            }).catch((err)=> console.warn(err))
+                if(response.data.resultCode === 1) {
+                    dispatch(setIsFetchingAC(false))
+                }
+
+            }).catch((err)=>{
+                console.warn(err)
+        } )
     }
 }
 export const logout = () => {
     return (dispatch: Dispatch) => {
+        dispatch(setIsFetchingAC(true))
         authAPI.Logout()
             .then((response) => {
                 if (response.data.resultCode === 0) {
                     // @ts-ignore
                     dispatch(dispatch(setAuthUserDataAC(null, null, null, false)))
+                    dispatch(setIsFetchingAC(false))
                 }
             }).catch((err)=> console.warn(err))
     }
