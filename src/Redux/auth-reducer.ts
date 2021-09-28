@@ -3,6 +3,7 @@ import {authAPI} from "../api/api";
 
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
+    IS_AUTH = 'auth-reducer/IS_AUTH',
 }
 
 type InitialStateType = {
@@ -27,9 +28,14 @@ type SetUserDataACType = {
     type: AUTH_ACTION_TYPE.SET_USER_DATA,
     payload: UserDataType
 }
+type IsAuthACType = {
+    type: AUTH_ACTION_TYPE.IS_AUTH,
+    isAuth:boolean
+}
 
 export type ActionACTypes =
     SetUserDataACType
+    | IsAuthACType
 
 
 export let initialState: InitialStateType = {
@@ -50,8 +56,14 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
             return {
                 ...state,
                 ...action.payload,
-                isAuth: true,
+                isAuth: action.payload.isAuth,
             }
+        case AUTH_ACTION_TYPE.IS_AUTH:
+            return {
+                ...state,
+                isAuth:action.isAuth
+            }
+
         default:
             return state
     }
@@ -66,6 +78,12 @@ export const setAuthUserDataAC = (login: string, email: string, userId: number, 
             userId,
             isAuth
         }
+    }
+}
+export const isAuthAC = (isAuth: boolean) => {
+    return {
+        type: AUTH_ACTION_TYPE.IS_AUTH,
+        isAuth
     }
 }
 
@@ -88,6 +106,7 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean) =
                 if (response.data.resultCode === 0) {
                     // @ts-ignore
                     dispatch(getAuthUserDataThunkCreator())
+
                 }
             }).catch((err)=> console.warn(err))
     }

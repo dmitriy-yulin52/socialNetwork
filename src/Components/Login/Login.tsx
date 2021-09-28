@@ -61,7 +61,6 @@ export const Login = (props: LoginType) => {
                 />
 
                 <Button
-                    onClick={() => console.log(formik)}
                     className={s.button}
                     color="primary"
                     variant="contained"
