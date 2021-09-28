@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import { useFormik,Field } from 'formik';
 import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -40,6 +40,7 @@ export const Login = () => {
                     onChange={formik.handleChange}
                     error={formik.touched.email && Boolean(formik.errors.email)}
                     helperText={formik.touched.email && formik.errors.email}
+
                 />
                 <TextField
                     fullWidth
@@ -51,7 +52,9 @@ export const Login = () => {
                     onChange={formik.handleChange}
                     error={formik.touched.password && Boolean(formik.errors.password)}
                     helperText={formik.touched.password && formik.errors.password}
+                    className={s.password}
                 />
+
                 <Button
                     onClick={()=> console.log(formik)}
                     className={s.button}

@@ -13,7 +13,6 @@ export const MyPostsContainer = React.memo(()=> {
 
     const {
         posts,
-
     }= useSelector(selector)
     const dispatch = useDispatch()
 

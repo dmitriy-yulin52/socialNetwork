@@ -5,7 +5,7 @@ import Message from './Message/Message'
 import {
     InitialStateDialogsType,
 } from "./DialogsReducer";
-import {AddMessageFrom, MessageType} from "../Form/AddMessageForm";
+import {AddMessageFrom, MessageType} from "../Form/DialogsForm/AddMessageForm";
 
 
 

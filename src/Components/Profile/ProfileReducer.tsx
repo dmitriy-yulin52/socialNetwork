@@ -11,7 +11,6 @@ enum ACTION_TYPE_TYPE {
 }
 
 
-
 let initialState: InitialStateType = {
 
     posts: [
@@ -49,8 +48,6 @@ export let idUser = v1()
 export const profileReducer = (state: InitialStateType = initialState, action: ActionTypeAC): InitialStateType => {
     switch (action.type) {
         case ACTION_TYPE_TYPE.ADD_POST:
-            //messageForNewPost = '' - after redrawing the state, the input field will be empty
-
             return {
                 ...state,
                 posts: [
@@ -105,7 +102,7 @@ export const getUserProfileThunkCreator = (userId: string) => {
     return (dispatch: Dispatch) => {
         usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfileAC(response.data))
-        }).catch((err)=> {
+        }).catch((err) => {
             console.warn(err)
         })
     }
@@ -115,8 +112,8 @@ export const getStatusProfileTC = (userId: string) => {
         profileAPI.getStatus(userId)
             .then(response => {
                 dispatch(setStatusAC(response.data))
-            }).catch((err)=>{
-                console.warn(err)
+            }).catch((err) => {
+            console.warn(err)
         })
     }
 }
@@ -126,10 +123,10 @@ export const updateStatusProfileTC = (status: string) => {
             .then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(setStatusAC(status))
-                }else {
+                } else {
                     dispatch(setStatusAC(response.data.messages))
                 }
-            }).catch((err)=>{
+            }).catch((err) => {
             console.warn(err)
         })
     }

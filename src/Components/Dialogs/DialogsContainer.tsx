@@ -9,7 +9,7 @@ import {compose,} from 'redux'
 import {useDispatch, useSelector} from "react-redux";
 import {selectStateMessagesPage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
-import {MessageType} from "../Form/AddMessageForm";
+import {MessageType} from "../Form/DialogsForm/AddMessageForm";
 
 
 

@@ -2,8 +2,8 @@ import React from 'react';
 import style from './MyPosts.module.sass'
 import Post from "./Post/Post";
 import {PostType} from "../ProfileReducer";
-import {AddMessageFrom} from "../../Form/AddMessageForm";
-import {AddNewPostForm} from "../../Form/AddNewPostForm";
+import {AddMessageFrom} from "../../Form/DialogsForm/AddMessageForm";
+import {AddNewPostForm} from "../../Form/myPostsForm/AddNewPostForm";
 
 
 export type MessagePostType = {

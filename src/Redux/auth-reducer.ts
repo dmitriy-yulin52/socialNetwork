@@ -3,39 +3,33 @@ import {authAPI} from "../api/api";
 
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
-    SET_LOGIN = 'auth-reducer/SET_LOGIN'
 }
 
 type InitialStateType = {
-    data: UserDataType
+    userId: number | null
+    email: string | null
+    login: string | null
     isAuth: boolean
-    login:SetLoginType
 }
 
 export type UserDataType = {
     userId: number | null
     email: string | null
     login: string | null
+    isAuth: boolean
 }
 export type SetLoginType = {
     resultCode: number | null
     messages: Array<string> | null
-    data: {userId:number | null}
+    data: { userId: number | null }
 }
 type SetUserDataACType = {
     type: AUTH_ACTION_TYPE.SET_USER_DATA,
-    data: UserDataType
+    payload: UserDataType
 }
-type SetLoginACType = {
-    type: AUTH_ACTION_TYPE.SET_LOGIN,
-    login: SetLoginType
-}
-
-
 
 export type ActionACTypes =
     SetUserDataACType
-    | SetLoginACType
 
 
 // @ts-ignore
@@ -43,19 +37,11 @@ export let initialState: InitialStateType = {
     // userId: null,
     // email: null,
     // login: null,
-    data: {
-        userId: null,
-        email: null,
-        login: null,
-    },
+    userId: null,
+    email: null,
+    login: null,
     isAuth: false,
-    login:{
-        resultCode:null,
-        messages:null,
-        data:{
-            userId:null
-        }
-    }
+
 }
 
 
@@ -64,57 +50,57 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
         case AUTH_ACTION_TYPE.SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
-                isAuth:true,
-                login: {
-                    resultCode:null,
-                    messages:null,
-                    data:{
-                        userId:null
-                    }
-                }
-            }
-        case AUTH_ACTION_TYPE.SET_LOGIN:
-            return {
-                ...state,
-                isAuth:true,
-                login:action.login
+                ...action.payload,
+                isAuth: true,
             }
         default:
             return state
     }
 }
 
-
-export const setAuthUserDataAC = (data: UserDataType): SetUserDataACType => {
+export const setAuthUserDataAC = (login: string, email: string, userId: number, isAuth: boolean): SetUserDataACType => {
     return {
         type: AUTH_ACTION_TYPE.SET_USER_DATA,
-        data
-    }
-}
-export const SetLoginAC = (login: SetLoginType): SetLoginACType => {
-    return {
-        type: AUTH_ACTION_TYPE.SET_LOGIN,
-        login
+        payload: {
+            login,
+            email,
+            userId,
+            isAuth
+        }
     }
 }
 
 export const getAuthUserDataThunkCreator = () => {
-    return (dispatch:Dispatch<ActionACTypes>)=>{
-        authAPI.getHeader().then((response) => {
-            if(response.data.resultCode === 0){
-                debugger;
-                dispatch(setAuthUserDataAC(response.data))
-            }
-        })
+    return (dispatch: Dispatch) => {
+        authAPI.getHeader()
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    const {id, login, email} = response.data.data
+                    dispatch(setAuthUserDataAC(login, email, id, true))
+                }
+            })
     }
 }
-export const SetLoginThunkCreator = (email:string,password:string) => {
-    return (dispatch:Dispatch<ActionACTypes>)=>{
-        authAPI.setLogin(email,password).then((response) => {
-            if(response.data.resultCode === 0){
-                dispatch(SetLoginAC(response.data))
-            }
-        })
+
+export const Login = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: Dispatch) => {
+        authAPI.Login(email, password, rememberMe)
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    // @ts-ignore
+                    dispatch(getAuthUserDataThunkCreator())
+                }
+            })
+    }
+}
+export const logout = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.Logout()
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    // @ts-ignore
+                    dispatch(dispatch(setAuthUserDataAC(null, null, null, false)))
+                }
+            })
     }
 }

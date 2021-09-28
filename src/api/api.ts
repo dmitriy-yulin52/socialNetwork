@@ -23,8 +23,15 @@ export const authAPI = {
     getHeader() {
         return instance.get(`auth/me`,)
     },
-    setLogin(email: string, password: string) {
-        return instance.put(`auth/login`, {email: email, password: password})
+    Login(email: string, password: string,rememberMe:boolean = false) {
+        return instance.post(`auth/login`, {
+            email,
+            password,
+            rememberMe
+        })
+    },
+    Logout() {
+        return instance.delete(`auth/login`)
     }
 }
 
