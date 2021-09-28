@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import s from './Login.module.sass'
+import {Redirect} from "react-router-dom";
 
 
 const validationSchema = yup.object({
@@ -19,9 +20,10 @@ const validationSchema = yup.object({
 
 type LoginType = {
     setLogin: (email: string, password: string, rememberMe: boolean) => void
+    isAuth:boolean
 }
 
-export const Login = (props: LoginType) => {
+export const Login = React.memo((props: LoginType) => {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -32,6 +34,10 @@ export const Login = (props: LoginType) => {
             props.setLogin(values.email,values.password,true)
         },
     });
+
+    if(props.isAuth){
+        return <Redirect to={'/profile'}/>
+    }
 
     return (
         <div className={s.loginWrapper}>
@@ -70,7 +76,7 @@ export const Login = (props: LoginType) => {
             </form>
         </div>
     );
-};
+});
 
 
 // export default connect(null, {

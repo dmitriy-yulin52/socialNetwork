@@ -1,21 +1,37 @@
 import React, {useCallback} from 'react'
 import {Login} from "./Login";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {SetLogin} from "../../Redux/auth-reducer";
+import {AppStateType} from "../../Redux/reduxStore";
+import {LinearProgress} from "@material-ui/core";
+import {selectStateUsersPage} from "../../Redux/selectors";
 
 
+export const LoginContainer = () => {
 
+    const selector = (state: AppStateType) => state.auth
+    const {
+        isAuth
+    } = useSelector(selector)
 
-
-export const LoginContainer = ()=>{
+    const {
+        isFetching
+    }= useSelector(selectStateUsersPage)
 
     const dispatch = useDispatch()
 
-    const setLogin = useCallback((email: string, password: string, rememberMe: boolean)=> {
-        dispatch(SetLogin(email,password,rememberMe))
-    },[])
+    const setLogin = useCallback((email: string, password: string, rememberMe: boolean) => {
+        dispatch(SetLogin(email, password, rememberMe))
+    }, [])
 
     return (
-        <Login setLogin={setLogin}/>
+        <>
+            {isFetching ? <LinearProgress /> : null}
+            <Login
+                setLogin={setLogin}
+                isAuth={isAuth}
+            />
+        </>
     )
 }
+

@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
+import {setIsFetchingAC} from "../Components/Users/users-reducer";
 
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
@@ -61,7 +62,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
         case AUTH_ACTION_TYPE.IS_AUTH:
             return {
                 ...state,
-                isAuth:action.isAuth
+                isAuth:true
             }
 
         default:
@@ -101,12 +102,13 @@ export const getAuthUserDataThunkCreator = () => {
 
 export const SetLogin = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: Dispatch) => {
+        dispatch(setIsFetchingAC(true))
         authAPI.Login(email, password, rememberMe)
             .then((response) => {
                 if (response.data.resultCode === 0) {
                     // @ts-ignore
                     dispatch(getAuthUserDataThunkCreator())
-
+                    dispatch(setIsFetchingAC(false))
                 }
             }).catch((err)=> console.warn(err))
     }

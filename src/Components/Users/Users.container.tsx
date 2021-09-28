@@ -7,11 +7,11 @@ import {
 
 } from "./users-reducer";
 import {Users} from "./Users";
-import {Preloader} from "../common/Preloader/Preloader";
 import {selectStateUsersPage} from "../../Redux/selectors";
 import {Paginator} from "./Paginator/Paginator";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
+import {LinearProgress} from "@material-ui/core";
 
 
 const UsersContainer = () => {
@@ -43,7 +43,8 @@ const UsersContainer = () => {
 
     return (
         <div>
-            {isFetching ? <Preloader/> : null}
+            {/*{isFetching ? <Preloader/> : null}*/}
+            {isFetching ? <LinearProgress /> : null}
             <Paginator
                 pageSize={pageSize}
                 totalCount={totalCount}
