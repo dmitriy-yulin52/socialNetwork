@@ -1,6 +1,6 @@
 import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ProfileType} from "./ProfileReducer";
+import {PostType, ProfileType} from "./ProfileReducer";
 import { MyPostsContainer } from './MyPosts/MyPostsContainer';
 
 
@@ -8,6 +8,7 @@ type ProfilePropsType = {
     profile:ProfileType
     status:string
     updateStatus:(status:string)=>void
+    posts:Array<PostType>
 }
 
 
@@ -16,7 +17,8 @@ export const Profile = React.memo((props:ProfilePropsType) => {
     let {
         profile,
         status,
-        updateStatus
+        updateStatus,
+        posts
     } = props
 
 
@@ -28,6 +30,7 @@ export const Profile = React.memo((props:ProfilePropsType) => {
                 updateStatus={updateStatus}
             />
             <MyPostsContainer
+                posts={posts}
             />
         </div>
     )

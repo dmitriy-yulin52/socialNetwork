@@ -2,7 +2,6 @@ import React from 'react';
 import style from './MyPosts.module.sass'
 import Post from "./Post/Post";
 import {PostType} from "../ProfileReducer";
-import {AddMessageFrom} from "../../Form/DialogsForm/AddMessageForm";
 import {AddNewPostForm} from "../../Form/myPostsForm/AddNewPostForm";
 
 
@@ -13,7 +12,6 @@ type PropsType = {
     posts: Array<PostType>
     addPost: (message: MessagePostType) => void
 }
-
 
 
 export const MyPosts = React.memo((props: PropsType) => {
@@ -30,30 +28,6 @@ export const MyPosts = React.memo((props: PropsType) => {
             like={i.like}
             time={i.time}
         />)
-
-
-
-    // const onAddPostClickHandler = () => {
-    //     const messageTrim = messageForNewPost.trim()
-    //     if (messageTrim) {
-    //         addPost(messageTrim)
-    //     } else {
-    //         setError('Title is required')
-    //     }
-    // }
-    // const onPostChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    //     updateNewPostText(event.currentTarget.value)
-    //     setError(null)
-    // }
-    // const onPostChangePressKey = (event: KeyboardEvent<HTMLInputElement>) => {
-    //     if (error !== null) {
-    //         setError(null)
-    //     }
-    //     if (event.key === 'Enter') {
-    //         onAddPostClickHandler()
-    //     }
-    // }
-
 
     return (
         <div>

@@ -1,35 +1,34 @@
 import React, {useCallback} from 'react';
 import {
-    addPostActionCreator,
+    addPostActionCreator, PostType,
 } from "../ProfileReducer";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {MessagePostType, MyPosts} from "./MyPosts";
-import {AppStateType} from "../../../Redux/reduxStore";
 
+type MyPostsContainerType = {
+    posts: Array<PostType>
+}
 
-export const MyPostsContainer = React.memo(()=> {
-
-    const selector = (state:AppStateType)=> state.profilePage
+export const MyPostsContainer: React.FC<MyPostsContainerType> = React.memo((props) => {
 
     const {
-        posts,
-    }= useSelector(selector)
+        posts
+    } = props
+
     const dispatch = useDispatch()
 
-    const addPost = useCallback((formData:MessagePostType)=> {
+    const addPost = useCallback((formData: MessagePostType) => {
         dispatch(addPostActionCreator(formData.message))
-    },[addPostActionCreator])
+    }, [addPostActionCreator])
 
 
-    return(
+    return (
         <MyPosts
             posts={posts}
             addPost={addPost}
         />
     )
 })
-
-
 
 
 // export const MyPostsContainer = (store: AppStateType) => {

@@ -14,40 +14,12 @@ type InitialStateType = {
     isAuth: boolean
 }
 
-export type UserDataType = {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-}
-export type SetLoginType = {
-    resultCode: number | null
-    messages: Array<string> | null
-    data: { userId: number | null }
-}
-type SetUserDataACType = {
-    type: AUTH_ACTION_TYPE.SET_USER_DATA,
-    payload: UserDataType
-}
-type SetIsAuthACType = {
-    type: AUTH_ACTION_TYPE.SET_IS_AUTH,
-    isAuth:boolean
-}
-
-export type ActionACTypes =
-    SetUserDataACType
-    | SetIsAuthACType
-
 
 export let initialState: InitialStateType = {
-    // userId: null,
-    // email: null,
-    // login: null,
     userId: null,
     email: null,
     login: null,
     isAuth: false,
-
 }
 
 
@@ -70,6 +42,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     }
 }
 
+
+//actions
 export const setAuthUserDataAC = (login: string, email: string, userId: number, isAuth: boolean): SetUserDataACType => {
     return {
         type: AUTH_ACTION_TYPE.SET_USER_DATA,
@@ -88,6 +62,8 @@ export const setIsAuthAC = (isAuth: boolean):SetIsAuthACType => {
     }
 }
 
+
+//thunks
 export const getAuthUserDataThunkCreator = () => {
     return (dispatch: Dispatch) => {
         authAPI.getHeader()
@@ -99,7 +75,6 @@ export const getAuthUserDataThunkCreator = () => {
             }).catch((err)=> console.warn(err))
     }
 }
-
 export const SetLogin = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
@@ -132,3 +107,28 @@ export const logout = () => {
             }).catch((err)=> console.warn(err))
     }
 }
+
+//types
+export type UserDataType = {
+    userId: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+}
+export type SetLoginType = {
+    resultCode: number | null
+    messages: Array<string> | null
+    data: { userId: number | null }
+}
+type SetUserDataACType = {
+    type: AUTH_ACTION_TYPE.SET_USER_DATA,
+    payload: UserDataType
+}
+type SetIsAuthACType = {
+    type: AUTH_ACTION_TYPE.SET_IS_AUTH,
+    isAuth:boolean
+}
+
+export type ActionACTypes =
+    SetUserDataACType
+    | SetIsAuthACType

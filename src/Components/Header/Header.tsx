@@ -28,11 +28,6 @@ const Header:React.FC<PropsType> = React.memo((props) => {
                 {isAuth
                     ? <div style={{display: 'flex', flexDirection: 'column'}}>
                         {login}
-                        {/*<button*/}
-                        {/*    className={style.button}*/}
-                        {/*    onClick={props.logout}>*/}
-                        {/*    Log out*/}
-                        {/*</button>*/}
                         <Button
                             variant="contained"
                             color="primary"

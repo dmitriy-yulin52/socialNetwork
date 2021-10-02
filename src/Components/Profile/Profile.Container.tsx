@@ -18,7 +18,8 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
 
     const {
         profile,
-        status
+        status,
+        posts
     } = useSelector(selectStateProfilePage)
     const dispatch = useDispatch()
 
@@ -29,11 +30,11 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
         }
         dispatch(getUserProfileThunkCreator(userId))
         dispatch(getStatusProfileTC(userId))
-    }, [])
+    }, [getStatusProfileTC,getUserProfileThunkCreator])
 
     const updateStatus = useCallback((status:string)=> {
         dispatch(updateStatusProfileTC(status))
-    },[])
+    },[updateStatusProfileTC])
 
 
 
@@ -43,6 +44,7 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
                 profile={profile}
                 status={status}
                 updateStatus={updateStatus}
+                posts={posts}
             />
         </div>
     )
