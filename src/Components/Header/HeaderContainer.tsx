@@ -1,33 +1,30 @@
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../Redux/reduxStore";
-import {HeaderCopy} from "./HeaderCopy";
 import Header from "./Header";
-import {LinearProgress} from "@material-ui/core";
 import {logout} from "../../Redux/auth-reducer";
+import {selectStateAuthPage} from "../../Redux/selectors";
 
 
-export const HeaderContainer = React.memo(() => {
+export const HeaderContainer = () => {
 
-    const selector = (state: AppStateType) => state.auth
     const {
         isAuth,
         login,
-    } = useSelector(selector)
+    } = useSelector(selectStateAuthPage)
 
     const dispatch = useDispatch()
 
-    const logOutSystem = useCallback(()=> {
+    const logoutSystem = useCallback(()=> {
         dispatch(logout())
     },[])
     return (
             <Header
                 isAuth={isAuth}
                 login={login}
-                logout={logOutSystem}
+                logout={logoutSystem}
             />
     )
-})
+}
 
 
 // type MapStateToPropsType = {

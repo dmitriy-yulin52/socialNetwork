@@ -6,7 +6,6 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {selectStateProfilePage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import { compose } from 'redux';
-import {AppStateType} from "../../Redux/reduxStore";
 import s from './Profile.module.css'
 
 
@@ -17,8 +16,10 @@ export type ProfilePropsType = RouteComponentProps<PathParamsType>
 
 const ProfileContainer = React.memo((props: ProfilePropsType) => {
 
-    const {profile} = useSelector(selectStateProfilePage)
-    const status = useSelector<AppStateType , string>((state)=> state.profilePage.status)
+    const {
+        profile,
+        status
+    } = useSelector(selectStateProfilePage)
     const dispatch = useDispatch()
 
     useEffect(() => {

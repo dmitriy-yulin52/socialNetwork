@@ -18,9 +18,6 @@ export const ProfileInfo = React.memo((props: ProfileInfoType) => {
         updateStatus,
     } = props
 
-    if (!profile) {
-        return <Preloader/>
-    }
 
     return (
         <div>
