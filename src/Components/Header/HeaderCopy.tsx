@@ -95,6 +95,7 @@ export const HeaderCopy = React.memo((props:PropsType)=> {
         login,
     }= props
 
+    // @ts-ignore
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);

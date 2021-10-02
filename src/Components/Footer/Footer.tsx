@@ -15,6 +15,7 @@ export const Footer = () => {
             width: 500,
         },
     });
+    // @ts-ignore
     const classes = useStyles();
     const [value, setValue] = React.useState('recents');
 

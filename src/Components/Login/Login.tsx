@@ -3,8 +3,10 @@ import {useFormik} from 'formik';
 import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import s from './Login.module.sass'
+import s from './LoginStyle.module.css'
 import {Redirect} from "react-router-dom";
+import {Link} from "@material-ui/core";
+
 
 
 const validationSchema = yup.object({
@@ -65,15 +67,34 @@ export const Login = React.memo((props: LoginType) => {
                     helperText={formik.touched.password && formik.errors.password}
                     className={s.password}
                 />
-
-                <Button
-                    className={s.button}
-                    color="primary"
-                    variant="contained"
-                    fullWidth type="submit">
-                    Submit
-                </Button>
+                <div className={s.submitButton}>
+                    <Button
+                        className={s.button}
+                        color="primary"
+                        variant="contained"
+                        fullWidth type="submit">
+                        Submit
+                    </Button>
+                </div>
             </form>
+            <div className={s.link}>
+                <Link href="#" underline="hover">
+                    {'Забыли пароль?'}
+                </Link>
+
+            </div>
+            <hr/>
+            <div className={s.createButton}>
+                <Button
+                    className={s.createAccount}
+                    color='primary'
+                    variant="contained"
+                    size="small"
+                >
+                    Create an account
+                </Button>
+            </div>
+
         </div>
     );
 });

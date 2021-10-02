@@ -1,0 +1,22 @@
+.loginWrapper {
+    border: 1px solid grey;
+    border-radius: 8px;
+    background-color: white;
+    padding: 25px;
+    width: 300px;
+    margin: 50px auto
+}
+.submitButton{
+    margin-top: 10px;
+}
+
+.createButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.link{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 20px 0;
+}

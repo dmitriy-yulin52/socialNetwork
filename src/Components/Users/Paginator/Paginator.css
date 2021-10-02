@@ -1,0 +1,9 @@
+.selectedPage {
+    font-weight: 800;
+    color: red;
+    cursor: pointer;
+}
+
+.start {
+    cursor: pointer
+}

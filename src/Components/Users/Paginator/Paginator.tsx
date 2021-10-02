@@ -12,23 +12,28 @@ type PaginatorType = {
 
 export const Paginator = (props: PaginatorType) => {
 
-    const {
+    let {
         pageSize,
         totalCount,
         currentPage,
         onPageChanged,
-} = props
+    } = props
 
 
     let pagesCount = Math.ceil(totalCount / pageSize)
-    let pages = []
+
+    let pages: Array<number> = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+
+
     return (
         <div>
             {pages.map((el) => {
-                return <span className={currentPage === el ? style.selectedPage : style.start}
+
+                const selectedPages = currentPage === el ? style.selectedPage : style.start
+                return <span className={selectedPages}
                              onClick={() => {
                                  onPageChanged(el)
                              }}

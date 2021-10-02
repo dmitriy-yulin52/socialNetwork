@@ -29,7 +29,7 @@ const UsersContainer = () => {
 
     React.useEffect(() => {
         dispatch(getUsersThunkCreator(currentPage, pageSize))
-    }, [currentPage, pageSize])
+    }, [])
 
     const onPageChanged = useCallback((pageNumber: number) => {
         dispatch(getUsersThunkCreator(pageNumber, pageSize))

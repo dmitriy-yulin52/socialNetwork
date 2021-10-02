@@ -120,6 +120,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
         dispatch(setIsFetchingAC(true))
 
         usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setCurrentPageAC(currentPage))
             dispatch(setUsersAC(data.items))
             dispatch(setTotalUsersCountAC(data.totalCount))
             dispatch(setIsFetchingAC(false))
@@ -144,7 +145,7 @@ export const followThunkCreator = (usersId: number) => {
         usersAPI.follow(usersId)
             .then(response => {
                 if (response.data.resultCode === 0) {
-                    dispatch(followSuccessAC(usersId))
+                        dispatch(followSuccessAC(usersId))
                 }
                 dispatch(toggleIsFollowingProgressAC(false))
             })

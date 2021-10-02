@@ -29,7 +29,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
             return {
                 ...state,
                 ...action.payload,
-                isAuth: action.payload.isAuth,
+                // isAuth: action.payload.isAuth,
             }
         case AUTH_ACTION_TYPE.SET_IS_AUTH:
             return {
@@ -66,11 +66,13 @@ export const setIsAuthAC = (isAuth: boolean):SetIsAuthACType => {
 //thunks
 export const getAuthUserDataThunkCreator = () => {
     return (dispatch: Dispatch) => {
+        dispatch(setIsFetchingAC(true))
         authAPI.getHeader()
             .then((response) => {
                 if (response.data.resultCode === 0) {
                     const {id, login, email} = response.data.data
                     dispatch(setAuthUserDataAC(login, email, id, true))
+                    dispatch(setIsFetchingAC(false))
                 }
             }).catch((err)=> console.warn(err))
     }
