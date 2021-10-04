@@ -3,10 +3,11 @@ import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {getStatusProfileTC, getUserProfileThunkCreator, updateStatusProfileTC} from "./ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {selectStateProfilePage} from "../../Redux/selectors";
+import {selectStateProfilePage, selectStateUsersPage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import { compose } from 'redux';
 import s from './Profile.module.css'
+import {LinearProgress} from "@material-ui/core";
 
 
 export type PathParamsType = {
@@ -21,6 +22,7 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
         status,
         posts
     } = useSelector(selectStateProfilePage)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -40,6 +42,7 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
 
     return (
         <div className={s.profile}>
+
             <Profile
                 profile={profile}
                 status={status}

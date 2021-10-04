@@ -20,3 +20,12 @@
     justify-content: center;
     margin: 20px 0 20px 0;
 }
+
+.registrationWrapper{
+    border: 1px solid grey;
+    border-radius: 8px;
+    background-color: white;
+    padding: 10px;
+    width: 500px;
+    margin: 50px auto
+}

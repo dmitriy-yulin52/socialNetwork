@@ -4,7 +4,7 @@ import {store} from "./Redux/reduxStore";
 import ReactDOM from "react-dom";
 import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import App from "./Components/app/App";
+import {App} from "./Components/app/App";
 import './style.sass'
 
 

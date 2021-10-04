@@ -2,6 +2,7 @@ import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {PostType, ProfileType} from "./ProfileReducer";
 import { MyPostsContainer } from './MyPosts/MyPostsContainer';
+import {LinearProgress} from "@material-ui/core";
 
 
 type ProfilePropsType = {
@@ -18,7 +19,7 @@ export const Profile = React.memo((props:ProfilePropsType) => {
         profile,
         status,
         updateStatus,
-        posts
+        posts,
     } = props
 
 

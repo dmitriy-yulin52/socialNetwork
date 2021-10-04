@@ -11,7 +11,6 @@ import {selectStateUsersPage} from "../../Redux/selectors";
 import {Paginator} from "./Paginator/Paginator";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
-import {LinearProgress} from "@material-ui/core";
 
 
 const UsersContainer = () => {
@@ -21,7 +20,6 @@ const UsersContainer = () => {
         pageSize,
         totalCount,
         currentPage,
-        isFetching,
         followingInProgress,
     } = useSelector(selectStateUsersPage)
     const dispatch = useDispatch()
@@ -43,8 +41,6 @@ const UsersContainer = () => {
 
     return (
         <div>
-            {/*{isFetching ? <Preloader/> : null}*/}
-            {isFetching ? <LinearProgress /> : null}
             <Paginator
                 pageSize={pageSize}
                 totalCount={totalCount}

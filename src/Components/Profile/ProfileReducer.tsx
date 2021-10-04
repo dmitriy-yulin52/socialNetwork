@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../../api/api";
+import {setIsFetchingAC} from "../Users/users-reducer";
 
 
 enum ACTION_TYPE_TYPE {
@@ -100,8 +101,10 @@ export const setStatusAC = (status: string): SetStatusType => {
 //thunk
 export const getUserProfileThunkCreator = (userId: string) => {
     return (dispatch: Dispatch) => {
+        dispatch(setIsFetchingAC(true))
         usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfileAC(response.data))
+            dispatch(setIsFetchingAC(false))
         }).catch((err) => {
             console.warn(err)
         })
