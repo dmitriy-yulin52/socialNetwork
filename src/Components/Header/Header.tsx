@@ -2,14 +2,11 @@ import React from 'react';
 import style from './Header.module.sass'
 import logo from '../../assets/images/laptop.svg'
 import {NavLink} from 'react-router-dom';
-import Button from "@material-ui/core/Button";
-import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-
-
+import { createTheme } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
 
 type PropsType = {
     isAuth: boolean
@@ -30,12 +27,24 @@ const Header:React.FC<PropsType> = React.memo((props) => {
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    // const theme = createTheme({
+    //     palette: {
+    //         primary: {
+    //             main: purple[500],
+    //         },
+    //         secondary: {
+    //             main: '#f44336',
+    //         },
+    //     },
+    // });
+
     return (
         <header className={style.header}>
             <img className={style.logo} src={logo}/>
@@ -43,72 +52,37 @@ const Header:React.FC<PropsType> = React.memo((props) => {
                 {isAuth
                     ? <div style={{display: 'flex', flexDirection: 'column'}}>
                         {login}
-                        <React.Fragment>
+                        <div>
+                            <Button
+                                color={'primary'}
+                                id="basic-button"
+                                aria-controls="basic-menu"
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick}
+                            >
+                                Menu
+                            </Button>
                             <Menu
+                                id="basic-menu"
                                 anchorEl={anchorEl}
                                 open={open}
                                 onClose={handleClose}
-                                onClick={handleClose}
-                                PaperProps={{
-                                    elevation: 0,
-                                    sx: {
-                                        overflow: 'visible',
-                                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                        mt: 1.5,
-                                        '& .MuiAvatar-root': {
-                                            width: 32,
-                                            height: 32,
-                                            ml: -0.5,
-                                            mr: 1,
-                                        },
-                                        '&:before': {
-                                            content: '""',
-                                            display: 'block',
-                                            position: 'absolute',
-                                            top: 0,
-                                            right: 14,
-                                            width: 10,
-                                            height: 10,
-                                            bgcolor: 'background.paper',
-                                            transform: 'translateY(-50%) rotate(45deg)',
-                                            zIndex: 0,
-                                        },
-                                    },
+                                MenuListProps={{
+                                    'aria-labelledby': 'basic-button',
                                 }}
-                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
-                                <MenuItem>
-                                    <Avatar /> Profile
-                                </MenuItem>
-                                <MenuItem>
-                                    <Avatar /> My account
-                                </MenuItem>
-                                <Divider />
-                                <MenuItem>
-                                    <ListItemIcon>
-                                    </ListItemIcon>
-                                    Add another account
-                                </MenuItem>
-                                <MenuItem>
-                                    <ListItemIcon>
-                                    </ListItemIcon>
-                                    Settings
-                                </MenuItem>
-                                <MenuItem>
-                                    <ListItemIcon>
-
-                                    </ListItemIcon>
-                                    Logout
-                                </MenuItem>
+                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={handleClose}>My account</MenuItem>
+                                <MenuItem onClick={logout}>Logout</MenuItem>
                             </Menu>
-                        </React.Fragment>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            size={'small'}
-                            onClick={logout}
-                        >Log out</Button>
+                        </div>
+                        {/*<Button*/}
+                        {/*    variant="contained"*/}
+                        {/*    color="primary"*/}
+                        {/*    size={'small'}*/}
+                        {/*    onClick={logout}*/}
+                        {/*>Log out</Button>*/}
                     </div>
                     :
                     <NavLink to={'/login'}>Login</NavLink>
