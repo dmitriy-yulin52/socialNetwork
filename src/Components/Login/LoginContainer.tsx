@@ -8,7 +8,7 @@ import {selectStateAuthPage} from "../../Redux/selectors";
 export const LoginContainer = () => {
 
     const {
-        isAuth
+        isAuth,
     } = useSelector(selectStateAuthPage)
 
 

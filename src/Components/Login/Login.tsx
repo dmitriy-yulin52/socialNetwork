@@ -18,7 +18,7 @@ const validationSchema = yup.object({
         .string()
         .min(8, 'Password should be of minimum 8 characters length')
         .max(20,'Password should be of maximum 20 characters length')
-        .required('Password is required'),
+        .required('Password is required')
 });
 
 type LoginType = {
@@ -36,6 +36,7 @@ export const Login = React.memo((props: LoginType) => {
     const offEditMode = () => {
         setEditMode(false)
     }
+
 
 
     const formik = useFormik({
@@ -56,11 +57,6 @@ export const Login = React.memo((props: LoginType) => {
 
     return (
         <div>
-            {/*<div className={s.registrationWrapper}>*/}
-            {/*    <div>*/}
-
-            {/*    </div>*/}
-            {/*</div>*/}
             <div className={editMode ?'': s.loginWrapper}>
                 {editMode ?
                     <div className={s.registrationWrapper}>

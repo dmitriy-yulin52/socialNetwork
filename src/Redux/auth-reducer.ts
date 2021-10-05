@@ -5,13 +5,14 @@ import {setIsFetchingAC} from "../Components/Users/users-reducer";
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
     SET_IS_AUTH = 'auth-reducer/SET_IS_AUTH',
+    SET_REQUIRED_FIELD = 'auth-reducer/SET_REQUIRED_FIELD',
 }
 
 type InitialStateType = {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
+    userId: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean,
 }
 
 
@@ -34,7 +35,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
         case AUTH_ACTION_TYPE.SET_IS_AUTH:
             return {
                 ...state,
-                isAuth:true
+                isAuth: true,
             }
 
         default:
@@ -51,14 +52,8 @@ export const setAuthUserDataAC = (login: string, email: string, userId: number, 
             login,
             email,
             userId,
-            isAuth
+            isAuth,
         }
-    }
-}
-export const setIsAuthAC = (isAuth: boolean):SetIsAuthACType => {
-    return {
-        type: AUTH_ACTION_TYPE.SET_IS_AUTH,
-        isAuth
     }
 }
 
@@ -74,7 +69,7 @@ export const getAuthUserDataThunkCreator = () => {
                     dispatch(setAuthUserDataAC(login, email, id, true))
                     dispatch(setIsFetchingAC(false))
                 }
-            }).catch((err)=> console.warn(err))
+            }).catch((err) => console.warn(err))
     }
 }
 export const SetLogin = (email: string, password: string, rememberMe: boolean) => {
@@ -87,13 +82,16 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean) =
                     dispatch(getAuthUserDataThunkCreator())
                     dispatch(setIsFetchingAC(false))
                 }
-                if(response.data.resultCode === 1) {
+                if (response.data.resultCode === 1) {
+                    dispatch(setIsFetchingAC(false))
+                }
+                if (response.data.resultCode === 10) {
                     dispatch(setIsFetchingAC(false))
                 }
 
-            }).catch((err)=>{
-                console.warn(err)
-        } )
+            }).catch((err) => {
+            console.warn(err)
+        })
     }
 }
 export const logout = () => {
@@ -106,30 +104,27 @@ export const logout = () => {
                     dispatch(dispatch(setAuthUserDataAC(null, null, null, false)))
                     dispatch(setIsFetchingAC(false))
                 }
-            }).catch((err)=> console.warn(err))
+            }).catch((err) => console.warn(err))
     }
 }
 
 //types
 export type UserDataType = {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
+    userId: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean,
 }
-export type SetLoginType = {
-    resultCode: number | null
-    messages: Array<string> | null
-    data: { userId: number | null }
-}
+
 type SetUserDataACType = {
     type: AUTH_ACTION_TYPE.SET_USER_DATA,
-    payload: UserDataType
+    payload: UserDataType,
 }
 type SetIsAuthACType = {
     type: AUTH_ACTION_TYPE.SET_IS_AUTH,
-    isAuth:boolean
+    isAuth: boolean,
 }
+
 
 export type ActionACTypes =
     SetUserDataACType
