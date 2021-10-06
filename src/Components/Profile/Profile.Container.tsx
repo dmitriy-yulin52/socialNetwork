@@ -3,11 +3,10 @@ import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {getStatusProfileTC, getUserProfileThunkCreator, updateStatusProfileTC} from "./ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {selectStateProfilePage, selectStateUsersPage} from "../../Redux/selectors";
+import {selectStateAuthPage, selectStateProfilePage, selectStateUsersPage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import { compose } from 'redux';
 import s from './Profile.module.css'
-import {LinearProgress} from "@material-ui/core";
 
 
 export type PathParamsType = {
@@ -20,15 +19,21 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
     const {
         profile,
         status,
-        posts
+        posts,
     } = useSelector(selectStateProfilePage)
 
+    const {
+        userId,
+        isAuth,
+    }= useSelector(selectStateAuthPage)
+    const authorizedUserId = userId
     const dispatch = useDispatch()
 
     useEffect(() => {
         let userId = props.match.params.userId
-        if (userId === undefined) {
-            userId = '16664'
+        if (!userId) {
+            // @ts-ignore
+            userId = authorizedUserId
         }
         dispatch(getUserProfileThunkCreator(userId))
         dispatch(getStatusProfileTC(userId))
