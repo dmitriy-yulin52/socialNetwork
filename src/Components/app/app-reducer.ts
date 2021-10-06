@@ -1,25 +1,28 @@
 import React from 'react'
+import {Dispatch} from "redux";
 
 
-enum APP_REDUCER_AT {
-    SET_ERROR = 'app-reducer/SET_ERROR'
+enum APP_REDUCER {
+    INITIALIZED_SUCCESS = 'app-reducer/INITIALIZED'
 }
 
 type InitialStateType = {
-    error: string | null
+    initialized: boolean,
 }
 const initialState: InitialStateType = {
-    error: null
+    initialized: false,
 }
 
 
-type ActionsType = SetErrorAT
-export type SetErrorAT = ReturnType<typeof setErrorAC>
+type ActionsType = ReturnType<typeof initializedSuccess>
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case APP_REDUCER_AT.SET_ERROR:
-            return {...state, error: action.error}
+        case APP_REDUCER.INITIALIZED_SUCCESS:
+            return {
+                ...state,
+                initialized: true,
+            }
         default:
             return {...state}
     }
@@ -27,9 +30,16 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 
 
 //actions
-export const setErrorAC = (error: string | null) => {
+export const initializedSuccess = () => {
     return {
-        type: APP_REDUCER_AT.SET_ERROR,
-        error
+        type: APP_REDUCER.INITIALIZED_SUCCESS,
     } as const
+}
+
+//thunks
+
+export const initializeApp = () => {
+    return (dispatch: Dispatch) => {
+
+    }
 }

@@ -78,8 +78,7 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean) =
         authAPI.Login(email, password, rememberMe)
             .then((response) => {
                 if (response.data.resultCode === 0) {
-                    // @ts-ignore
-                    dispatch(getAuthUserDataThunkCreator())
+                    dispatch(getAuthUserDataThunkCreator() as any)
                     dispatch(setIsFetchingAC(false))
                 }
                 if (response.data.resultCode === 1) {

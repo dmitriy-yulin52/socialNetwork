@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css'
 import NavBar from "../NavBar/NavBar"
-import {Route} from "react-router-dom"
+import {Route, withRouter} from "react-router-dom"
 import UsersContainer from "../Users/Users.container";
 import {HeaderContainer} from '../Header/HeaderContainer';
 import Music from "../Music/Music";
@@ -17,6 +17,7 @@ import {LinearProgress} from "@material-ui/core";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 import {getAuthUserDataThunkCreator} from "../../Redux/auth-reducer";
+import {compose} from "redux";
 
 
 
@@ -75,4 +76,9 @@ const mapStateToProps = (state:AppStateType)=> {
         isFetching: state.usersPage.isFetching
     }
 }
-export default connect(mapStateToProps,{getAuthUserDataThunkCreator})(App)
+// export default connect(mapStateToProps,{getAuthUserDataThunkCreator})(App)
+
+export default compose<React.ComponentType>(
+    withRouter,
+    connect(mapStateToProps,{getAuthUserDataThunkCreator})
+)(App)
