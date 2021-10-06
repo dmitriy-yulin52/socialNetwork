@@ -1,5 +1,6 @@
 import React from 'react'
 import {Dispatch} from "redux";
+import {getAuthUserDataThunkCreator} from "../../Redux/auth-reducer";
 
 
 enum APP_REDUCER {
@@ -37,9 +38,11 @@ export const initializedSuccess = () => {
 }
 
 //thunks
-
-export const initializeApp = () => {
+export const initializeAppTC = () => {
     return (dispatch: Dispatch) => {
-
+        let promise = dispatch(getAuthUserDataThunkCreator() as any)
+        Promise.all([promise]).then(() => {
+            dispatch(initializedSuccess())
+        })
     }
 }

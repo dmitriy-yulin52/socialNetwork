@@ -1,6 +1,8 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {setIsFetchingAC} from "../Components/Users/users-reducer";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "./reduxStore";
 
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
@@ -71,6 +73,7 @@ export const getAuthUserDataThunkCreator = () => {
                 }
             }).catch((err) => console.warn(err))
     }
+
 }
 export const SetLogin = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: Dispatch) => {

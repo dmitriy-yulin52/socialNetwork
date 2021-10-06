@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import {
-    addPostActionCreator, PostType,
+    addPostActionCreator, PostType, removePostAc,
 } from "../ProfileReducer";
 import {useDispatch} from "react-redux";
 import {MessagePostType, MyPosts} from "./MyPosts";
@@ -21,11 +21,15 @@ export const MyPostsContainer: React.FC<MyPostsContainerType> = React.memo((prop
         dispatch(addPostActionCreator(formData.message))
     }, [addPostActionCreator])
 
+    const removePost = (userId:string)=> {
+        dispatch(removePostAc(userId))
+    }
 
     return (
         <MyPosts
             posts={posts}
             addPost={addPost}
+            removePost={removePost}
         />
     )
 })

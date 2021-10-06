@@ -11,6 +11,7 @@ export type MessagePostType = {
 type PropsType = {
     posts: Array<PostType>
     addPost: (message: MessagePostType) => void
+    removePost:(userId:string)=>void
 }
 
 
@@ -19,6 +20,7 @@ export const MyPosts = React.memo((props: PropsType) => {
     const {
         posts,
         addPost,
+        removePost,
     } = props;
 
     let postElement = posts.map((i) =>
@@ -27,6 +29,7 @@ export const MyPosts = React.memo((props: PropsType) => {
             message={i.message}
             like={i.like}
             time={i.time}
+            removePost={removePost}
         />)
 
     return (

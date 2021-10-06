@@ -17,16 +17,14 @@ import {LinearProgress} from "@material-ui/core";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 import {getAuthUserDataThunkCreator} from "../../Redux/auth-reducer";
-import {compose} from "redux";
-
-
-
+import {compose, Dispatch} from "redux";
+import {initializeAppTC} from "./app-reducer";
 
 
 class App extends React.Component<AppType> {
 
     componentDidMount() {
-        this.props.getAuthUserDataThunkCreator()
+        this.props.initializeAppTC()
     }
 
     render() {
@@ -67,11 +65,11 @@ class App extends React.Component<AppType> {
 
 //types class component
 type AppType = {
-    isFetching:boolean
-    getAuthUserDataThunkCreator:()=>void
+    isFetching: boolean
+    initializeAppTC: () => (dispatch: Dispatch) => void
 }
 
-const mapStateToProps = (state:AppStateType)=> {
+const mapStateToProps = (state: AppStateType) => {
     return {
         isFetching: state.usersPage.isFetching
     }
@@ -80,5 +78,5 @@ const mapStateToProps = (state:AppStateType)=> {
 
 export default compose<React.ComponentType>(
     withRouter,
-    connect(mapStateToProps,{getAuthUserDataThunkCreator})
+    connect(mapStateToProps, {initializeAppTC})
 )(App)

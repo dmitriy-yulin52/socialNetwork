@@ -8,7 +8,8 @@ enum ACTION_TYPE_TYPE {
     ADD_POST = ' profile-reducer/ADD-POST',
     UPDATE_NEW_POST_TEXT = ' profile-reducer/UPDATE-NEW-POST-TEXT',
     SET_USER_PROFILE = ' profile-reducer/SET-USER-PROFILE',
-    SET_STATUS = 'profile-reducer/SET_STATUS'
+    SET_STATUS = 'profile-reducer/SET_STATUS',
+    REMOVE_POST = 'profile-reducer/REMOVE_POST',
 }
 
 
@@ -72,6 +73,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 ...state,
                 status: action.status
             }
+        case ACTION_TYPE_TYPE.REMOVE_POST:
+            return {
+                ...state,
+                posts:[
+                    ...state.posts.filter((el)=>el.id !== action.userId)
+                ]
+            }
         default:
             return state
     }
@@ -88,13 +96,19 @@ export const addPostActionCreator = (message: string): AddPostActionCreatorType 
 export const setUserProfileAC = (profile: ProfileType): SetUserProfileACType => {
     return {
         type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
-        profile
+        profile,
     }
 }
 export const setStatusAC = (status: string): SetStatusType => {
     return {
         type: ACTION_TYPE_TYPE.SET_STATUS,
-        status
+        status,
+    }
+}
+export const removePostAc = (userId: string):RemovePostType => {
+    return {
+        type: ACTION_TYPE_TYPE.REMOVE_POST,
+        userId,
     }
 }
 
@@ -190,9 +204,14 @@ type SetStatusType = {
     type: ACTION_TYPE_TYPE.SET_STATUS,
     status: string
 }
+type RemovePostType = {
+    type: ACTION_TYPE_TYPE.REMOVE_POST,
+    userId: string
+}
 
 export type ActionTypeAC =
     AddPostActionCreatorType
     | UpdateNewPostTextActionCreatorType
     | SetUserProfileACType
     | SetStatusType
+    | RemovePostType
