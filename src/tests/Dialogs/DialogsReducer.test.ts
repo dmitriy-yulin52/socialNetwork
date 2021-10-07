@@ -3,7 +3,7 @@ import {
     dialogsReducer,
     InitialStateDialogsType,
     RemoveMessageCreator,
-} from "../Components/Dialogs/DialogsReducer";
+} from "../../Redux/Dialogs/DialogsReducer";
 import {v1} from "uuid";
 
 let startState: InitialStateDialogsType

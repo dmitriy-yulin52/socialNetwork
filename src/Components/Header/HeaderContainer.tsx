@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Header from "./Header";
-import {logout} from "../../Redux/auth-reducer";
+import {logout} from "../../Redux/auth/auth-reducer";
 import {selectStateAuthPage} from "../../Redux/selectors";
 
 

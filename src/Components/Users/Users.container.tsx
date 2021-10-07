@@ -5,7 +5,7 @@ import {
     getUsersThunkCreator,
     unfollowThunkCreator,
 
-} from "./users-reducer";
+} from "../../Redux/Users/users-reducer";
 import {Users} from "./Users";
 import {selectStateUsersPage} from "../../Redux/selectors";
 import {Paginator} from "./Paginator/Paginator";

@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/api";
-import {setIsFetchingAC} from "../Components/Users/users-reducer";
+import {authAPI} from "../../api/api";
+import {setIsFetchingAC} from "../Users/users-reducer";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppStateType} from "./reduxStore";
+import {AppStateType} from "../reduxStore";
 
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
@@ -10,7 +10,7 @@ export enum AUTH_ACTION_TYPE {
     SET_REQUIRED_FIELD = 'auth-reducer/SET_REQUIRED_FIELD',
 }
 
-type InitialStateType = {
+export type InitialStateType = {
     userId: number | null,
     email: string | null,
     login: string | null,
@@ -79,21 +79,23 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean) =
     return (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
         authAPI.Login(email, password, rememberMe)
-            .then((response) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(getAuthUserDataThunkCreator() as any)
-                    dispatch(setIsFetchingAC(false))
-                }
-                if (response.data.resultCode === 1) {
-                    dispatch(setIsFetchingAC(false))
-                }
-                if (response.data.resultCode === 10) {
-                    dispatch(setIsFetchingAC(false))
-                }
-
-            }).catch((err) => {
-            console.warn(err)
+               .then((response) => {
+                   if (response.data.resultCode === 0) {
+                       dispatch(getAuthUserDataThunkCreator() as any)
+                       dispatch(setIsFetchingAC(false))
+                   }
+                   if (response.data.resultCode === 1) {
+                       dispatch(setIsFetchingAC(false))
+                   }
+                   if (response.data.resultCode === 10) {
+                       dispatch(setIsFetchingAC(false))
+                   }
+               }).catch((err)=>{
+                   console.warn(err)
         })
+
+
+
     }
 }
 export const logout = () => {
@@ -103,7 +105,7 @@ export const logout = () => {
             .then((response) => {
                 if (response.data.resultCode === 0) {
                     // @ts-ignore
-                    dispatch(dispatch(setAuthUserDataAC(null, null, null, false)))
+                    dispatch(dispatch(setAuthUserDataAC(null, null, null, false)) as any)
                     dispatch(setIsFetchingAC(false))
                 }
             }).catch((err) => console.warn(err))

@@ -2,11 +2,11 @@ import {v1} from "uuid";
 import {
     addPostActionCreator,
     profileReducer,
-} from '../Components/Profile/ProfileReducer';
+} from './Profile/ProfileReducer';
 import {
     addMessageActionCreator,
     dialogsReducer,
-} from '../Components/Dialogs/DialogsReducer';
+} from './Dialogs/DialogsReducer';
 
 
 // export type PostType = {

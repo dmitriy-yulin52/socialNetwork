@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {
     addPostActionCreator, PostType, removePostAc,
-} from "../ProfileReducer";
+} from "../../../Redux/Profile/ProfileReducer";
 import {useDispatch} from "react-redux";
 import {MessagePostType, MyPosts} from "./MyPosts";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './MyPosts.module.sass'
 import Post from "./Post/Post";
-import {PostType} from "../ProfileReducer";
+import {PostType} from "../../../Redux/Profile/ProfileReducer";
 import {AddNewPostForm} from "../../Form/myPostsForm/AddNewPostForm";
 
 

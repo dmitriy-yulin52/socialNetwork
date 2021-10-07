@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react'
 import {Login} from "./Login";
 import {useDispatch, useSelector} from "react-redux";
-import { SetLogin} from "../../Redux/auth-reducer";
+import { SetLogin} from "../../Redux/auth/auth-reducer";
 import {selectStateAuthPage} from "../../Redux/selectors";
 
 

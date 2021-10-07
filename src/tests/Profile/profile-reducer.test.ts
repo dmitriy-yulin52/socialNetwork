@@ -1,4 +1,4 @@
-import {InitialStateType, profileReducer, setStatusAC} from "../Components/Profile/ProfileReducer";
+import {InitialStateType, profileReducer, setStatusAC} from "../../Redux/Profile/ProfileReducer";
 
 
 let startState: InitialStateType

@@ -4,7 +4,7 @@ import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import {
     InitialStateDialogsType,
-} from "./DialogsReducer";
+} from "../../Redux/Dialogs/DialogsReducer";
 import {AddMessageFrom, MessageType} from "../Form/DialogsForm/AddMessageForm";
 
 

@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
-import {getStatusProfileTC, getUserProfileThunkCreator, updateStatusProfileTC} from "./ProfileReducer";
+import {getStatusProfileTC, getUserProfileThunkCreator, updateStatusProfileTC} from "../../Redux/Profile/ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {selectStateAuthPage, selectStateProfilePage, selectStateUsersPage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";

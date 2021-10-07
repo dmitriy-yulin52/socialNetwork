@@ -16,7 +16,7 @@ import {LoginContainer} from "../Login/LoginContainer";
 import {LinearProgress} from "@material-ui/core";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
-import {getAuthUserDataThunkCreator} from "../../Redux/auth-reducer";
+import {getAuthUserDataThunkCreator} from "../../Redux/auth/auth-reducer";
 import {compose, Dispatch} from "redux";
 import {initializeAppTC} from "./app-reducer";
 

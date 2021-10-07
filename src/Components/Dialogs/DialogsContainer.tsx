@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {
     addMessageActionCreator,
     InitialStateDialogsType, RemoveMessageCreator,
-} from "./DialogsReducer";
+} from "../../Redux/Dialogs/DialogsReducer";
 import Dialogs from "./Dialogs";
 import {AppStateType} from "../../Redux/reduxStore";
 import {compose,} from 'redux'

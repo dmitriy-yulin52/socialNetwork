@@ -1,9 +1,9 @@
 import React from 'react'
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {profileReducer} from "../Components/Profile/ProfileReducer";
-import {dialogsReducer} from "../Components/Dialogs/DialogsReducer";
-import {usersReducer} from "../Components/Users/users-reducer";
-import {authReducer} from "./auth-reducer";
+import {profileReducer} from "./Profile/ProfileReducer";
+import {dialogsReducer} from "./Dialogs/DialogsReducer";
+import {usersReducer} from "./Users/users-reducer";
+import {authReducer} from "./auth/auth-reducer";
 import ThunkMiddleware from 'redux-thunk'
 import {appReducer} from "../Components/app/app-reducer";
 
