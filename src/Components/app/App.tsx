@@ -15,10 +15,10 @@ import {Footer} from "../Footer/Footer";
 import {LoginContainer} from "../Login/LoginContainer";
 import {LinearProgress} from "@material-ui/core";
 import {connect} from "react-redux";
-import {AppStateType} from "../../Redux/reduxStore";
+import {AppStateType} from "../../Redux/store/reduxStore";
 import {getAuthUserDataThunkCreator} from "../../Redux/auth/auth-reducer";
 import {compose, Dispatch} from "redux";
-import {initializeAppTC} from "./app-reducer";
+import {initializeAppTC} from "../../Redux/App/app-reducer";
 
 
 class App extends React.Component<AppType> {

@@ -126,9 +126,11 @@ export const getUserProfileThunkCreator = (userId: string) => {
 }
 export const getStatusProfileTC = (userId: string) => {
     return (dispatch: Dispatch) => {
+        dispatch(setIsFetchingAC(true))
         profileAPI.getStatus(userId)
             .then(response => {
                 dispatch(setStatusAC(response.data))
+                dispatch(setIsFetchingAC(false))
             }).catch((err) => {
             console.warn(err)
         })
@@ -136,10 +138,12 @@ export const getStatusProfileTC = (userId: string) => {
 }
 export const updateStatusProfileTC = (status: string) => {
     return (dispatch: Dispatch) => {
+        dispatch(setIsFetchingAC(true))
         profileAPI.updateStatus(status)
             .then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(setStatusAC(status))
+                    dispatch(setIsFetchingAC(false))
                 } else {
                     dispatch(setStatusAC(response.data.messages))
                 }

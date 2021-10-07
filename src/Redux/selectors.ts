@@ -1,4 +1,4 @@
-import {AppStateType} from './reduxStore'
+import {AppStateType} from './store/reduxStore'
 
 
 export const selectStateUsersPage = (state:AppStateType)=> state.usersPage

@@ -1,4 +1,4 @@
-import {InitialStateType, profileReducer, setStatusAC} from "../../Redux/Profile/ProfileReducer";
+import {InitialStateType, profileReducer, removePostAc, setStatusAC} from "../../Redux/Profile/ProfileReducer";
 
 
 let startState: InitialStateType
@@ -44,4 +44,13 @@ test('correct status should be added',()=> {
     const endSate = profileReducer(startState,action)
 
     expect(endSate.status).toBe('I super man')
+})
+test('post should be removed',()=> {
+
+    const action = removePostAc('1')
+    const endSate = profileReducer(startState,action)
+
+    expect(endSate.posts.length).toBe(3)
+    expect(endSate.posts[0].message).toBe('It,s my first post')
+    expect(endSate.posts[1].id).toBe('3')
 })

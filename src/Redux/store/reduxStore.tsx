@@ -1,11 +1,11 @@
 import React from 'react'
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {profileReducer} from "./Profile/ProfileReducer";
-import {dialogsReducer} from "./Dialogs/DialogsReducer";
-import {usersReducer} from "./Users/users-reducer";
-import {authReducer} from "./auth/auth-reducer";
+import {profileReducer} from "../Profile/ProfileReducer";
+import {dialogsReducer} from "../Dialogs/DialogsReducer";
+import {usersReducer} from "../Users/users-reducer";
+import {authReducer} from "../auth/auth-reducer";
 import ThunkMiddleware from 'redux-thunk'
-import {appReducer} from "../Components/app/app-reducer";
+import {appReducer} from "../App/app-reducer";
 
 
 export let rootReducers = combineReducers({

@@ -1,6 +1,6 @@
 import React from 'react'
 import reportWebVitals from './reportWebVitals'
-import {store} from "./Redux/reduxStore";
+import {store} from "./Redux/store/reduxStore";
 import ReactDOM from "react-dom";
 import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";

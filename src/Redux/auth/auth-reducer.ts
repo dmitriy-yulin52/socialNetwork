@@ -61,16 +61,15 @@ export const setAuthUserDataAC = (login: string | null, email: string | null, us
 
 //thunks
 export const getAuthUserDataThunkCreator = () => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
-        authAPI.getHeader()
-            .then((response) => {
-                if (response.data.resultCode === 0) {
-                    const {id, login, email} = response.data.data
+        let promise = await authAPI.getHeader()
+                if (promise.data.resultCode === 0) {
+                    const {id, login, email} = promise.data.data
                     dispatch(setAuthUserDataAC(login, email, id, true))
                     dispatch(setIsFetchingAC(false))
                 }
-            }).catch((err) => console.warn(err))
+
     }
 
 }

@@ -4,7 +4,7 @@ import {
     InitialStateDialogsType, RemoveMessageCreator,
 } from "../../Redux/Dialogs/DialogsReducer";
 import Dialogs from "./Dialogs";
-import {AppStateType} from "../../Redux/reduxStore";
+import {AppStateType} from "../../Redux/store/reduxStore";
 import {compose,} from 'redux'
 import {useDispatch, useSelector} from "react-redux";
 import {selectStateMessagesPage} from "../../Redux/selectors";
