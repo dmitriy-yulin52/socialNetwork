@@ -1,8 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../../api/api";
 import {setIsFetchingAC} from "../Users/users-reducer";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppStateType} from "../reduxStore";
+
 
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
@@ -19,9 +18,9 @@ export type InitialStateType = {
 
 
 export let initialState: InitialStateType = {
-    userId: null,
-    email: null,
-    login: null,
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false,
 }
 
@@ -47,7 +46,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 
 //actions
-export const setAuthUserDataAC = (login: string, email: string, userId: number, isAuth: boolean): SetUserDataACType => {
+export const setAuthUserDataAC = (login: string | null, email: string | null, userId: number | null, isAuth: boolean): SetUserDataACType => {
     return {
         type: AUTH_ACTION_TYPE.SET_USER_DATA,
         payload: {
@@ -104,8 +103,7 @@ export const logout = () => {
         authAPI.Logout()
             .then((response) => {
                 if (response.data.resultCode === 0) {
-                    // @ts-ignore
-                    dispatch(dispatch(setAuthUserDataAC(null, null, null, false)) as any)
+                    dispatch(dispatch(setAuthUserDataAC(null, null, null, false)))
                     dispatch(setIsFetchingAC(false))
                 }
             }).catch((err) => console.warn(err))
