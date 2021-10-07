@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../../api/api";
 import {setIsFetchingAC} from "../Users/users-reducer";
+import {handleServerAppError} from "../../Components/Error-utils/error-utils";
 
 
 export enum AUTH_ACTION_TYPE {
@@ -64,35 +65,40 @@ export const getAuthUserDataThunkCreator = () => {
     return async (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
         let promise = await authAPI.getHeader()
-                if (promise.data.resultCode === 0) {
-                    const {id, login, email} = promise.data.data
-                    dispatch(setAuthUserDataAC(login, email, id, true))
-                    dispatch(setIsFetchingAC(false))
-                }
-
+        try {
+            if (promise.data.resultCode === 0) {
+                const {id, login, email} = promise.data.data
+                dispatch(setAuthUserDataAC(login, email, id, true))
+                dispatch(setIsFetchingAC(false))
+            }
+            if (promise.data.resultCode === 1) {
+                dispatch(setIsFetchingAC(false))
+                handleServerAppError(promise.data, dispatch)
+            }
+        } catch (err) {
+            console.warn(err)
+        }
     }
 
 }
 export const SetLogin = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
-        authAPI.Login(email, password, rememberMe)
-               .then((response) => {
-                   if (response.data.resultCode === 0) {
-                       dispatch(getAuthUserDataThunkCreator() as any)
-                       dispatch(setIsFetchingAC(false))
-                   }
-                   if (response.data.resultCode === 1) {
-                       dispatch(setIsFetchingAC(false))
-                   }
-                   if (response.data.resultCode === 10) {
-                       dispatch(setIsFetchingAC(false))
-                   }
-               }).catch((err)=>{
-                   console.warn(err)
-        })
-
-
+        let promise = await authAPI.Login(email, password, rememberMe)
+        try {
+            if (promise.data.resultCode === 0) {
+                dispatch(getAuthUserDataThunkCreator() as any)
+                dispatch(setIsFetchingAC(false))
+            }
+            if (promise.data.resultCode === 1) {
+                dispatch(setIsFetchingAC(false))
+            }
+            if (promise.data.resultCode === 10) {
+                dispatch(setIsFetchingAC(false))
+            }
+        } catch (err) {
+            console.warn(err)
+        }
 
     }
 }

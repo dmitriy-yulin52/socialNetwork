@@ -10,15 +10,14 @@ import FriendsContainer from "../Friends/Friends.container";
 import NewsContainer from "../News/NewsContainer";
 import ProfileContainer from "../Profile/Profile.Container";
 import DialogsContainer from "../Dialogs/DialogsContainer";
-import {ErrorSnackBar} from "../SnackBar/ErrorSnackBar";
 import {Footer} from "../Footer/Footer";
 import {LoginContainer} from "../Login/LoginContainer";
 import {LinearProgress} from "@material-ui/core";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/store/reduxStore";
-import {getAuthUserDataThunkCreator} from "../../Redux/auth/auth-reducer";
 import {compose, Dispatch} from "redux";
 import {initializeAppTC} from "../../Redux/App/app-reducer";
+import {ErrorSnackBar} from "../ErrorSnackBar/ErrorSnackBar";
 
 
 class App extends React.Component<AppType> {
@@ -74,7 +73,6 @@ const mapStateToProps = (state: AppStateType) => {
         isFetching: state.usersPage.isFetching
     }
 }
-// export default connect(mapStateToProps,{getAuthUserDataThunkCreator})(App)
 
 export default compose<React.ComponentType>(
     withRouter,

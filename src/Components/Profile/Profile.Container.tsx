@@ -10,7 +10,7 @@ import s from './Profile.module.css'
 
 
 export type PathParamsType = {
-    userId: string,
+    userId: string ,
 }
 export type ProfilePropsType = RouteComponentProps<PathParamsType>
 

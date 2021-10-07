@@ -1,10 +1,10 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 import style from './ProfileStatus.module.sass'
 
 
 type ProfileStatusType = {
     status: string
-    updateStatus:(status:string)=> void
+    updateStatus: (status: string) => void
 }
 
 
@@ -30,24 +30,32 @@ export const ProfileStatus = React.memo((props: ProfileStatusType) => {
         updateStatus(message)
     }
 
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            setEditMode(false)
+            updateStatus(message)
+        }
+    }
+
     return (
         <div className={style.BlockStatus}>
             {editMode
-            ?
-            <div>
-                <input
-                    value={message}
-                    onChange={onChangeHandler}
-                    onBlur={offEditMode}
-                    autoFocus
-                />
-            </div>
-            :
-            <div>
+                ?
+                <div>
+                    <input
+                        value={message}
+                        onChange={onChangeHandler}
+                        onKeyPress={onKeyPressHandler}
+                        onBlur={offEditMode}
+                        autoFocus
+                    />
+                </div>
+                :
+                <div>
                 <span onDoubleClick={onEditMode}
                       title={'Изменить статус!'}
                 >{status || 'No status'}</span>
-            </div>}
+                </div>}
         </div>
     )
 })
