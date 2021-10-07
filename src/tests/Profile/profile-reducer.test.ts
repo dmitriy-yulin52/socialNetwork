@@ -54,3 +54,13 @@ test('post should be removed',()=> {
     expect(endSate.posts[0].message).toBe('It,s my first post')
     expect(endSate.posts[1].id).toBe('3')
 })
+test('status should be changed',()=> {
+
+    const newStatus = 'Hello world!'
+
+    const action = setStatusAC(newStatus)
+    const endSate = profileReducer(startState,action)
+
+    expect(endSate.status).toBe(newStatus)
+
+})
