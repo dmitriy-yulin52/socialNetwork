@@ -15,6 +15,7 @@ export type InitialStateType = {
     email: string | null,
     login: string | null,
     isAuth: boolean,
+    captchaUrl?: string | null | undefined
 }
 
 
@@ -23,6 +24,7 @@ export let initialState: InitialStateType = {
     email: null as string | null,
     login: null as string | null,
     isAuth: false,
+    captchaUrl: null as string | null | undefined,
 }
 
 
@@ -47,7 +49,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 
 //actions
-export const setAuthUserDataAC = (login: string | null, email: string | null, userId: number | null, isAuth: boolean): SetUserDataACType => {
+export const setAuthUserDataAC = (login: string | null, email: string| null, userId: number| null, isAuth: boolean): SetUserDataACType => {
     return {
         type: AUTH_ACTION_TYPE.SET_USER_DATA,
         payload: {
@@ -65,53 +67,49 @@ export const getAuthUserDataThunkCreator = () => {
     return async (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
         let promise = await authAPI.getHeader()
-        try {
-            if (promise.data.resultCode === 0) {
-                const {id, login, email} = promise.data.data
-                dispatch(setAuthUserDataAC(login, email, id, true))
-                dispatch(setIsFetchingAC(false))
-            }
-            if (promise.data.resultCode === 1) {
-                dispatch(setIsFetchingAC(false))
-                handleServerAppError(promise.data, dispatch)
-            }
-        } catch (err) {
-            console.warn(err)
+
+        if (promise.data.resultCode === 0) {
+            const {id, login, email} = promise.data.data
+            dispatch(setAuthUserDataAC(login, email, id, true))
+            dispatch(setIsFetchingAC(false))
+        }
+        if (promise.data.resultCode === 1) {
+            dispatch(setIsFetchingAC(false))
+            handleServerAppError(promise.data, dispatch)
         }
     }
 
 }
 export const SetLogin = (email: string, password: string, rememberMe: boolean) => {
-    return async (dispatch: Dispatch) => {
+    return (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
-        let promise = await authAPI.Login(email, password, rememberMe)
-        try {
-            if (promise.data.resultCode === 0) {
-                dispatch(getAuthUserDataThunkCreator() as any)
-                dispatch(setIsFetchingAC(false))
-            }
-            if (promise.data.resultCode === 1) {
-                dispatch(setIsFetchingAC(false))
-            }
-            if (promise.data.resultCode === 10) {
-                dispatch(setIsFetchingAC(false))
-            }
-        } catch (err) {
-            console.warn(err)
-        }
-
+        authAPI.Login(email, password, rememberMe)
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    dispatch(getAuthUserDataThunkCreator() as any)
+                    dispatch(setIsFetchingAC(false))
+                }
+                if (response.data.resultCode === 1) {
+                    dispatch(setIsFetchingAC(false))
+                    handleServerAppError(response.data, dispatch)
+                }
+                if (response.data.resultCode === 10) {
+                    dispatch(setIsFetchingAC(false))
+                    handleServerAppError(response.data, dispatch)
+                }
+            }).catch((err) => {
+            handleServerAppError(err.data, dispatch)
+        })
     }
 }
 export const logout = () => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
-        authAPI.Logout()
-            .then((response) => {
-                if (response.data.resultCode === 0) {
+       let promise = await authAPI.Logout()
+                if (promise.data.resultCode === 0) {
                     dispatch(dispatch(setAuthUserDataAC(null, null, null, false)))
                     dispatch(setIsFetchingAC(false))
                 }
-            }).catch((err) => console.warn(err))
     }
 }
 

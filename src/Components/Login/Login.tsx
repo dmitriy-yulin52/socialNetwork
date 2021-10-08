@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {DetailedHTMLProps, ImgHTMLAttributes, useEffect, useState} from 'react';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
@@ -18,17 +18,26 @@ const validationSchema = yup.object({
         .string()
         .min(8, 'Password should be of minimum 8 characters length')
         .max(20, 'Password should be of maximum 20 characters length')
-        .required('Password is required')
+        .required('Password is required'),
 });
 
 type LoginType = {
-    setLogin: (email: string, password: string, rememberMe: boolean) => void
-    isAuth: boolean
+    setLogin: (email: string, password: string, rememberMe: boolean) => void,
+    isAuth: boolean,
 }
 
 export const Login = React.memo((props: LoginType) => {
 
     const [editMode, setEditMode] = useState(false)
+
+    // useEffect(()=>{
+    //     const script = document.createElement("script");
+    //     script.src =
+    //         "https://www.google.com/recaptcha/api.js";
+    //     script.async = true;
+    //     script.defer = true;
+    //     document.body.appendChild(script);
+    // },[])
 
     const onEditMode = () => {
         setEditMode(true)
@@ -52,6 +61,7 @@ export const Login = React.memo((props: LoginType) => {
     if (props.isAuth) {
         return <Redirect to={'/profile'}/>
     }
+
 
 
     return (

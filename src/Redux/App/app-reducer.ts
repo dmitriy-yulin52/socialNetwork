@@ -25,7 +25,7 @@ export type ResponseType<D = {}> = {
 }
 
 export type SetErrorAppAT = ReturnType<typeof setErrorAppAC>
-export type initializedSuccess = ReturnType<typeof initializedSuccess>
+export type initializedSuccess = ReturnType<typeof setInitializedSuccess>
 
 type ActionsType =
     | initializedSuccess
@@ -52,7 +52,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 
 
 //actions
-export const initializedSuccess = () => {
+export const setInitializedSuccess = () => {
     return {
         type: APP_REDUCER.INITIALIZED_SUCCESS,
     } as const
@@ -67,10 +67,6 @@ export const setErrorAppAC = (error: string | null) => {
 //thunks
 export const initializeAppTC = () => {
     return (dispatch: Dispatch) => {
-        let promise = dispatch(getAuthUserDataThunkCreator() as any)
-        promise.then(() => {
-            dispatch(initializedSuccess())
-
-        })
+        dispatch(getAuthUserDataThunkCreator() as any)
     }
 }
