@@ -207,7 +207,7 @@ type SetTotalUsersCountACType = {
     type: USERS_ACTION_TYPE.SET_TOTAL_USERS_COUNT
     totalUsersCount: number
 }
-type IsFetchingACType = {
+export type IsFetchingACType = {
     type: USERS_ACTION_TYPE.TOGGLE_IS_FETCHING
     isFetching: boolean
 }

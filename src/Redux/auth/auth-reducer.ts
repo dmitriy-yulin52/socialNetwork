@@ -1,7 +1,8 @@
-import {Dispatch} from "redux";
 import {authAPI} from "../../api/api";
-import {setIsFetchingAC} from "../Users/users-reducer";
+import {IsFetchingACType, setIsFetchingAC} from "../Users/users-reducer";
 import {handleServerAppError} from "../../Components/Error-utils/error-utils";
+import {AppStateType} from "../store/reduxStore";
+import {ThunkAction} from "redux-thunk";
 
 
 export enum AUTH_ACTION_TYPE {
@@ -60,7 +61,7 @@ export const setAuthUserDataAC = (login: string | null, email: string | null, us
         }
     }
 }
-export const setCaptchaUrl = (captchaUrl:string | null):SetCaptchaUrl => {
+export const setCaptchaUrl = (captchaUrl: string | null): SetCaptchaUrl => {
     return {
         type: AUTH_ACTION_TYPE.SET_CAPTCHA_URL,
         payload: {
@@ -71,11 +72,11 @@ export const setCaptchaUrl = (captchaUrl:string | null):SetCaptchaUrl => {
 
 
 //thunks
-export const getAuthUserDataThunkCreator = () => {
-    return (dispatch: Dispatch) => {
+export const getAuthUserDataThunkCreator = (): ThunksActions => {
+    return (dispatch) => {
         dispatch(setIsFetchingAC(true))
         authAPI.getHeader()
-            .then((response)=>{
+            .then((response) => {
                 if (response.data.resultCode === 0) {
                     const {id, login, email} = response.data.data
                     dispatch(setAuthUserDataAC(login, email, id, true))
@@ -85,21 +86,21 @@ export const getAuthUserDataThunkCreator = () => {
                     dispatch(setIsFetchingAC(false))
                     handleServerAppError(response.data, dispatch)
                 }
-            }).catch((err)=>{
-                console.warn(err)
+            }).catch((err) => {
+            console.warn(err)
         })
-
-
     }
-
 }
-export const SetLogin = (email: string, password: string, rememberMe: boolean,captchaUrl:string | null) => {
-    return (dispatch: Dispatch) => {
+export const SetLogin = (email: string, password: string, rememberMe: boolean, captchaUrl: string | null): ThunksActions => {
+    return (dispatch, getState) => {
         dispatch(setIsFetchingAC(true))
-        authAPI.Login(email, password, rememberMe,captchaUrl)
+        authAPI.Login(email, password, rememberMe, captchaUrl)
             .then((response) => {
                 if (response.data.resultCode === 0) {
-                    dispatch(getAuthUserDataThunkCreator() as any)
+                    if(getState().auth.captchaUrl !== null ){
+                        dispatch(setCaptchaUrl(null))
+                    }
+                    dispatch(getAuthUserDataThunkCreator())
                     dispatch(setIsFetchingAC(false))
                 }
                 if (response.data.resultCode === 1) {
@@ -108,7 +109,7 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean,ca
                 }
                 if (response.data.resultCode === 10) {
                     authAPI.getCaptcha()
-                        .then((res)=>{
+                        .then((res) => {
                             dispatch(setCaptchaUrl(res.data.url))
                         })
                     dispatch(setIsFetchingAC(false))
@@ -119,16 +120,16 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean,ca
         })
     }
 }
-export const logout = () => {
-    return (dispatch: Dispatch) => {
+export const logout = (): ThunksActions => {
+    return (dispatch) => {
         dispatch(setIsFetchingAC(true))
         authAPI.Logout()
-            .then((response)=>{
+            .then((response) => {
                 if (response.data.resultCode === 0) {
                     dispatch(dispatch(setAuthUserDataAC(null, null, null, false)))
                     dispatch(setIsFetchingAC(false))
                 }
-            }).catch((err)=>console.warn(err))
+            }).catch((err) => console.warn(err))
 
     }
 }
@@ -152,9 +153,11 @@ type SetIsAuthACType = {
 type SetCaptchaUrl = {
     type: AUTH_ACTION_TYPE.SET_CAPTCHA_URL,
     payload: {
-        captchaUrl:string | null
+        captchaUrl: string | null
     }
 }
+
+type ThunksActions = ThunkAction<void, AppStateType, unknown, ActionACTypes | IsFetchingACType>
 
 
 export type ActionACTypes =

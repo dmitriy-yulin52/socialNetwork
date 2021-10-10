@@ -105,26 +105,27 @@ export const Login = React.memo((props: LoginType) => {
                             </Link>
 
                         </div>
-                        {
-                            props.captchaUrl
-                            &&
-                            <>
-                                <img src={props.captchaUrl}/>
-                                <TextField
-                                    fullWidth
-                                    id="captchaUrl"
-                                    name="captchaUrl"
-                                    label="captchaUrl"
-                                    type="text"
-                                    value={formik.values.captchaUrl}
-                                    onChange={formik.handleChange}
-                                    error={formik.touched.password && Boolean(formik.errors.password)}
-                                    helperText={formik.touched.password && formik.errors.password}
-                                    className={s.password}
-                                />
-                            </>
-                        }
-
+                        <div style={{display: 'flex', justifyContent: 'center',flexDirection:'column'}}>
+                            {
+                                props.captchaUrl
+                                &&
+                                < >
+                                    <img src={props.captchaUrl}/>
+                                    <TextField
+                                        fullWidth
+                                        id="captchaUrl"
+                                        name="captchaUrl"
+                                        label="captchaUrl"
+                                        type="text"
+                                        value={formik.values.captchaUrl}
+                                        onChange={formik.handleChange}
+                                        error={formik.touched.password && Boolean(formik.errors.password)}
+                                        helperText={formik.touched.password && formik.errors.password}
+                                        className={s.password}
+                                    />
+                                </>
+                            }
+                        </div>
                         <hr/>
                         <div className={s.createButton}>
 
