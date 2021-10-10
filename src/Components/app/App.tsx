@@ -16,7 +16,6 @@ import {LinearProgress} from "@material-ui/core";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/store/reduxStore";
 import {compose, Dispatch} from "redux";
-import {initializeAppTC} from "../../Redux/App/app-reducer";
 import {ErrorSnackBar} from "../ErrorSnackBar/ErrorSnackBar";
 
 
@@ -73,8 +72,11 @@ const mapStateToProps = (state: AppStateType) => {
         isFetching: state.usersPage.isFetching
     }
 }
+// const mapStateToProps = (dispatch:Dispatch) => {
+//     return bindActionCreators({setInitializedSuccess},dispatch)
+// }
 
 export default compose<React.ComponentType>(
     withRouter,
-    connect(mapStateToProps, {initializeAppTC})
+    connect(mapStateToProps, null)
 )(App)

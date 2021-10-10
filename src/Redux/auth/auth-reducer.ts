@@ -49,7 +49,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 
 //actions
-export const setAuthUserDataAC = (login: string | null, email: string| null, userId: number| null, isAuth: boolean): SetUserDataACType => {
+export const setAuthUserDataAC = (login: string | null, email: string | null, userId: number | null, isAuth: boolean): SetUserDataACType => {
     return {
         type: AUTH_ACTION_TYPE.SET_USER_DATA,
         payload: {
@@ -64,19 +64,24 @@ export const setAuthUserDataAC = (login: string | null, email: string| null, use
 
 //thunks
 export const getAuthUserDataThunkCreator = () => {
-    return async (dispatch: Dispatch) => {
+    return (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
-        let promise = await authAPI.getHeader()
+        authAPI.getHeader()
+            .then((response)=>{
+                if (response.data.resultCode === 0) {
+                    const {id, login, email} = response.data.data
+                    dispatch(setAuthUserDataAC(login, email, id, true))
+                    dispatch(setIsFetchingAC(false))
+                }
+                if (response.data.resultCode === 1) {
+                    dispatch(setIsFetchingAC(false))
+                    handleServerAppError(response.data, dispatch)
+                }
+            }).catch((err)=>{
+                console.warn(err)
+        })
 
-        if (promise.data.resultCode === 0) {
-            const {id, login, email} = promise.data.data
-            dispatch(setAuthUserDataAC(login, email, id, true))
-            dispatch(setIsFetchingAC(false))
-        }
-        if (promise.data.resultCode === 1) {
-            dispatch(setIsFetchingAC(false))
-            handleServerAppError(promise.data, dispatch)
-        }
+
     }
 
 }
@@ -103,13 +108,16 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean) =
     }
 }
 export const logout = () => {
-    return async (dispatch: Dispatch) => {
+    return (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
-       let promise = await authAPI.Logout()
-                if (promise.data.resultCode === 0) {
+        authAPI.Logout()
+            .then((response)=>{
+                if (response.data.resultCode === 0) {
                     dispatch(dispatch(setAuthUserDataAC(null, null, null, false)))
                     dispatch(setIsFetchingAC(false))
                 }
+            }).catch((err)=>console.warn(err))
+
     }
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import style from './Paginator.module.sass'
 
 
@@ -23,9 +23,15 @@ export const Paginator = (props: PaginatorType) => {
     let pagesCount = Math.ceil(totalCount / pageSize)
 
     let pages: Array<number> = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
+
+    pages = useMemo(()=>{
+        let pages: Array<number> = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+        return pages
+    },[pages])
+
 
 
     return (

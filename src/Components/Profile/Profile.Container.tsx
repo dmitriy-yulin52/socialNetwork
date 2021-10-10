@@ -1,16 +1,20 @@
 import React, {useCallback, useEffect} from 'react';
 import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
-import {getStatusProfileTC, getUserProfileThunkCreator, updateStatusProfileTC} from "../../Redux/Profile/ProfileReducer";
+import {
+    getStatusProfileTC,
+    getUserProfileThunkCreator,
+    updateStatusProfileTC
+} from "../../Redux/Profile/ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {selectStateAuthPage, selectStateProfilePage, selectStateUsersPage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
-import { compose } from 'redux';
+import {compose} from 'redux';
 import s from './Profile.module.css'
 
 
 export type PathParamsType = {
-    userId: string ,
+    userId: string,
 }
 export type ProfilePropsType = RouteComponentProps<PathParamsType>
 
@@ -25,8 +29,8 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
     const {
         userId,
         isAuth,
-    }= useSelector(selectStateAuthPage)
-    const authorizedUserId = userId
+    } = useSelector(selectStateAuthPage)
+    let authorizedUserId= userId
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -37,12 +41,11 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
         }
         dispatch(getUserProfileThunkCreator(userId))
         dispatch(getStatusProfileTC(userId))
-    }, [getStatusProfileTC,getUserProfileThunkCreator])
+    }, [getStatusProfileTC, getUserProfileThunkCreator])
 
-    const updateStatus = useCallback((status:string)=> {
+    const updateStatus = useCallback((status: string) => {
         dispatch(updateStatusProfileTC(status))
-    },[updateStatusProfileTC])
-
+    }, [updateStatusProfileTC])
 
 
     return (
