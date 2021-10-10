@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react'
 import {Login} from "./Login";
 import {useDispatch, useSelector} from "react-redux";
-import { SetLogin} from "../../Redux/auth/auth-reducer";
+import {SetLogin} from "../../Redux/auth/auth-reducer";
 import {selectStateAuthPage} from "../../Redux/selectors";
 
 
@@ -13,11 +13,10 @@ export const LoginContainer = () => {
     } = useSelector(selectStateAuthPage)
 
 
-
     const dispatch = useDispatch()
 
-    const setLogin = useCallback((email: string, password: string, rememberMe: boolean) => {
-        dispatch(SetLogin(email, password, rememberMe))
+    const setLogin = useCallback((email: string, password: string, rememberMe: boolean, captchaUrl: string | null) => {
+        dispatch(SetLogin(email, password, rememberMe, captchaUrl))
     }, [])
 
 
@@ -26,6 +25,7 @@ export const LoginContainer = () => {
             <Login
                 setLogin={setLogin}
                 isAuth={isAuth}
+                captchaUrl={captchaUrl}
             />
         </>
     )

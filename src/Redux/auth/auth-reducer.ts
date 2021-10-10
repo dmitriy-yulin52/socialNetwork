@@ -8,6 +8,7 @@ export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
     SET_IS_AUTH = 'auth-reducer/SET_IS_AUTH',
     SET_REQUIRED_FIELD = 'auth-reducer/SET_REQUIRED_FIELD',
+    SET_CAPTCHA_URL = 'auth-reducer/SET_CAPTCHA_URL ',
 }
 
 export type InitialStateType = {
@@ -15,7 +16,7 @@ export type InitialStateType = {
     email: string | null,
     login: string | null,
     isAuth: boolean,
-    captchaUrl?: string | null | undefined
+    captchaUrl: string | null
 }
 
 
@@ -24,24 +25,23 @@ export let initialState: InitialStateType = {
     email: null as string | null,
     login: null as string | null,
     isAuth: false,
-    captchaUrl: null as string | null | undefined,
+    captchaUrl: null
 }
 
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionACTypes): InitialStateType => {
     switch (action.type) {
+        case AUTH_ACTION_TYPE.SET_CAPTCHA_URL:
         case AUTH_ACTION_TYPE.SET_USER_DATA:
             return {
                 ...state,
                 ...action.payload,
-                // isAuth: action.payload.isAuth,
             }
         case AUTH_ACTION_TYPE.SET_IS_AUTH:
             return {
                 ...state,
                 isAuth: true,
             }
-
         default:
             return state
     }
@@ -57,6 +57,14 @@ export const setAuthUserDataAC = (login: string | null, email: string | null, us
             email,
             userId,
             isAuth,
+        }
+    }
+}
+export const setCaptchaUrl = (captchaUrl:string | null):SetCaptchaUrl => {
+    return {
+        type: AUTH_ACTION_TYPE.SET_CAPTCHA_URL,
+        payload: {
+            captchaUrl,
         }
     }
 }
@@ -85,10 +93,10 @@ export const getAuthUserDataThunkCreator = () => {
     }
 
 }
-export const SetLogin = (email: string, password: string, rememberMe: boolean) => {
+export const SetLogin = (email: string, password: string, rememberMe: boolean,captchaUrl:string | null) => {
     return (dispatch: Dispatch) => {
         dispatch(setIsFetchingAC(true))
-        authAPI.Login(email, password, rememberMe)
+        authAPI.Login(email, password, rememberMe,captchaUrl)
             .then((response) => {
                 if (response.data.resultCode === 0) {
                     dispatch(getAuthUserDataThunkCreator() as any)
@@ -99,6 +107,10 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean) =
                     handleServerAppError(response.data, dispatch)
                 }
                 if (response.data.resultCode === 10) {
+                    authAPI.getCaptcha()
+                        .then((res)=>{
+                            dispatch(setCaptchaUrl(res.data.url))
+                        })
                     dispatch(setIsFetchingAC(false))
                     handleServerAppError(response.data, dispatch)
                 }
@@ -137,8 +149,15 @@ type SetIsAuthACType = {
     type: AUTH_ACTION_TYPE.SET_IS_AUTH,
     isAuth: boolean,
 }
+type SetCaptchaUrl = {
+    type: AUTH_ACTION_TYPE.SET_CAPTCHA_URL,
+    payload: {
+        captchaUrl:string | null
+    }
+}
 
 
 export type ActionACTypes =
     SetUserDataACType
     | SetIsAuthACType
+    | SetCaptchaUrl

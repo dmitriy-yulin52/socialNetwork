@@ -22,22 +22,15 @@ const validationSchema = yup.object({
 });
 
 type LoginType = {
-    setLogin: (email: string, password: string, rememberMe: boolean) => void,
+    setLogin: (email: string, password: string, rememberMe: boolean, captchaUrl: string | null) => void,
     isAuth: boolean,
+    captchaUrl: null | string,
 }
 
 export const Login = React.memo((props: LoginType) => {
 
     const [editMode, setEditMode] = useState(false)
 
-    // useEffect(()=>{
-    //     const script = document.createElement("script");
-    //     script.src =
-    //         "https://www.google.com/recaptcha/api.js";
-    //     script.async = true;
-    //     script.defer = true;
-    //     document.body.appendChild(script);
-    // },[])
 
     const onEditMode = () => {
         setEditMode(true)
@@ -51,17 +44,17 @@ export const Login = React.memo((props: LoginType) => {
         initialValues: {
             email: '',
             password: '',
+            captchaUrl: '',
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            props.setLogin(values.email, values.password, true)
+            props.setLogin(values.email, values.password, true, values.captchaUrl)
         },
     });
 
     if (props.isAuth) {
         return <Redirect to={'/profile'}/>
     }
-
 
 
     return (
@@ -112,6 +105,26 @@ export const Login = React.memo((props: LoginType) => {
                             </Link>
 
                         </div>
+                        {
+                            props.captchaUrl
+                            &&
+                            <>
+                                <img src={props.captchaUrl}/>
+                                <TextField
+                                    fullWidth
+                                    id="captchaUrl"
+                                    name="captchaUrl"
+                                    label="captchaUrl"
+                                    type="text"
+                                    value={formik.values.captchaUrl}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.password && Boolean(formik.errors.password)}
+                                    helperText={formik.touched.password && formik.errors.password}
+                                    className={s.password}
+                                />
+                            </>
+                        }
+
                         <hr/>
                         <div className={s.createButton}>
 

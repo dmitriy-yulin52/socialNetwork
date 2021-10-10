@@ -21,17 +21,21 @@ export const usersAPI = {
 
 export const authAPI = {
     getHeader() {
-        return instance.get(`auth/me`,)
+        return instance.get(`auth/me`)
     },
-    Login(email: string, password: string,rememberMe:boolean = false) {
+    Login(email: string, password: string,rememberMe:boolean = false,captcha:string | null) {
         return instance.post(`auth/login`, {
             email,
             password,
-            rememberMe
+            rememberMe,
+            captcha,
         })
     },
     Logout() {
         return instance.delete(`auth/login`)
+    },
+    getCaptcha(){
+        return instance.get<{url:string}>(`security/get-captcha-url`)
     }
 }
 
