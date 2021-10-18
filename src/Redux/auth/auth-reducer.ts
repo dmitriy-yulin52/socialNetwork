@@ -1,5 +1,5 @@
 import {authAPI} from "../../api/api";
-import {IsFetchingACType, setIsFetchingAC} from "../Users/users-reducer";
+import {IsFetchingACType, setIsFetchingAC, UsersActionACTypes} from "../Users/users-reducer";
 import {handleServerAppError} from "../../Components/Error-utils/error-utils";
 import {AppStateType} from "../store/reduxStore";
 import {ThunkAction} from "redux-thunk";
@@ -28,7 +28,7 @@ export let initialState: InitialStateType = {
 }
 
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionACTypes): InitialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: AuthActionACTypes): InitialStateType => {
     switch (action.type) {
         case AUTH_ACTION_TYPE.SET_CAPTCHA_URL:
         case AUTH_ACTION_TYPE.SET_USER_DATA:
@@ -144,12 +144,12 @@ type SetCaptchaUrl = {
     type: AUTH_ACTION_TYPE.SET_CAPTCHA_URL,
     payload: {
         captchaUrl: string | null
-    }
+    },
 }
 
-type ThunksActionsType = ThunkAction<void, AppStateType, unknown, ActionACTypes | IsFetchingACType>
+export type ThunksActionsType = ThunkAction<void, AppStateType, unknown, AuthActionACTypes | IsFetchingACType | UsersActionACTypes>
 
 
-export type ActionACTypes =
+export type AuthActionACTypes =
     SetUserDataACType
     | SetCaptchaUrl

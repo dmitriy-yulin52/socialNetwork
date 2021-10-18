@@ -15,12 +15,7 @@ const initialState: InitialStateType = {
     initialized: false,
     error: null,
 }
-export type ResponseType<D = {}> = {
-    data: D,
-    fieldsErrors: [],
-    messages: Array<string>,
-    resultCode: number,
-}
+
 
 export type SetErrorAppAT = ReturnType<typeof setErrorAppAC>
 export type initializedSuccess = ReturnType<typeof setInitializedSuccess>

@@ -3,7 +3,7 @@ import {instance} from "./instance";
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`,)
+        return instance.get<ResponseTypeUsers>(`users?page=${currentPage}&count=${pageSize}`,)
             .then(response => response.data)
     },
     follow(userId: number) {
@@ -21,10 +21,10 @@ export const usersAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`)
+        return instance.get<ResponseTypeAuth<MeLoginType>>(`auth/me`)
     },
-    Login(email: string, password: string,rememberMe:boolean = false,captcha:string | null) {
-        return instance.post(`auth/login`, {
+    Login(email: string, password: string, rememberMe: boolean = false, captcha: string | null) {
+        return instance.post<ResponseTypeAuth>(`auth/login`, {
             email,
             password,
             rememberMe,
@@ -32,10 +32,10 @@ export const authAPI = {
         })
     },
     Logout() {
-        return instance.delete(`auth/login`)
+        return instance.delete<ResponseTypeAuth>(`auth/login`)
     },
-    getCaptcha(){
-        return instance.get<{url:string}>(`security/get-captcha-url`)
+    getCaptcha() {
+        return instance.get<CaptchaUrlType>(`security/get-captcha-url`)
     }
 }
 
@@ -52,3 +52,39 @@ export const profileAPI = {
     }
 }
 
+
+//types response answer
+// auth type
+type MeLoginType = {
+    id: number,
+    email: string,
+    login: string,
+}
+
+export type ResponseTypeAuth<D = {}> = {
+    messages: string[],
+    resultCode: number,
+    data: D,
+}
+
+type CaptchaUrlType = {
+    url: string,
+}
+
+//users type
+type UsersItemsType = {
+    id: number,
+    name: string,
+    status: string,
+    photos: {
+        small: string | null,
+        large: string | null,
+    },
+    followed: boolean,
+}
+
+type ResponseTypeUsers = {
+    items: Array<UsersItemsType>,
+    totalCount: number,
+    error: string,
+}

@@ -1,5 +1,6 @@
 import {usersAPI} from "../../api/api";
 import {Dispatch} from "redux";
+import {ThunksActionsType} from "../auth/auth-reducer";
 
 
 export enum USERS_ACTION_TYPE {
@@ -13,7 +14,7 @@ export enum USERS_ACTION_TYPE {
 }
 
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionACTypes): InitialStateType => {
+export const usersReducer = (state: InitialStateType = initialState, action: UsersActionACTypes): InitialStateType => {
 
     switch (action.type) {
         case USERS_ACTION_TYPE.FOLLOW:
@@ -115,10 +116,9 @@ export const toggleIsFollowingProgressAC = (isFetching: boolean): ToggleIsFollow
 
 
 //thunk
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch<ActionACTypes>) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number):ThunksActionsType => {
+    return (dispatch) => {
         dispatch(setIsFetchingAC(true))
-
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(setCurrentPageAC(currentPage))
             dispatch(setUsersAC(data.items))
@@ -127,8 +127,8 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
         })
     }
 }
-export const unfollowThunkCreator = (usersId: number) => {
-    return (dispatch:Dispatch<ActionACTypes>) => {
+export const unfollowThunkCreator = (usersId: number):ThunksActionsType => {
+    return (dispatch) => {
         dispatch(toggleIsFollowingProgressAC(true))
         usersAPI.unFollow(usersId)
             .then(response => {
@@ -139,8 +139,8 @@ export const unfollowThunkCreator = (usersId: number) => {
             })
     }
 }
-export const followThunkCreator = (usersId: number) => {
-    return (dispatch: Dispatch<ActionACTypes>) => {
+export const followThunkCreator = (usersId: number):ThunksActionsType => {
+    return (dispatch) => {
         dispatch(toggleIsFollowingProgressAC(true))
         usersAPI.follow(usersId)
             .then(response => {
@@ -177,7 +177,7 @@ type InitialStateType = {
 }
 
 
-export type ActionACTypes =
+export type UsersActionACTypes =
     FollowACType
     | UnfollowACType
     | SetUsersACType
