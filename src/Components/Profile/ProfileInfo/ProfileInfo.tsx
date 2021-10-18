@@ -28,7 +28,6 @@ export const ProfileInfo = React.memo((props: ProfileInfoType) => {
                 <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt=""/>
 
                 <ProfileStatus status={status} updateStatus={updateStatus}/>
-                <div><span className={c.status}>About me: </span>{profile.aboutMe}</div>
                 <div> <span className={c.status}>Job: </span>
                     {
                         profile.lookingForAJob ? <span>Нашел работу</span> : <div>Ищу работу!</div>

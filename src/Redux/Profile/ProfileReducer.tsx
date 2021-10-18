@@ -23,7 +23,6 @@ let initialState: InitialStateType = {
     ],
     profile: {
         userId: 2,
-        aboutMe: '',
         lookingForAJob: true,
         lookingForAJobDescription: '',
         fullName: '',
@@ -162,19 +161,19 @@ export type PostType = {
     time: number
 }
 
-type ContactsType = {
+export type ContactsType = {
     github: string
     vk: string
     facebook: string
     instagram: string
     twitter: string
-    website: string | null
-    youtube: string | null
-    mainLink: string | null
+    website: string
+    youtube: string
+    mainLink: string
 }
-type PhotosType = {
-    small: string
-    large: string
+export type PhotosType = {
+    small: string | null,
+    large: string | null,
 }
 export type ProfileType = {
     lookingForAJob: boolean
@@ -183,7 +182,6 @@ export type ProfileType = {
     contacts: ContactsType
     photos: PhotosType
     userId: number
-    aboutMe: string
 }
 export type InitialStateType = {
     posts: Array<PostType>

@@ -1,19 +1,18 @@
 import {instance} from "./instance";
+import {ContactsType, PhotosType} from "../Redux/Profile/ProfileReducer";
 
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<ResponseTypeUsers>(`users?page=${currentPage}&count=${pageSize}`,)
-            .then(response => response.data)
     },
     follow(userId: number) {
-        return instance.post(`follow/${userId}`)
+        return instance.post<ResponseType>(`follow/${userId}`)
     },
     unFollow(userId: number) {
-        return instance.delete(`follow/${userId}`)
+        return instance.delete<ResponseType>(`follow/${userId}`)
     },
     getProfile(userId: string) {
-        console.warn('Obsolete metHod. please profileAPI object')
         return profileAPI.getProfile(userId)
     },
 
@@ -21,10 +20,10 @@ export const usersAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get<ResponseTypeAuth<MeLoginType>>(`auth/me`)
+        return instance.get<ResponseType<MeLoginType>>(`auth/me`)
     },
     Login(email: string, password: string, rememberMe: boolean = false, captcha: string | null) {
-        return instance.post<ResponseTypeAuth>(`auth/login`, {
+        return instance.post<ResponseType>(`auth/login`, {
             email,
             password,
             rememberMe,
@@ -32,7 +31,7 @@ export const authAPI = {
         })
     },
     Logout() {
-        return instance.delete<ResponseTypeAuth>(`auth/login`)
+        return instance.delete<ResponseType>(`auth/login`)
     },
     getCaptcha() {
         return instance.get<CaptchaUrlType>(`security/get-captcha-url`)
@@ -42,26 +41,26 @@ export const authAPI = {
 
 export const profileAPI = {
     getProfile(userId: string) {
-        return instance.get(`profile/` + userId)
+        return instance.get<GetProfileType>(`profile/` + userId)
     },
     getStatus(userId: string) {
-        return instance.get(`profile/status/${userId}`)
+        return instance.get<string>(`profile/status/${userId}`)
     },
     updateStatus(status: string) {
-        return instance.put(`profile/status`, {status})
+        return instance.put<ResponseType>(`profile/status`, {status})
     }
 }
 
 
 //types response answer
-// auth type
+// authAPI type
 type MeLoginType = {
     id: number,
     email: string,
     login: string,
 }
 
-export type ResponseTypeAuth<D = {}> = {
+export type ResponseType<D = {}> = {
     messages: string[],
     resultCode: number,
     data: D,
@@ -71,7 +70,7 @@ type CaptchaUrlType = {
     url: string,
 }
 
-//users type
+//usersAPI type
 type UsersItemsType = {
     id: number,
     name: string,
@@ -87,4 +86,14 @@ type ResponseTypeUsers = {
     items: Array<UsersItemsType>,
     totalCount: number,
     error: string,
+}
+
+//profileAPI type
+type GetProfileType = {
+    userId: number,
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    contacts: ContactsType,
+    photos: PhotosType,
 }
