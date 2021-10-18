@@ -16,7 +16,7 @@ export const HeaderContainer = () => {
 
     const logoutSystem = useCallback(()=> {
         dispatch(logout())
-    },[])
+    },[dispatch])
     return (
             <Header
                 isAuth={isAuth}

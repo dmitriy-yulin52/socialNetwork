@@ -1,7 +1,5 @@
-import React from 'react'
 import {Dispatch} from "redux";
 import {getAuthUserDataThunkCreator} from "../auth/auth-reducer";
-import {handleServerAppError} from "../../Components/Error-utils/error-utils";
 
 
 enum APP_REDUCER {

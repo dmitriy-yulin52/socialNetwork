@@ -7,7 +7,7 @@ import {
     updateStatusProfileTC
 } from "../../Redux/Profile/ProfileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {selectStateAuthPage, selectStateProfilePage, selectStateUsersPage} from "../../Redux/selectors";
+import {selectStateAuthPage, selectStateProfilePage} from "../../Redux/selectors";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from 'redux';
 import s from './Profile.module.css'
@@ -28,7 +28,6 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
 
     const {
         userId,
-        isAuth,
     } = useSelector(selectStateAuthPage)
     let authorizedUserId= userId
     const dispatch = useDispatch()
@@ -41,11 +40,11 @@ const ProfileContainer = React.memo((props: ProfilePropsType) => {
         }
         dispatch(getUserProfileThunkCreator(userId))
         dispatch(getStatusProfileTC(userId))
-    }, [getStatusProfileTC, getUserProfileThunkCreator])
+    }, [authorizedUserId, dispatch, props.match.params.userId])
 
     const updateStatus = useCallback((status: string) => {
         dispatch(updateStatusProfileTC(status))
-    }, [updateStatusProfileTC])
+    }, [dispatch])
 
 
     return (

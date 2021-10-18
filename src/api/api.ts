@@ -20,7 +20,7 @@ export const usersAPI = {
 }
 
 export const authAPI = {
-    getHeader() {
+    me() {
         return instance.get(`auth/me`)
     },
     Login(email: string, password: string,rememberMe:boolean = false,captcha:string | null) {

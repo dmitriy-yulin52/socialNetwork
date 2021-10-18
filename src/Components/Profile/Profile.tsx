@@ -1,8 +1,7 @@
 import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {PostType, ProfileType} from "../../Redux/Profile/ProfileReducer";
-import { MyPostsContainer } from './MyPosts/MyPostsContainer';
-import {LinearProgress} from "@material-ui/core";
+import {MyPostsContainer} from './MyPosts/MyPostsContainer';
 
 
 type ProfilePropsType = {

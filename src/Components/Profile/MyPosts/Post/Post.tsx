@@ -17,7 +17,6 @@ const Post = React.memo((props: PropsType) => {
         id,
         message,
         like,
-        time,
         removePost,
     } = props
 
@@ -27,7 +26,7 @@ const Post = React.memo((props: PropsType) => {
             <div style={{display: 'flex'}}>
                 <div className={style.item}>
                     <img className={style.logo_img}
-                         src='https://fsb.zobj.net/crop.php?r=7-v795zJWgH85Pz0R8KUaEPB83xdbyUIvqhQ-WDJ2rCUE4-J34DiS8qZBrLTHWG4dql2g1gC4MIeYhczKRul_Rb--xilzH_LINSipRmJCEV83LubDPvzl-wqYdrjEmdLxpYuC5nXj1WgVRQQ'/>
+                         src='https://fsb.zobj.net/crop.php?r=7-v795zJWgH85Pz0R8KUaEPB83xdbyUIvqhQ-WDJ2rCUE4-J34DiS8qZBrLTHWG4dql2g1gC4MIeYhczKRul_Rb--xilzH_LINSipRmJCEV83LubDPvzl-wqYdrjEmdLxpYuC5nXj1WgVRQQ' alt={''}/>
                     <span>
                 {message}
             </span>

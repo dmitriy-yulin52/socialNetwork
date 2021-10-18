@@ -1,4 +1,4 @@
-import React, {DetailedHTMLProps, ImgHTMLAttributes, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
@@ -45,6 +45,7 @@ export const Login = React.memo((props: LoginType) => {
             email: '',
             password: '',
             captchaUrl: '',
+            checked: false,
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -89,6 +90,7 @@ export const Login = React.memo((props: LoginType) => {
                                 helperText={formik.touched.password && formik.errors.password}
                                 className={s.password}
                             />
+
                             <div className={s.submitButton}>
                                 <Button
                                     className={s.button}
@@ -105,24 +107,24 @@ export const Login = React.memo((props: LoginType) => {
                             </Link>
 
                         </div>
-                        <div style={{display: 'flex', justifyContent: 'center',flexDirection:'column'}}>
+                        <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
                             {
                                 props.captchaUrl
                                 &&
-                                < >
-                                    <img src={props.captchaUrl}/>
-                                    <TextField
-                                        fullWidth
-                                        id="captchaUrl"
-                                        name="captchaUrl"
-                                        label="captchaUrl"
-                                        type="text"
-                                        value={formik.values.captchaUrl}
-                                        onChange={formik.handleChange}
-                                        error={formik.touched.password && Boolean(formik.errors.password)}
-                                        helperText={formik.touched.password && formik.errors.password}
-                                        className={s.password}
-                                    />
+                                <>
+                                    <img src={props.captchaUrl} alt={''}/>
+                                        <TextField
+                                            fullWidth
+                                            id="captchaUrl"
+                                            name="captchaUrl"
+                                            label="Captcha"
+                                            type="text"
+                                            value={formik.values.captchaUrl}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched.password && Boolean(formik.errors.password)}
+                                            helperText={formik.touched.password && formik.errors.password}
+                                            className={s.password}
+                                        />
                                 </>
                             }
                         </div>

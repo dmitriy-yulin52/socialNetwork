@@ -20,11 +20,11 @@ const DialogsContainer = React.memo(() => {
 
     const addMessage = useCallback((data:MessageType) => {
         dispatch(addMessageActionCreator(data.message))
-    }, [addMessageActionCreator])
+    }, [dispatch])
 
     const removeMessage = useCallback((id: string) => {
         dispatch(RemoveMessageCreator(id))
-    }, [RemoveMessageCreator])
+    }, [dispatch])
 
     return (
         <Dialogs

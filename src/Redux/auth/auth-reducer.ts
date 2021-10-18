@@ -7,8 +7,6 @@ import {ThunkAction} from "redux-thunk";
 
 export enum AUTH_ACTION_TYPE {
     SET_USER_DATA = 'auth-reducer/SET_USER_DATA',
-    SET_IS_AUTH = 'auth-reducer/SET_IS_AUTH',
-    SET_REQUIRED_FIELD = 'auth-reducer/SET_REQUIRED_FIELD',
     SET_CAPTCHA_URL = 'auth-reducer/SET_CAPTCHA_URL ',
 }
 
@@ -37,11 +35,6 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
             return {
                 ...state,
                 ...action.payload,
-            }
-        case AUTH_ACTION_TYPE.SET_IS_AUTH:
-            return {
-                ...state,
-                isAuth: true,
             }
         default:
             return state
@@ -72,32 +65,32 @@ export const setCaptchaUrl = (captchaUrl: string | null): SetCaptchaUrl => {
 
 
 //thunks
-export const getAuthUserDataThunkCreator = (): ThunksActions => {
-    return (dispatch) => {
+export const getAuthUserDataThunkCreator = (): ThunksActionsType => {
+    return async (dispatch) => {
         dispatch(setIsFetchingAC(true))
-        authAPI.getHeader()
-            .then((response) => {
-                if (response.data.resultCode === 0) {
-                    const {id, login, email} = response.data.data
-                    dispatch(setAuthUserDataAC(login, email, id, true))
-                    dispatch(setIsFetchingAC(false))
-                }
-                if (response.data.resultCode === 1) {
-                    dispatch(setIsFetchingAC(false))
-                    handleServerAppError(response.data, dispatch)
-                }
-            }).catch((err) => {
-            console.warn(err)
-        })
+        try {
+            const promise = await authAPI.me()
+            if (promise.data.resultCode === 0) {
+                const {id, login, email} = promise.data.data
+                dispatch(setAuthUserDataAC(login, email, id, true))
+                dispatch(setIsFetchingAC(false))
+            }
+            if (promise.data.resultCode === 1) {
+                dispatch(setIsFetchingAC(false))
+                handleServerAppError(promise.data, dispatch)
+            }
+        } catch (e) {
+            alert('error')
+        }
     }
 }
-export const SetLogin = (email: string, password: string, rememberMe: boolean, captchaUrl: string | null): ThunksActions => {
+export const SetLogin = (email: string, password: string, rememberMe: boolean, captchaUrl: string | null): ThunksActionsType => {
     return (dispatch, getState) => {
         dispatch(setIsFetchingAC(true))
         authAPI.Login(email, password, rememberMe, captchaUrl)
             .then((response) => {
                 if (response.data.resultCode === 0) {
-                    if(getState().auth.captchaUrl !== null ){
+                    if (getState().auth.captchaUrl !== null) {
                         dispatch(setCaptchaUrl(null))
                     }
                     dispatch(getAuthUserDataThunkCreator())
@@ -120,7 +113,7 @@ export const SetLogin = (email: string, password: string, rememberMe: boolean, c
         })
     }
 }
-export const logout = (): ThunksActions => {
+export const logout = (): ThunksActionsType => {
     return (dispatch) => {
         dispatch(setIsFetchingAC(true))
         authAPI.Logout()
@@ -146,10 +139,7 @@ type SetUserDataACType = {
     type: AUTH_ACTION_TYPE.SET_USER_DATA,
     payload: UserDataType,
 }
-type SetIsAuthACType = {
-    type: AUTH_ACTION_TYPE.SET_IS_AUTH,
-    isAuth: boolean,
-}
+
 type SetCaptchaUrl = {
     type: AUTH_ACTION_TYPE.SET_CAPTCHA_URL,
     payload: {
@@ -157,10 +147,9 @@ type SetCaptchaUrl = {
     }
 }
 
-type ThunksActions = ThunkAction<void, AppStateType, unknown, ActionACTypes | IsFetchingACType>
+type ThunksActionsType = ThunkAction<void, AppStateType, unknown, ActionACTypes | IsFetchingACType>
 
 
 export type ActionACTypes =
     SetUserDataACType
-    | SetIsAuthACType
     | SetCaptchaUrl

@@ -21,9 +21,7 @@ import {ErrorSnackBar} from "../ErrorSnackBar/ErrorSnackBar";
 
 class App extends React.Component<AppType> {
 
-    // componentDidMount() {
-    //     this.props.initializeAppTC()
-    // }
+
 
     render() {
         return (

@@ -22,7 +22,7 @@ export const ProfileInfo = React.memo((props: ProfileInfoType) => {
         <div>
             <div>
                 <img className={c.logoImg}
-                     src='https://wallbox.ru/resize/800x480/wallpapers/main2/201726/14986676245953da68df7d32.08263646.jpg'/>
+                     src='https://wallbox.ru/resize/800x480/wallpapers/main2/201726/14986676245953da68df7d32.08263646.jpg' alt={''}/>
             </div>
             <div className={c.descriptionBlock}>
                 <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt=""/>

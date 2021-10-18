@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {purple} from '@mui/material/colors';
 
 type PropsType = {
     isAuth: boolean
@@ -54,7 +53,7 @@ const Header: React.FC<PropsType> = React.memo((props) => {
 
     return (
         <header className={style.header}>
-            <img className={style.logo} src={logo}/>
+            <img className={style.logo} src={logo} alt={''}/>
             <div className={style.login_block} >
                 {isAuth
                     ? <div style={{display: 'flex', flexDirection: 'column'}}>

@@ -26,26 +26,42 @@ const UsersContainer = () => {
 
 
     React.useEffect(() => {
+        console.log('currentPage and pageSize')
         dispatch(getUsersThunkCreator(currentPage, pageSize))
-    }, [])
+    }, [currentPage, dispatch, pageSize])
 
     const onPageChanged = useCallback((pageNumber: number) => {
         dispatch(getUsersThunkCreator(pageNumber, pageSize))
-    }, [getUsersThunkCreator, pageSize])
+    }, [dispatch, pageSize])
     const follow = useCallback((userId: number) => {
         dispatch(followThunkCreator(userId))
-    }, [followThunkCreator])
+    }, [dispatch])
     const unfollow = useCallback((userId: number) => {
         dispatch(unfollowThunkCreator(userId))
-    }, [unfollowThunkCreator])
+    }, [dispatch])
 
+
+    let pagesCount = Math.ceil(totalCount / pageSize)
+
+    let pages: Array<number> = []
+    // pages = useMemo(()=>{
+    //     let pages: Array<number> = []
+    //     for (let i = 1; i <= pagesCount; i++) {
+    //         pages.push(i)
+    //     }
+    //     return pages
+    // },[pages])
+
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
+    
     return (
         <div>
             <Paginator
-                pageSize={pageSize}
-                totalCount={totalCount}
                 currentPage={currentPage}
                 onPageChanged={onPageChanged}
+                pages={pages}
             />
             <Users
                 users={items}

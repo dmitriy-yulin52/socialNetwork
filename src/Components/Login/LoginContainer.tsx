@@ -17,8 +17,7 @@ export const LoginContainer = () => {
 
     const setLogin = useCallback((email: string, password: string, rememberMe: boolean, captchaUrl: string | null) => {
         dispatch(SetLogin(email, password, rememberMe, captchaUrl))
-    }, [])
-
+    }, [dispatch])
 
     return (
         <>
