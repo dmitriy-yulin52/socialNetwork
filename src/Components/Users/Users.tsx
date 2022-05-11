@@ -11,7 +11,7 @@ export type UsersPropsType = {
     unfollow: (userId: number) => void
     followingInProgress:boolean
 }
-export const Users: React.FC<UsersPropsType> = React.memo((props) => {
+export const Users= React.memo((props:UsersPropsType) => {
     const
         {
             users,

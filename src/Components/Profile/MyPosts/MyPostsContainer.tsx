@@ -5,10 +5,10 @@ import {MessagePostType, MyPosts} from "./MyPosts";
 import { addPostActionCreator, removePostAc } from '../../../Redux/Profile/Actions';
 
 type MyPostsContainerType = {
-    posts: Array<PostType>
+    posts: PostType[]
 }
 
-export const MyPostsContainer: React.FC<MyPostsContainerType> = React.memo((props) => {
+export const MyPostsContainer= React.memo((props:MyPostsContainerType) => {
 
     const {
         posts

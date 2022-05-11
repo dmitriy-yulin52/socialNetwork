@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import userPhoto from '../../../assets/images/users-icon.jpg'
 import {NavLink} from 'react-router-dom';
 import {PhotosType} from "../../../Redux/Users/users-reducer";
@@ -29,6 +29,16 @@ export const User = React.memo((props: UsersPropsType) => {
         } = props
 
 
+
+        const onUnfollow = useCallback(()=> {
+            unfollow(userId)
+        },[unfollow])
+        const onFollow = useCallback(()=> {
+            follow(userId)
+        },[follow])
+
+
+
     return (
         <div key={userId}>
             <span>
@@ -42,11 +52,11 @@ export const User = React.memo((props: UsersPropsType) => {
                     {followed
                         ? <button
                             disabled={followingInProgress}
-                            onClick={() => unfollow(userId)}
+                            onClick={onUnfollow}
                         >Unfollow</button>
                         : <button
                             disabled={followingInProgress}
-                            onClick={() => follow(userId)}
+                            onClick={onFollow}
                         >Follow</button>}
 
                 </div>
