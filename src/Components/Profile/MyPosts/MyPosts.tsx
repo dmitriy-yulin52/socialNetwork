@@ -11,7 +11,7 @@ export type MessagePostType = {
 type PropsType = {
     posts: Array<PostType>
     addPost: (message: MessagePostType) => void
-    removePost:(userId:string)=>void
+    removePost:(userId:number)=>void
 }
 
 

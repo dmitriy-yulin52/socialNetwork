@@ -1,10 +1,10 @@
-import {v1} from "uuid";
-import {Dispatch} from "redux";
-import {profileAPI, usersAPI} from "../../api/api";
-import {setIsFetchingAC} from "../Users/users-reducer";
+import { Dispatch } from 'redux';
+import { profileAPI, usersAPI } from '../../api/api';
+import { setIsFetchingAC } from '../Users/users-reducer';
+import { addPostActionCreator, removePostAc, setStatusAC, setUserProfileAC } from './Actions';
 
 
-enum ACTION_TYPE_TYPE {
+export enum ACTION_TYPE_TYPE {
     ADD_POST = ' profile-reducer/ADD-POST',
     UPDATE_NEW_POST_TEXT = ' profile-reducer/UPDATE-NEW-POST-TEXT',
     SET_USER_PROFILE = ' profile-reducer/SET-USER-PROFILE',
@@ -16,10 +16,10 @@ enum ACTION_TYPE_TYPE {
 let initialState: InitialStateType = {
 
     posts: [
-        {id: v1(), message: 'Hi, how are you', like: 4, time: 7},
-        {id: v1(), message: 'It,s my first post', like: 22, time: 19},
-        {id: v1(), message: 'yo', like: 14, time: 12},
-        {id: v1(), message: 'it-camasutra', like: 11, time: 90}
+        {id: 1, message: 'Hi, how are you', like: 4, time: 7},
+        {id: 2, message: 'It,s my first post', like: 22, time: 19},
+        {id: 3, message: 'yo', like: 14, time: 12},
+        {id: 4, message: 'it-camasutra', like: 11, time: 90}
     ],
     profile: {
         userId: 2,
@@ -44,17 +44,29 @@ let initialState: InitialStateType = {
     status: ''
 }
 
-export let idUser = v1()
-
 export const profileReducer = (state: InitialStateType = initialState, action: ActionTypeAC): InitialStateType => {
     switch (action.type) {
         case ACTION_TYPE_TYPE.ADD_POST:
+
+        if(state.posts.length === 0){
+            return {
+                ...state,
+                posts:[
+                    {
+                        id:1,
+                        message: '',
+                        like: 4,
+                        time: 7
+                    },
+                ]
+            }
+        }
             return {
                 ...state,
                 posts: [
                     ...state.posts,
                     {
-                        id: idUser,
+                        id: state.posts[state.posts.length -1].id + 1,
                         message: action.postText,
                         like: 4,
                         time: 7
@@ -81,33 +93,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             }
         default:
             return state
-    }
-}
-
-//actions
-export const addPostActionCreator = (message: string): AddPostActionCreatorType => {
-    return {
-        type: ACTION_TYPE_TYPE.ADD_POST,
-        postText: message,
-    }
-}
-
-export const setUserProfileAC = (profile: ProfileType): SetUserProfileACType => {
-    return {
-        type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
-        profile,
-    }
-}
-export const setStatusAC = (status: string): SetStatusType => {
-    return {
-        type: ACTION_TYPE_TYPE.SET_STATUS,
-        status,
-    }
-}
-export const removePostAc = (userId: string):RemovePostType => {
-    return {
-        type: ACTION_TYPE_TYPE.REMOVE_POST,
-        userId,
     }
 }
 
@@ -144,7 +129,7 @@ export const updateStatusProfileTC = (status: string) => {
                     dispatch(setStatusAC(status))
                     dispatch(setIsFetchingAC(false))
                 } else {
-                    dispatch(setStatusAC(response.data.messages))
+                    dispatch(setStatusAC('error'))
                 }
             }).catch((err) => {
             console.warn(err)
@@ -155,7 +140,7 @@ export const updateStatusProfileTC = (status: string) => {
 
 //types
 export type PostType = {
-    id: string
+    id: number
     message: string
     like: number
     time: number
@@ -189,31 +174,4 @@ export type InitialStateType = {
     status: string
 }
 
-
-type AddPostActionCreatorType = {
-    type: ACTION_TYPE_TYPE.ADD_POST,
-    postText: string,
-}
-type UpdateNewPostTextActionCreatorType = {
-    type: ACTION_TYPE_TYPE.UPDATE_NEW_POST_TEXT,
-    newText: string,
-}
-type SetUserProfileACType = {
-    type: ACTION_TYPE_TYPE.SET_USER_PROFILE,
-    profile: ProfileType,
-}
-type SetStatusType = {
-    type: ACTION_TYPE_TYPE.SET_STATUS,
-    status: string
-}
-type RemovePostType = {
-    type: ACTION_TYPE_TYPE.REMOVE_POST,
-    userId: string
-}
-
-export type ActionTypeAC =
-    AddPostActionCreatorType
-    | UpdateNewPostTextActionCreatorType
-    | SetUserProfileACType
-    | SetStatusType
-    | RemovePostType
+    export type ActionTypeAC = ReturnType< typeof addPostActionCreator | typeof setUserProfileAC | typeof setStatusAC | typeof removePostAc>

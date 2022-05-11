@@ -4,11 +4,11 @@ import {Delete} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
 
 type PropsType = {
-    id: string
+    id: number
     message: string
     like: number
     time: number
-    removePost: (userId: string) => void
+    removePost: (userId: number) => void
 }
 
 const Post = React.memo((props: PropsType) => {
